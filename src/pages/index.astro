@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Background from '../components/Background.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Problem from '../components/Problem.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Features from '../components/Features.astro';
+import Curriculum from '../components/Curriculum.astro';
+import Pricing from '../components/Pricing.astro';
+import Faq from '../components/Faq.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+import Footer from '../components/Footer.astro';
+---
+<BaseLayout path="/">
+  <div class="relative overflow-hidden bg-[radial-gradient(120%_80%_at_50%_-10%,#20296E_0%,#131A4A_38%,#0A1030_78%)]">
+    <Background />
+    <div class="relative z-[2]">
+      <Nav />
+      <Hero />
+      <Problem />
+      <HowItWorks />
+      <Features />
+      <Curriculum />
+      <Pricing />
+      <Faq />
+      <FinalCTA />
+      <Footer />
+    </div>
+  </div>
+</BaseLayout>

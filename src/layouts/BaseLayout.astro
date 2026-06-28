@@ -1,0 +1,237 @@
+---
+import { site, faqs } from '../data/content';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Path of the current page, e.g. "/" — used for canonical + og:url */
+  path?: string;
+  image?: string;
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  path = '/',
+  image = site.ogImage,
+} = Astro.props;
+
+// Prefer the configured production `site`; fall back to the request origin in dev.
+const origin = (Astro.site ?? new URL(site.url)).toString().replace(/\/$/, '');
+const canonical = origin + (path === '/' ? '/' : path);
+const ogImageUrl = image.startsWith('http') ? image : origin + image;
+
+// ---- Structured data (JSON-LD) ----------------------------------------------
+// One @graph linking the organisation, website, web page and FAQ so search
+// engines and AI answer engines understand what La Yaung Hub is and offers.
+const orgId = `${origin}/#organization`;
+const webId = `${origin}/#website`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['Organization', 'EducationalOrganization'],
+      '@id': orgId,
+      name: site.name,
+      alternateName: ['La Yaung', 'လရောင်', 'La Yaung Hub'],
+      url: origin + '/',
+      logo: {
+        '@type': 'ImageObject',
+        url: origin + '/icon-512.png',
+        width: 512,
+        height: 512,
+      },
+      image: ogImageUrl,
+      email: site.email,
+      description: site.description,
+      slogan: 'Watch the lesson. Then actually do it.',
+      areaServed: { '@type': 'Country', name: 'Myanmar' },
+      knowsLanguage: ['my', 'en'],
+      sameAs: [site.social.facebook, site.social.telegram, site.social.tiktok],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': webId,
+      url: origin + '/',
+      name: site.name,
+      description: site.description,
+      publisher: { '@id': orgId },
+      inLanguage: ['en', 'my'],
+    },
+    {
+      '@type': 'WebPage',
+      '@id': canonical + '#webpage',
+      url: canonical,
+      name: title,
+      description,
+      isPartOf: { '@id': webId },
+      about: { '@id': orgId },
+      inLanguage: 'en',
+      primaryImageOfPage: ogImageUrl,
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': canonical + '#faq',
+      isPartOf: { '@id': canonical + '#webpage' },
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+    {
+      '@type': 'Service',
+      name: 'Bilingual GED & IGCSE exam preparation',
+      provider: { '@id': orgId },
+      areaServed: { '@type': 'Country', name: 'Myanmar' },
+      serviceType: 'Online exam preparation',
+      description:
+        'Interactive, bilingual (Burmese & English) preparation for the GED, IGCSE (Cambridge) and Myanmar Grade 10–12 curriculum, with video lessons, nine practice activity types and real teacher feedback.',
+      offers: [
+        { '@type': 'Offer', name: 'Free', price: '0', priceCurrency: 'MMK', description: 'First lesson of every topic, all 9 activity types, bilingual lessons and basic progress tracking.' },
+        { '@type': 'Offer', name: 'Premium', priceCurrency: 'MMK', description: 'Every lesson unlocked, teacher feedback, full gap analysis and lifetime early-bird pricing.', availability: 'https://schema.org/PreOrder' },
+      ],
+    },
+  ],
+};
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content={Astro.generator} />
+
+  <!-- Primary meta -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="keywords" content={site.keywords.join(', ')} />
+  <meta name="author" content={site.name} />
+  <link rel="canonical" href={canonical} />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content={site.themeColor} />
+
+  <!-- Icons / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Open Graph (Facebook, Messenger, LinkedIn, etc.) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={site.name} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="La Yaung Hub — interactive bilingual GED & IGCSE prep for Myanmar students" />
+  <meta property="og:locale" content={site.locale} />
+  <meta property="og:locale:alternate" content={site.localeAlternate} />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
+  <meta name="twitter:image:alt" content="La Yaung Hub — interactive bilingual GED & IGCSE prep for Myanmar students" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Mono:wght@400;700&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</head>
+<body>
+  <slot />
+
+  <script>
+    // ===== Starfield ====================================================
+    function buildStars() {
+      const host = document.getElementById('ly-stars');
+      if (!host || host.dataset.built) return;
+      host.dataset.built = '1';
+      const animate = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const n = 90;
+      let html = '';
+      for (let i = 0; i < n; i++) {
+        const x = Math.random() * 100, y = Math.random() * 100;
+        const s = Math.random() * 2 + 1;
+        const d = (Math.random() * 4 + 2).toFixed(2);
+        const delay = (Math.random() * 5).toFixed(2);
+        const bright = Math.random() > 0.85;
+        const col = bright ? '#FFE7A0' : '#CFE0FF';
+        html += '<span style="position:absolute; left:' + x + '%; top:' + y + '%; width:' + s + 'px; height:' + s + 'px; border-radius:50%; background:' + col + '; box-shadow:0 0 ' + (s * 2) + 'px ' + col + '; ' + (animate ? ('animation:lyTwinkle ' + d + 's ease-in-out ' + delay + 's infinite;') : 'opacity:0.6;') + '"></span>';
+      }
+      host.innerHTML = html;
+    }
+
+    // ===== Waitlist form (Formspree AJAX, progressive enhancement) =======
+    function showSuccess(form: HTMLFormElement, email: string, dark: boolean) {
+      const safe = email.replace(/[<>&]/g, (c) => (({ '<': '&lt;', '>': '&gt;', '&': '&amp;' } as Record<string, string>)[c]));
+      form.innerHTML = '<div style="display:flex; align-items:center; gap:10px; font-family:Hanken Grotesk; font-size:15.5px; color:' + (dark ? '#0A1030' : '#BFE9CF') + '; font-weight:600; background:' + (dark ? 'rgba(10,16,48,0.12)' : 'rgba(58,209,122,0.1)') + '; border:1px solid ' + (dark ? 'rgba(10,16,48,0.25)' : 'rgba(58,209,122,0.35)') + '; padding:15px 20px; border-radius:14px; width:100%;"><span>✓</span><span>You’re on the list! We’ll email ' + safe + ' when the beta opens.</span></div>';
+    }
+
+    function showError(form: HTMLFormElement, btn: HTMLButtonElement | null) {
+      if (btn) { btn.disabled = false; btn.style.opacity = ''; btn.style.cursor = ''; }
+      let msg = form.querySelector('.ly-form-error') as HTMLDivElement | null;
+      if (!msg) {
+        msg = document.createElement('div');
+        msg.className = 'ly-form-error';
+        msg.style.cssText = 'flex-basis:100%; font-family:Hanken Grotesk; font-size:13.5px; color:#FFB4B4; margin-top:2px;';
+        form.appendChild(msg);
+      }
+      msg.textContent = 'Something went wrong — please try again, or email hlaminnaing@layaunghub.com.';
+    }
+
+    async function handleSubmit(e: Event) {
+      e.preventDefault();
+      const form = e.currentTarget as HTMLFormElement;
+      const input = form.querySelector('input[type=email]') as HTMLInputElement | null;
+      const email = input ? input.value.trim() : '';
+      if (!email) return;
+      const dark = form.dataset.theme === 'dark';
+      const endpoint = form.getAttribute('action') || form.dataset.endpoint || '';
+      const btn = form.querySelector('button[type=submit]') as HTMLButtonElement | null;
+      if (btn) { btn.disabled = true; btn.style.opacity = '0.7'; btn.style.cursor = 'wait'; }
+      try { localStorage.setItem('ly_waitlist', email); } catch (err) {}
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        if (!res.ok) throw new Error('Request failed: ' + res.status);
+        showSuccess(form, email, dark);
+      } catch (err) {
+        showError(form, btn);
+      }
+    }
+
+    // ===== Reveal on scroll ============================================
+    function initReveal() {
+      const els = Array.from(document.querySelectorAll<HTMLElement>('.ly-reveal'));
+      if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      els.forEach((el) => el.classList.add('is-armed'));
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            en.target.classList.remove('is-armed');
+            en.target.classList.add('is-in');
+            io.unobserve(en.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      els.forEach((el) => io.observe(el));
+    }
+
+    buildStars();
+    initReveal();
+    document.querySelectorAll<HTMLFormElement>('form.ly-waitlist').forEach((f) => f.addEventListener('submit', handleSubmit));
+  </script>
+</body>
+</html>

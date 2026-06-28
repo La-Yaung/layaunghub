@@ -1,0 +1,24 @@
+---
+import { icons, type IconName } from '../data/icons';
+
+interface Props {
+  name: IconName;
+  size?: number;
+  class?: string;
+  'aria-hidden'?: boolean | 'true' | 'false';
+}
+
+const { name, size = 24, class: className, ...rest } = Astro.props;
+const icon = icons[name];
+---
+<svg
+  width={size}
+  height={size}
+  viewBox={icon.viewBox}
+  fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg"
+  class={className}
+  aria-hidden="true"
+  {...rest}
+  set:html={icon.body}
+/>

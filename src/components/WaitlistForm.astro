@@ -1,0 +1,47 @@
+---
+import { FORMSPREE_ENDPOINT } from '../data/content';
+interface Props { dark?: boolean; center?: boolean; }
+const { dark = false, center = false } = Astro.props;
+
+const wrap = [
+  'ly-waitlist flex flex-wrap gap-2.5 mt-[34px] max-w-[480px]',
+  center ? 'justify-center mx-auto' : '',
+].join(' ');
+
+const input = [
+  'ly-input flex-[1_1_220px] min-w-[200px] text-ink text-[15.5px] px-[18px] py-[15px]',
+  'rounded-[14px] outline-none transition-colors',
+  dark
+    ? 'bg-white/[0.08] border border-white/20 focus:border-accent/70'
+    : 'bg-white/[0.06] border border-white/[0.16] focus:border-accent/60 focus:bg-white/[0.09]',
+].join(' ');
+
+const button =
+  'ly-cta font-display font-semibold text-[15px] text-bg bg-gold border-none px-[26px] py-[15px] ' +
+  'rounded-[14px] cursor-pointer whitespace-nowrap shadow-[0_10px_26px_-8px_rgba(255,209,94,0.55)] ' +
+  'transition-transform hover:-translate-y-0.5';
+
+const fieldId = dark ? 'email-cta' : 'email-hero';
+---
+<form
+  class={wrap}
+  action={FORMSPREE_ENDPOINT}
+  method="POST"
+  data-theme={dark ? 'dark' : 'light'}
+  data-endpoint={FORMSPREE_ENDPOINT}
+>
+  <label class="sr-only" for={fieldId}>Email address</label>
+  <input
+    id={fieldId}
+    class={input}
+    type="email"
+    name="email"
+    required
+    autocomplete="email"
+    placeholder="Enter your email"
+  />
+  <!-- Helps you see which CTA converted, inside Formspree submissions -->
+  <input type="hidden" name="_source" value={dark ? 'final-cta' : 'hero'} />
+  <input type="hidden" name="_subject" value="New La Yaung Hub early-access signup" />
+  <button class={button} type="submit">Get Early Access</button>
+</form>

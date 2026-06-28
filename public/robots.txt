@@ -1,0 +1,46 @@
+# La Yaung Hub — robots.txt
+# Allow everything; we want maximum discoverability across search & AI engines.
+
+User-agent: *
+Allow: /
+
+# --- Traditional search crawlers ---
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
+
+# --- AI / answer-engine crawlers (explicitly welcomed) ---
+# OpenAI (ChatGPT)
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+# Google AI (Gemini / AI Overviews)
+User-agent: Google-Extended
+Allow: /
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+# Apple, Common Crawl, Amazon, Meta
+User-agent: Applebot
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: CCBot
+Allow: /
+User-agent: Amazonbot
+Allow: /
+User-agent: meta-externalagent
+Allow: /
+
+Sitemap: https://layaunghub.com/sitemap-index.xml

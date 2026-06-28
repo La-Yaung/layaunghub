@@ -1,0 +1,81 @@
+/* =====================================================================
+   Tailwind v4 integration for the two-tier token system.
+
+   HOW IT FITS THE PROJECT:
+   1) import the raw tokens (primitives + light/dark semantic vars):
+        @import "tailwindcss";
+        @import "../../tokens/tokens.css";
+        @import "./tailwind-theme.css";   (this file)
+
+   2) `@theme inline` registers UTILITIES that point at the *live* semantic
+      vars. Because those vars flip under [data-theme="dark"], one utility
+      (e.g. `bg-surface-primary`) renders light or dark automatically — no
+      `dark:` variants needed.
+
+   Result: utilities like
+     bg-surface-primary / surface-secondary / surface-brand / surface-danger
+     text-content-primary / content-secondary / content-inverse / content-brand
+     border-border-subtle / border-strong / border-interactive
+     bg-success-bg text-success-text border-success-border   (+ warning/error/info)
+     p-md gap-lg rounded-lg text-3xl font-display
+   ===================================================================== */
+
+@theme inline {
+  /* Semantic colors → utilities (resolve through the theme-aware vars) */
+  --color-surface-primary:   var(--surface-primary);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-surface-tertiary:  var(--surface-tertiary);
+  --color-surface-brand:     var(--surface-brand);
+  --color-surface-inverse:   var(--surface-inverse);
+  --color-surface-danger:    var(--surface-danger);
+
+  --color-content-primary:   var(--content-primary);
+  --color-content-secondary: var(--content-secondary);
+  --color-content-tertiary:  var(--content-tertiary);
+  --color-content-inverse:   var(--content-inverse);
+  --color-content-brand:     var(--content-brand);
+  --color-content-on-brand:  var(--content-on-brand);
+
+  --color-border-subtle:      var(--border-subtle);
+  --color-border-strong:      var(--border-strong);
+  --color-border-interactive: var(--border-interactive);
+
+  --color-success-text: var(--feedback-success-text); --color-success-bg: var(--feedback-success-bg); --color-success-border: var(--feedback-success-border);
+  --color-warning-text: var(--feedback-warning-text); --color-warning-bg: var(--feedback-warning-bg); --color-warning-border: var(--feedback-warning-border);
+  --color-error-text:   var(--feedback-error-text);   --color-error-bg:   var(--feedback-error-bg);   --color-error-border:   var(--feedback-error-border);
+  --color-info-text:    var(--feedback-info-text);    --color-info-bg:    var(--feedback-info-bg);    --color-info-border:    var(--feedback-info-border);
+
+  /* Primitives also exposed (for the rare case you need a raw shade) */
+  --color-gold-400: var(--color-gold-400);
+  --color-indigo-700: var(--color-indigo-700);
+
+  /* Spacing scale → p-*, m-*, gap-* */
+  --spacing-3xs: var(--spacing-3xs); --spacing-2xs: var(--spacing-2xs); --spacing-xs: var(--spacing-xs);
+  --spacing-sm: var(--spacing-sm);   --spacing-md: var(--spacing-md);   --spacing-lg: var(--spacing-lg);
+  --spacing-xl: var(--spacing-xl);   --spacing-2xl: var(--spacing-2xl); --spacing-3xl: var(--spacing-3xl);
+  --spacing-4xl: var(--spacing-4xl);
+
+  /* Radius → rounded-* */
+  --radius-xs: var(--radius-xs); --radius-sm: var(--radius-sm); --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg); --radius-xl: var(--radius-xl); --radius-2xl: var(--radius-2xl);
+
+  /* Type → font-*, text-* */
+  --font-display: var(--font-family-display);
+  --font-sans:    var(--font-family-sans);
+  --font-mono:    var(--font-family-mono);
+  --font-myanmar: var(--font-family-myanmar);
+
+  --text-xs: var(--font-size-xs);  --text-sm: var(--font-size-sm);  --text-base: var(--font-size-base);
+  --text-md: var(--font-size-md);  --text-lg: var(--font-size-lg);  --text-xl: var(--font-size-xl);
+  --text-2xl: var(--font-size-2xl);--text-3xl: var(--font-size-3xl);--text-4xl: var(--font-size-4xl);
+  --text-5xl: var(--font-size-5xl);--text-6xl: var(--font-size-6xl);
+}
+
+/* Make the page obey the semantic surface/content tokens out of the box */
+@layer base {
+  body {
+    background-color: var(--surface-primary);
+    color: var(--content-primary);
+    font-family: var(--font-family-sans);
+  }
+}

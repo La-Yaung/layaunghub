@@ -1,0 +1,267 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$description": "La Yaung Hub design tokens — W3C DTCG format. Tier 1 = primitives (raw palette/scale). Tier 2 = semantic aliases that reference primitives and switch between light & dark. Brand: bilingual GED/IGCSE EdTech for Myanmar students. Tone: calm, premium, 'moonlight'. Target: WCAG 2.1 AA.",
+
+  "color": {
+    "$type": "color",
+
+    "gold": {
+      "$description": "Primary brand — moonlight gold.",
+      "50":  { "$value": "#FFF9E8" },
+      "100": { "$value": "#FFEFC2" },
+      "200": { "$value": "#FFE7A0" },
+      "300": { "$value": "#FFDC85" },
+      "400": { "$value": "#FFD66B" },
+      "500": { "$value": "#FFD15E" },
+      "600": { "$value": "#F0A93A" },
+      "700": { "$value": "#CC861F" },
+      "800": { "$value": "#9C6618" },
+      "900": { "$value": "#6E460F" }
+    },
+
+    "indigo": {
+      "$description": "Secondary brand — night sky.",
+      "50":  { "$value": "#EDEFFB" },
+      "100": { "$value": "#D6DBF6" },
+      "200": { "$value": "#B9C0E6" },
+      "300": { "$value": "#8E96C9" },
+      "400": { "$value": "#5C66A8" },
+      "500": { "$value": "#3A4488" },
+      "600": { "$value": "#2A3796" },
+      "700": { "$value": "#20296E" },
+      "800": { "$value": "#131A4A" },
+      "900": { "$value": "#0A1030" }
+    },
+
+    "neutral": {
+      "$description": "Blue-tinted grays for text & surfaces.",
+      "0":   { "$value": "#FFFFFF" },
+      "50":  { "$value": "#EDF0FF" },
+      "100": { "$value": "#DCE2FB" },
+      "200": { "$value": "#C7CEF2" },
+      "300": { "$value": "#B9C0E6" },
+      "400": { "$value": "#A4ACD6" },
+      "500": { "$value": "#9AA3CE" },
+      "600": { "$value": "#8089B6" },
+      "700": { "$value": "#6E77A4" },
+      "800": { "$value": "#3A4470" },
+      "900": { "$value": "#131A4A" },
+      "950": { "$value": "#0A1030" }
+    },
+
+    "green": {
+      "$description": "Success.",
+      "50":  { "$value": "#E7F9EF" },
+      "100": { "$value": "#C6F0D8" },
+      "400": { "$value": "#3AD17A" },
+      "500": { "$value": "#22B765" },
+      "600": { "$value": "#1A9A53" },
+      "700": { "$value": "#14773F" }
+    },
+
+    "amber": {
+      "$description": "Warning.",
+      "50":  { "$value": "#FFF6E5" },
+      "100": { "$value": "#FFE8BF" },
+      "400": { "$value": "#FFB020" },
+      "500": { "$value": "#F59E0B" },
+      "600": { "$value": "#D98309" },
+      "700": { "$value": "#B26707" }
+    },
+
+    "red": {
+      "$description": "Error / danger.",
+      "50":  { "$value": "#FEECEC" },
+      "100": { "$value": "#FBD0D0" },
+      "400": { "$value": "#F87171" },
+      "500": { "$value": "#EF4444" },
+      "600": { "$value": "#DC2626" },
+      "700": { "$value": "#B91C1C" }
+    },
+
+    "blue": {
+      "$description": "Info.",
+      "50":  { "$value": "#E8F1FE" },
+      "100": { "$value": "#C9DDFB" },
+      "400": { "$value": "#5B9BF8" },
+      "500": { "$value": "#3B82F6" },
+      "600": { "$value": "#2563EB" },
+      "700": { "$value": "#1D4ED8" }
+    }
+  },
+
+  "spacing": {
+    "$type": "dimension",
+    "$description": "8pt grid (with 2/4px half-steps).",
+    "none": { "$value": "0px" },
+    "3xs":  { "$value": "2px" },
+    "2xs":  { "$value": "4px" },
+    "xs":   { "$value": "8px" },
+    "sm":   { "$value": "12px" },
+    "md":   { "$value": "16px" },
+    "lg":   { "$value": "24px" },
+    "xl":   { "$value": "32px" },
+    "2xl":  { "$value": "48px" },
+    "3xl":  { "$value": "64px" },
+    "4xl":  { "$value": "96px" }
+  },
+
+  "radius": {
+    "$type": "dimension",
+    "none": { "$value": "0px" },
+    "xs":   { "$value": "6px" },
+    "sm":   { "$value": "10px" },
+    "md":   { "$value": "14px" },
+    "lg":   { "$value": "20px" },
+    "xl":   { "$value": "26px" },
+    "2xl":  { "$value": "32px" },
+    "full": { "$value": "9999px" }
+  },
+
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "display": { "$value": ["Bricolage Grotesque", "sans-serif"] },
+      "sans":    { "$value": ["Hanken Grotesk", "system-ui", "sans-serif"] },
+      "mono":    { "$value": ["Space Mono", "monospace"] },
+      "myanmar": { "$value": ["Noto Sans Myanmar", "sans-serif"] }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular":   { "$value": 400 },
+      "medium":    { "$value": 500 },
+      "semibold":  { "$value": 600 },
+      "bold":      { "$value": 700 },
+      "extrabold": { "$value": 800 }
+    },
+    "size": {
+      "$type": "dimension",
+      "xs":   { "$value": "12px" },
+      "sm":   { "$value": "14px" },
+      "base": { "$value": "16px" },
+      "md":   { "$value": "18px" },
+      "lg":   { "$value": "20px" },
+      "xl":   { "$value": "24px" },
+      "2xl":  { "$value": "30px" },
+      "3xl":  { "$value": "38px" },
+      "4xl":  { "$value": "48px" },
+      "5xl":  { "$value": "60px" },
+      "6xl":  { "$value": "72px" }
+    },
+    "line-height": {
+      "$type": "number",
+      "none":    { "$value": 1.0 },
+      "tight":   { "$value": 1.12 },
+      "snug":    { "$value": 1.3 },
+      "normal":  { "$value": 1.5 },
+      "relaxed": { "$value": 1.6 },
+      "loose":   { "$value": 1.7 }
+    },
+    "letter-spacing": {
+      "$type": "dimension",
+      "tighter": { "$value": "-0.02em" },
+      "tight":   { "$value": "-0.01em" },
+      "normal":  { "$value": "0em" },
+      "wide":    { "$value": "0.06em" },
+      "wider":   { "$value": "0.14em" }
+    }
+  },
+
+  "semantic": {
+    "$description": "Tier-2 aliases. Reference primitives via {color.x.y}. Each role has a light and a dark value.",
+
+    "light": {
+      "$type": "color",
+      "surface": {
+        "primary":   { "$value": "{color.neutral.0}",   "$description": "Page background" },
+        "secondary": { "$value": "{color.neutral.50}",  "$description": "Cards / raised panels" },
+        "tertiary":  { "$value": "{color.neutral.100}", "$description": "Insets, hover fills" },
+        "brand":     { "$value": "{color.gold.400}",    "$description": "Brand fills (primary buttons)" },
+        "inverse":   { "$value": "{color.neutral.950}", "$description": "Inverted blocks (dark CTA on light page)" },
+        "danger":    { "$value": "{color.red.50}",      "$description": "Destructive surfaces" }
+      },
+      "content": {
+        "primary":   { "$value": "{color.neutral.950}", "$description": "Headings & body" },
+        "secondary": { "$value": "{color.neutral.700}", "$description": "Muted / supporting text" },
+        "tertiary":  { "$value": "{color.neutral.600}", "$description": "Fine print, placeholders" },
+        "inverse":   { "$value": "{color.neutral.0}",   "$description": "Text on inverse/brand surfaces" },
+        "brand":     { "$value": "{color.gold.800}",    "$description": "Brand-colored text (AA on white)" },
+        "on-brand":  { "$value": "{color.neutral.950}", "$description": "Text/icon on gold fills" }
+      },
+      "border": {
+        "subtle":      { "$value": "{color.neutral.200}", "$description": "Hairlines, dividers" },
+        "strong":      { "$value": "{color.neutral.300}", "$description": "Input borders, emphasis" },
+        "interactive": { "$value": "{color.gold.400}",    "$description": "Focus / active edges" }
+      },
+      "feedback": {
+        "success": {
+          "text":   { "$value": "{color.green.700}" },
+          "bg":     { "$value": "{color.green.50}" },
+          "border": { "$value": "{color.green.100}" }
+        },
+        "warning": {
+          "text":   { "$value": "{color.amber.700}" },
+          "bg":     { "$value": "{color.amber.50}" },
+          "border": { "$value": "{color.amber.100}" }
+        },
+        "error": {
+          "text":   { "$value": "{color.red.600}" },
+          "bg":     { "$value": "{color.red.50}" },
+          "border": { "$value": "{color.red.100}" }
+        },
+        "info": {
+          "text":   { "$value": "{color.blue.700}" },
+          "bg":     { "$value": "{color.blue.50}" },
+          "border": { "$value": "{color.blue.100}" }
+        }
+      }
+    },
+
+    "dark": {
+      "$type": "color",
+      "surface": {
+        "primary":   { "$value": "{color.neutral.950}", "$description": "Page background (night sky)" },
+        "secondary": { "$value": "#0E1640",             "$description": "Cards / raised panels" },
+        "tertiary":  { "$value": "rgba(255,255,255,0.04)", "$description": "Glass insets, hover fills" },
+        "brand":     { "$value": "{color.gold.400}",    "$description": "Brand fills (primary buttons)" },
+        "inverse":   { "$value": "{color.neutral.50}",  "$description": "Inverted blocks on dark" },
+        "danger":    { "$value": "rgba(239,68,68,0.12)", "$description": "Destructive surfaces" }
+      },
+      "content": {
+        "primary":   { "$value": "{color.neutral.50}",  "$description": "Headings & body" },
+        "secondary": { "$value": "{color.neutral.400}", "$description": "Muted / supporting text" },
+        "tertiary":  { "$value": "{color.neutral.600}", "$description": "Fine print, placeholders" },
+        "inverse":   { "$value": "{color.neutral.950}", "$description": "Text on inverse/brand surfaces" },
+        "brand":     { "$value": "{color.gold.400}",    "$description": "Brand-colored text (AA on navy)" },
+        "on-brand":  { "$value": "{color.neutral.950}", "$description": "Text/icon on gold fills" }
+      },
+      "border": {
+        "subtle":      { "$value": "rgba(255,255,255,0.08)", "$description": "Hairlines, dividers" },
+        "strong":      { "$value": "rgba(255,255,255,0.16)", "$description": "Input borders, emphasis" },
+        "interactive": { "$value": "{color.gold.400}",       "$description": "Focus / active edges" }
+      },
+      "feedback": {
+        "success": {
+          "text":   { "$value": "{color.green.400}" },
+          "bg":     { "$value": "rgba(58,209,122,0.12)" },
+          "border": { "$value": "rgba(58,209,122,0.35)" }
+        },
+        "warning": {
+          "text":   { "$value": "{color.amber.400}" },
+          "bg":     { "$value": "rgba(255,176,32,0.12)" },
+          "border": { "$value": "rgba(255,176,32,0.35)" }
+        },
+        "error": {
+          "text":   { "$value": "{color.red.400}" },
+          "bg":     { "$value": "rgba(248,113,113,0.12)" },
+          "border": { "$value": "rgba(248,113,113,0.35)" }
+        },
+        "info": {
+          "text":   { "$value": "{color.blue.400}" },
+          "bg":     { "$value": "rgba(91,155,248,0.12)" },
+          "border": { "$value": "rgba(91,155,248,0.35)" }
+        }
+      }
+    }
+  }
+}

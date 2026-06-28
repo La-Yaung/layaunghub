@@ -1,0 +1,23 @@
+---
+import { problems } from '../data/content';
+import Icon from './Icon.astro';
+---
+<section id="problem" class="ly-reveal max-w-[1280px] mx-auto py-[clamp(70px,9vw,120px)] px-[clamp(20px,5vw,72px)]">
+  <div class="max-w-[760px] mb-14">
+    <div class="font-mono text-xs tracking-[0.14em] uppercase text-accent mb-[18px]">01 / The problem</div>
+    <h2 class="font-display text-[clamp(30px,4.6vw,52px)] font-bold leading-[1.06]">Studying for IGCSE &amp; GED in Myanmar is <span class="italic font-medium text-gold">harder than it should be.</span></h2>
+  </div>
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-[18px]">
+    {problems.map((p) => (
+      <div class="relative overflow-hidden bg-white/[0.04] border border-white/[0.08] rounded-[20px] px-[26px] py-7 transition duration-200 hover:-translate-y-1 hover:border-accent/30">
+        <div class="w-12 h-12 rounded-[14px] bg-accent/[0.08] border border-accent/[0.22] flex items-center justify-center mb-5"><Icon name={p.icon} size={24} class="text-accent" /></div>
+        <h3 class="font-display text-[19px] font-semibold mb-2.5 leading-tight">{p.title}</h3>
+        <p class="text-[15px] leading-[1.55] text-muted-2">{p.body}</p>
+      </div>
+    ))}
+  </div>
+  <div class="mt-[42px] flex items-center gap-[18px] flex-wrap bg-[linear-gradient(100deg,rgba(255,214,107,0.1),rgba(255,214,107,0.02))] border border-accent/20 rounded-[18px] px-7 py-[22px]">
+    <div class="font-display text-gold text-[clamp(30px,4vw,42px)] font-extrabold">50k–150k</div>
+    <div class="text-[15.5px] text-ink-soft leading-[1.5]"><strong class="text-ink">MMK per subject, every month.</strong> That's what private tutoring costs — out of reach for most families.</div>
+  </div>
+</section>

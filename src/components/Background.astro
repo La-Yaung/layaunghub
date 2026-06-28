@@ -1,0 +1,9 @@
+---
+// Decorative background layers: starfield host, film grain, and the top moon glow.
+// The starfield is populated by the client script in BaseLayout.
+const grain =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
+---
+<div id="ly-stars" class="absolute inset-0 pointer-events-none z-0"></div>
+<div class="fixed inset-0 z-[1] pointer-events-none opacity-5 mix-blend-overlay" style={`background-image:${grain}`}></div>
+<div class="absolute top-[-260px] left-1/2 -translate-x-1/2 w-[760px] h-[760px] rounded-full pointer-events-none z-0 bg-[radial-gradient(circle,rgba(244,206,94,0.16),rgba(244,206,94,0.04)_45%,transparent_70%)]"></div>

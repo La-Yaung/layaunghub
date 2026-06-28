@@ -1,0 +1,31 @@
+# La Yaung Hub
+
+> La Yaung Hub (La Yaung · လရောင်, meaning "moonlight") is an interactive, bilingual (Burmese & English) online exam-preparation platform for Myanmar students. It pairs short video lessons with hands-on practice mapped to the real GED, IGCSE (Cambridge) and Myanmar Grade 10–12 (matriculation) syllabus, plus feedback from qualified teachers.
+
+## What it is
+- **Audience:** Myanmar students preparing for the GED, IGCSE (Cambridge), or the Myanmar national curriculum (Grades 10–12).
+- **Languages:** Fully bilingual — every concept is explained in Burmese first, then in the English exam language.
+- **Method:** Watch a short lesson → practice with nine interactive activity types (multiple choice, true/false, ordering, flashcards, fill the blanks, mark the words, math input, matching, short answer) → track your gaps so each study session targets your weakest topic.
+- **Teacher feedback:** Written answers are reviewed by qualified teachers, not only auto-graded.
+
+## Why it exists
+Quality exam prep in Myanmar is mostly English-only, private tutoring costs 50,000–150,000 MMK per subject per month, and scattered videos rarely map to what exams actually test. La Yaung Hub makes syllabus-aligned, bilingual prep affordable and measurable.
+
+## Pricing
+- **Free, forever:** the first lesson of every topic, all nine activity types, bilingual lessons, and basic progress tracking.
+- **Premium (coming soon):** every lesson unlocked, teacher feedback on written work, full gap analysis and study plan, with lifetime early-bird pricing for beta members.
+
+## Status
+Beta launching 2026. Visitors can join the waitlist for early access.
+
+## Curriculum coverage
+- **IGCSE (Cambridge):** Maths, Science, Language Arts — past-paper-style questions and grade-boundary tracking.
+- **GED:** all four modules (Mathematical Reasoning, Science, Social Studies, Reasoning Through Language Arts) with timed practice tests and readiness scoring.
+- **Myanmar Grades 10–12:** aligned to national textbooks with bilingual explanations for matriculation exam preparation.
+
+## Links
+- Website: https://layaunghub.com/
+- Contact: hlaminnaing@layaunghub.com
+- Facebook: https://web.facebook.com/layaunghub/
+- Telegram: https://t.me/layaunghub
+- TikTok: https://www.tiktok.com/@layaunghub
