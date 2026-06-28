@@ -45,6 +45,7 @@
   --color-neutral-650: var(--color-neutral-650);
   --color-neutral-700: var(--color-neutral-700);
   --color-deep:        var(--color-night-deep);
+  --color-support:     var(--color-support);
   --color-gold-200:    var(--color-gold-200);
 
   /* Type */
@@ -156,6 +157,8 @@
 @utility bg-banner-gold  { background-image: var(--gradient-banner-gold); }
 @utility bg-premium      { background-image: var(--gradient-premium); }
 @utility bg-cta-card     { background-image: var(--gradient-cta-card); }
+@utility bg-shift        { background-image: var(--gradient-shift); }
+@utility bg-moonbeam     { background-image: var(--gradient-moonbeam); }
 
 /* =====================================================================
    JS-DRIVEN COMPONENT CLASSES (toggled by the client script) + <details>

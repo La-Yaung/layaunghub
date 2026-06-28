@@ -4,8 +4,8 @@
   "description": "Interactive, bilingual GED & IGCSE exam prep for Myanmar students.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0A1030",
-  "theme_color": "#0A1030",
+  "background_color": "#0B1020",
+  "theme_color": "#0B1020",
   "lang": "en",
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },

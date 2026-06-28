@@ -14,19 +14,22 @@
   --color-gold-600: #F0A93A;  --color-gold-700: #CC861F;  --color-gold-800: #9C6618;
   --color-gold-900: #6E460F;
 
-  /* Indigo — secondary brand (night sky) */
-  --color-indigo-50:  #EDEFFB; --color-indigo-100: #D6DBF6; --color-indigo-200: #B9C0E6;
-  --color-indigo-300: #8E96C9; --color-indigo-400: #5C66A8; --color-indigo-500: #3A4488;
-  --color-indigo-600: #2A3796; --color-indigo-700: #20296E; --color-indigo-800: #131A4A;
-  --color-indigo-900: #0A1030;
+  /* Indigo — secondary brand (modern night-sky slate-indigo) */
+  --color-indigo-50:  #EEF1FC; --color-indigo-100: #D8DEF4; --color-indigo-200: #B5BFE4;
+  --color-indigo-300: #8A97C8; --color-indigo-400: #5E6DA6; --color-indigo-500: #3D4C82;
+  --color-indigo-600: #2A3A6B; --color-indigo-700: #1B2350; --color-indigo-800: #111733;
+  --color-indigo-900: #0B1020;
+
+  /* Support — subtle modern blue (SAYA-style secondary accent) */
+  --color-support: #5B8DEF;
 
   /* Neutral — blue-tinted grays */
-  --color-neutral-0:   #FFFFFF; --color-neutral-50:  #EDF0FF; --color-neutral-100: #DCE2FB;
-  --color-neutral-150: #D6DBF6; --color-neutral-200: #C7CEF2; --color-neutral-300: #B9C0E6;
-  --color-neutral-400: #A4ACD6; --color-neutral-500: #9AA3CE; --color-neutral-600: #8089B6;
-  --color-neutral-650: #7079A6; --color-neutral-700: #6E77A4; --color-neutral-800: #3A4470;
-  --color-neutral-900: #131A4A; --color-neutral-950: #0A1030;
-  --color-night-deep:  #05081E; /* deepest frame (phone bezel) */
+  --color-neutral-0:   #FFFFFF; --color-neutral-50:  #EDF1FF; --color-neutral-100: #DBE2F5;
+  --color-neutral-150: #CED6EE; --color-neutral-200: #BEC8E6; --color-neutral-300: #AEB8DA;
+  --color-neutral-400: #9AA6C9; --color-neutral-500: #8593BC; --color-neutral-600: #6F7CA6;
+  --color-neutral-650: #65719B; --color-neutral-700: #5C6890; --color-neutral-800: #2E3760;
+  --color-neutral-900: #101B3D; --color-neutral-950: #0A1330; /* deep moonlit blue */
+  --color-night-deep:  #060B1C; /* deepest frame (phone bezel) */
 
   /* Feedback hues */
   --color-green-50: #E7F9EF; --color-green-100: #C6F0D8; --color-green-400: #3AD17A;
@@ -96,21 +99,25 @@
   --gradient-gold-tab:linear-gradient(100deg, #FFE7A0, #F0A93A);
   --gradient-gold-tile:linear-gradient(135deg, #FFE7A0, #F0A93A);
   --gradient-icon-soft:linear-gradient(135deg, rgba(255,214,107,0.22), rgba(255,214,107,0.06));
-  --gradient-card-feature:linear-gradient(135deg, rgba(40,52,128,0.55), rgba(20,28,74,0.4));
+  --gradient-card-feature:linear-gradient(135deg, rgba(42,58,107,0.55), rgba(17,23,51,0.4));
   --gradient-banner-gold:linear-gradient(100deg, rgba(255,214,107,0.1), rgba(255,214,107,0.02));
-  --gradient-premium:linear-gradient(165deg, rgba(255,214,107,0.16), rgba(40,52,128,0.3));
-  --gradient-cta-card:linear-gradient(150deg, #2A3796 0%, #18205A 60%, #0E1438 100%);
-  --gradient-panel-soft:linear-gradient(180deg, rgba(40,52,128,0.4), rgba(20,28,74,0.22));
-  --gradient-panel-soft-25:linear-gradient(180deg, rgba(40,52,128,0.4), rgba(20,28,74,0.25));
-  --gradient-app:radial-gradient(120% 80% at 50% -10%, #20296E 0%, #131A4A 38%, #0A1030 78%);
-  --gradient-screen:radial-gradient(120% 90% at 30% 20%, #243089, #141C4A 70%);
+  --gradient-premium:linear-gradient(165deg, rgba(255,214,107,0.16), rgba(42,58,107,0.3));
+  --gradient-cta-card:linear-gradient(150deg, #2E4C9E 0%, #1B2E63 58%, #0C1740 100%);
+  --gradient-panel-soft:linear-gradient(180deg, rgba(42,58,107,0.4), rgba(17,23,51,0.22));
+  --gradient-panel-soft-25:linear-gradient(180deg, rgba(42,58,107,0.4), rgba(17,23,51,0.25));
+  /* "Light from above" — a luminous moonlit-blue glow breaking into the dark sky */
+  --gradient-app:radial-gradient(120% 85% at 50% -12%, #2E57C0 0%, #173A92 32%, #0C1E50 60%, #0A1330 82%);
+  --gradient-screen:radial-gradient(120% 90% at 30% 20%, #233A86, #141C36 70%);
   --gradient-glow-hero:radial-gradient(circle, rgba(244,206,94,0.26), rgba(244,206,94,0.05) 55%, transparent 72%);
   --gradient-glow-moon:radial-gradient(circle, rgba(244,206,94,0.16), rgba(244,206,94,0.04) 45%, transparent 70%);
   --gradient-glow-spot:radial-gradient(circle at 75% 30%, rgba(244,206,94,0.45), transparent 45%);
   --gradient-glow-cta:radial-gradient(circle at 80% 0%, rgba(244,206,94,0.18), transparent 45%);
   --gradient-moon:radial-gradient(circle at 40% 40%, #FBE39A, #EAB94E 55%, #C98F2E);
-  --gradient-phone-a:linear-gradient(180deg, #0E1640, #0A1030);
-  --gradient-phone-b:linear-gradient(180deg, #141C4A, #0E1438);
+  --gradient-phone-a:linear-gradient(180deg, #141E3C, #0A1330);
+  --gradient-phone-b:linear-gradient(180deg, #16224A, #0C173A);
+  /* "The shift" — a left-to-right journey from dark to moonlit blue */
+  --gradient-shift:linear-gradient(105deg, #0A1330 0%, #15306F 50%, #2550AE 100%);
+  --gradient-moonbeam:linear-gradient(90deg, rgba(255,214,107,0), #FFD66B);
 
   /* ---------- TIER 2 · SEMANTIC (LIGHT, default) ---------- */
   --surface-primary:   var(--color-neutral-0);
@@ -141,7 +148,7 @@
 /* Explicit opt-in via [data-theme="dark"] … */
 [data-theme="dark"] {
   --surface-primary:   var(--color-neutral-950);
-  --surface-secondary: #0E1640;
+  --surface-secondary: #141E3C;
   --surface-tertiary:  rgba(255,255,255,0.04);
   --surface-brand:     var(--color-gold-400);
   --surface-inverse:   var(--color-neutral-50);
@@ -168,7 +175,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --surface-primary:   var(--color-neutral-950);
-    --surface-secondary: #0E1640;
+    --surface-secondary: #141E3C;
     --surface-tertiary:  rgba(255,255,255,0.04);
     --surface-brand:     var(--color-gold-400);
     --surface-inverse:   var(--color-neutral-50);

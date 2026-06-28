@@ -16,7 +16,8 @@ export const site = {
   localeAlternate: 'my_MM',
   email: 'hlaminnaing@layaunghub.com',
   ogImage: '/og-image.png',
-  themeColor: '#0A1030',
+  themeColor: '#0B1020',
+  gaId: 'G-7PZ1NYMGS0', // Google Analytics 4 measurement ID
   // Keywords are not used for ranking by Google, but help some engines/LLMs
   // and our own internal copy. They mirror the visible, factual content below.
   keywords: [
@@ -42,6 +43,20 @@ export const site = {
 // Formspree endpoint for the "early access" waitlist form.
 // Submissions appear in the Formspree dashboard for this form.
 export const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mqevbnyd';
+
+// Emotional "dark → light" interstitial — the transformation La Yaung promises.
+export const transformation = {
+  dark: [
+    'Alone with English-only PDFs',
+    'Months of study, never sure you’re ready',
+    'Tutoring at 50,000–150,000 MMK a month',
+  ],
+  light: [
+    'Bilingual lessons that finally click',
+    'A clear map from where you are to exam-ready',
+    'Free to start — the first lesson is always on us',
+  ],
+};
 
 export const nav = [
   { href: '#problem', label: 'Why La Yaung' },
@@ -83,10 +98,10 @@ export const features: { icon: IconName; title: string; body: string }[] = [
   { icon: 'translate', title: 'Fully bilingual', body: 'Learn in Burmese and English side by side — concepts first, exam-language second.' },
 ];
 
-export const curriculum: { tag: string; title: string; body: string; points: string[] }[] = [
-  { tag: 'IGCSE · CAMBRIDGE', title: 'International GCSE', body: 'Core subjects aligned to Cambridge assessment objectives, with exam-style practice.', points: ['Maths, Science, Language Arts', 'Past-paper-style questions', 'Grade-boundary tracking'] },
-  { tag: 'GED', title: 'US High-School Equivalency', body: 'All four GED modules, built around the official test blueprint.', points: ['Math, Science, Social Studies, RLA', 'Timed practice tests', 'Readiness scoring'] },
-  { tag: 'GRADES 10–12', title: 'Myanmar National Curriculum', body: 'Local-curriculum support in Burmese for the matriculation years.', points: ['Aligned to national textbooks', 'Bilingual explanations', 'Matric exam preparation'] },
+export const curriculum: { tag: string; title: string; body: string; points: string[]; subjects: string[] }[] = [
+  { tag: 'IGCSE · CAMBRIDGE', title: 'International GCSE', body: 'Core subjects aligned to Cambridge assessment objectives, with exam-style practice.', points: ['Maths, Science, Language Arts', 'Past-paper-style questions', 'Grade-boundary tracking'], subjects: ['Mathematics', 'Add-Maths', 'Physics', 'Chemistry', 'Biology', 'English', 'Economics', 'Accounting'] },
+  { tag: 'GED', title: 'US High-School Equivalency', body: 'All four GED modules, built around the official test blueprint.', points: ['Math, Science, Social Studies, RLA', 'Timed practice tests', 'Readiness scoring'], subjects: ['Mathematical Reasoning', 'Reasoning Through Language Arts', 'Science', 'Social Studies'] },
+  { tag: 'GRADES 10–12', title: 'Myanmar National Curriculum', body: 'Local-curriculum support in Burmese for the matriculation years.', points: ['Aligned to national textbooks', 'Bilingual explanations', 'Matric exam preparation'], subjects: ['Myanmar', 'English', 'Maths', 'Physics', 'Chemistry', 'Biology', 'Economics'] },
 ];
 
 export const freePlan = ['First lesson of every topic', 'All 9 activity types', 'Bilingual lessons', 'Basic progress tracking'];

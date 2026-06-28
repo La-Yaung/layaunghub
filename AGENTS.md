@@ -4,8 +4,9 @@ Guidance for AI coding agents working in this repo. Humans: see [README.md](READ
 
 ## What this is
 A single-page **Astro 5** marketing site (static, zero-JS-by-default) for *La Yaung Hub* —
-bilingual GED/IGCSE exam prep for Myanmar students. Styling is **Tailwind CSS v4** with
-**semantic design tokens**; icons are inline **Lineicons**. Deploys static to **Vercel**
+bilingual GED/IGCSE exam prep for Myanmar students. Dark **"moonlit-blue"** theme where **gold is
+the brand accent**. Styling is **Tailwind CSS v4** driven by a **two-tier design-token system**;
+icons are inline **Lineicons**. Google Analytics (GA4) is wired in. Deploys static to **Vercel**
 (`layaunghub.com`). No backend except a Formspree-backed waitlist form.
 
 ## Commands
@@ -19,13 +20,17 @@ Node 20+. There are no unit tests; **verification = `npm run build` succeeds + v
 
 ## Architecture & where to edit
 - **Copy/data lives in [`src/data/content.ts`](src/data/content.ts)** — headlines, nav, FAQ,
-  problems/steps/features/curriculum/pricing arrays, all SEO strings (`site` object), and
-  `FORMSPREE_ENDPOINT`. **Change words here, not in component markup.**
-- **Sections** are one `.astro` file each in `src/components/` (Nav, Hero, Problem, HowItWorks,
-  Features, Curriculum, Pricing, Faq, FinalCTA, Footer). They render `content.ts` data via `.map()`.
-- **`src/layouts/BaseLayout.astro`** owns the `<head>` (meta, Open Graph, Twitter, JSON-LD
-  structured data) and the single client `<script>` (starfield, scroll-reveal, Formspree AJAX submit).
-- **`src/pages/index.astro`** just imports + orders the sections inside the page background wrapper.
+  problems/steps/features/curriculum(+subjects)/pricing arrays, the `transformation` (dark→light)
+  data, all SEO strings (`site` object), `FORMSPREE_ENDPOINT`, and `site.gaId` (Google Analytics).
+  **Change words here, not in component markup.**
+- **Sections** are one `.astro` file each in `src/components/`, ordered Nav → Hero → Problem →
+  **Transformation** → HowItWorks → Features → Curriculum → Pricing → Faq → FinalCTA → Footer. They
+  render `content.ts` data via `.map()`. `Transformation.astro` is the emotional "dark → light"
+  interstitial (moonbeam + before/after); `Curriculum.astro` includes the per-track Subjects showcase.
+- **`src/layouts/BaseLayout.astro`** owns the `<head>` (meta, Open Graph, Twitter, JSON-LD structured
+  data, **Google Analytics** gtag snippet keyed on `site.gaId`) and the single client `<script>`
+  (starfield, scroll-reveal, Formspree AJAX submit).
+- **`src/pages/index.astro`** just imports + orders the sections inside the `bg-app` page wrapper.
 
 ## Conventions (follow these)
 - **No inline `style=` attributes.** Express everything as Tailwind utility classes. The *only*
@@ -45,7 +50,8 @@ Node 20+. There are no unit tests; **verification = `npm run build` succeeds + v
   - **Line-height:** `leading-{100..165}` (×100). **Tracking:** `tracking-{snug,loose,looser,loosest,caps,caps-lg,caps-xl}`.
   - **Gradients:** `bg-gold`, `text-gold`, `bg-app`, `bg-glow-{hero,moon,spot,cta}`, `bg-moon`,
     `bg-screen`, `bg-phone-{a,b}`, `bg-gold-{bar,tab,tile}`, `bg-icon-soft`, `bg-card-feature`,
-    `bg-banner-gold`, `bg-premium`, `bg-cta-card`, `bg-panel-soft(-25)`.
+    `bg-banner-gold`, `bg-premium`, `bg-cta-card`, `bg-panel-soft(-25)`, `bg-shift` (dark→light panel),
+    `bg-moonbeam`. Support accent: `text-support`/`bg-support`/`border-support` (subtle blue).
   - Theme is locked dark via `<html data-theme="dark">` (light map exists in tokens.css for a future toggle).
   - Spacing/radius/sizing/shadows are still Tailwind arbitraries (`rounded-[18px]`, `gap-[18px]`,
     `shadow-[...]`) — a deliberate escape hatch; tokenize only if asked.

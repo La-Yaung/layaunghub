@@ -147,6 +147,19 @@ const jsonLd = {
 
   <!-- Structured data -->
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <!-- Google Analytics (GA4) -->
+  {site.gaId && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${site.gaId}`}></script>
+      <script is:inline define:vars={{ gaId: site.gaId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', gaId);
+      </script>
+    </>
+  )}
 </head>
 <body>
   <slot />

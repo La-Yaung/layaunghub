@@ -19,6 +19,14 @@ import { curriculum } from '../data/content';
               <div class="flex gap-2.5 items-start text-14-5 text-neutral-200"><span class="text-content-brand mt-px">✦</span><span>{pt}</span></div>
             ))}
           </div>
+          <div class="mt-[22px] pt-[18px] border-t border-glass-8">
+            <div class="font-mono text-11 tracking-caps uppercase text-neutral-500 mb-3">Subjects</div>
+            <div class="flex flex-wrap gap-2">
+              {c.subjects.map((s) => (
+                <span class="text-12-5 font-medium text-neutral-200 bg-support/[0.08] border border-support/20 px-2.5 py-1.5 rounded-full">{s}</span>
+              ))}
+            </div>
+          </div>
         </div>
       ))}
     </div>
