@@ -1,48 +1,60 @@
 @import "tailwindcss";
+/* Two-tier design tokens: primitives + semantic (light/dark) custom properties. */
+@import "../../tokens/tokens.css";
 
 /* =====================================================================
-   DESIGN TOKENS — semantic color, type & motion tokens.
-   Tailwind v4 turns each color token into bg-, text- and border- utilities,
-   each font token into font-, and each animate token into animate-.
+   Expose the semantic tokens (and the few primitive shades used for
+   fine hierarchy) as Tailwind utilities. `@theme inline` keeps the
+   utilities pointing at the live, theme-switchable vars from tokens.css,
+   so one class renders correctly in light or dark with no dark: variants.
    ===================================================================== */
-@theme {
-  /* --- Surfaces / background (night sky) --- */
-  --color-bg: #0A1030;          /* page base */
-  --color-bg-2: #131A4A;        /* mid gradient stop */
-  --color-bg-3: #20296E;        /* top gradient stop */
-  --color-panel: #0E1640;       /* raised panels (phone, chips) */
-  --color-deep: #05081E;        /* deepest frame (phone bezel) */
+@theme inline {
+  /* Surfaces */
+  --color-surface-primary:   var(--surface-primary);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-surface-tertiary:  var(--surface-tertiary);
+  --color-surface-brand:     var(--surface-brand);
+  --color-surface-inverse:   var(--surface-inverse);
+  --color-surface-danger:    var(--surface-danger);
 
-  /* --- Accent (moonlight gold) --- */
-  --color-accent: #FFD66B;      /* primary accent */
-  --color-accent-light: #FFE7A0;
-  --color-accent-mid: #FFD15E;
-  --color-accent-deep: #F0A93A;
+  /* Content (text & icons) */
+  --color-content-primary:   var(--content-primary);
+  --color-content-secondary: var(--content-secondary);
+  --color-content-tertiary:  var(--content-tertiary);
+  --color-content-inverse:   var(--content-inverse);
+  --color-content-brand:     var(--content-brand);
+  --color-content-on-brand:  var(--content-on-brand);
 
-  /* --- Ink / text --- */
-  --color-ink: #EDF0FF;         /* primary text */
-  --color-ink-soft: #C7CEF2;    /* secondary text */
-  --color-ink-muted: #B9C0E6;   /* nav / tertiary */
-  --color-muted: #A4ACD6;       /* body muted */
-  --color-muted-2: #9AA3CE;     /* card body */
-  --color-faint: #8089B6;       /* fine print */
-  --color-faint-2: #6E77A4;     /* footer labels */
-  --color-faint-3: #7079A6;     /* eyebrow on dark */
+  /* Borders */
+  --color-border-subtle:      var(--border-subtle);
+  --color-border-strong:      var(--border-strong);
+  --color-border-interactive: var(--border-interactive);
 
-  /* --- Feedback --- */
-  --color-success: #3AD17A;
+  /* Feedback */
+  --color-success-text: var(--feedback-success-text); --color-success-bg: var(--feedback-success-bg); --color-success-border: var(--feedback-success-border);
+  --color-warning-text: var(--feedback-warning-text); --color-warning-bg: var(--feedback-warning-bg); --color-warning-border: var(--feedback-warning-border);
+  --color-error-text:   var(--feedback-error-text);   --color-error-bg:   var(--feedback-error-bg);   --color-error-border:   var(--feedback-error-border);
+  --color-info-text:    var(--feedback-info-text);    --color-info-bg:    var(--feedback-info-bg);    --color-info-border:    var(--feedback-info-border);
 
-  /* --- Type --- */
-  --font-sans: 'Hanken Grotesk', system-ui, sans-serif;
-  --font-display: 'Bricolage Grotesque', sans-serif;
-  --font-mono: 'Space Mono', monospace;
-  --font-mm: 'Noto Sans Myanmar', sans-serif;
+  /* Primitive shades used directly where the design needs fine hierarchy */
+  --color-neutral-100: var(--color-neutral-100);
+  --color-neutral-200: var(--color-neutral-200);
+  --color-neutral-300: var(--color-neutral-300);
+  --color-neutral-500: var(--color-neutral-500);
+  --color-neutral-700: var(--color-neutral-700);
+  --color-gold-200:    var(--color-gold-200);
 
-  /* --- Motion --- */
-  --animate-float: lyFloat 8s ease-in-out infinite;
-  --animate-glow: lyGlow 7s ease-in-out infinite;
+  /* Type */
+  --font-display: var(--font-family-display);
+  --font-sans:    var(--font-family-sans);
+  --font-mono:    var(--font-family-mono);
+  --font-mm:      var(--font-family-myanmar);
+
+  /* Motion */
+  --animate-float:   lyFloat 8s ease-in-out infinite;
+  --animate-glow:    lyGlow 7s ease-in-out infinite;
   --animate-twinkle: lyTwinkle 3s ease-in-out infinite;
-  --animate-rise: lyRise .7s cubic-bezier(.2,.7,.2,1) both;
+  --animate-rise:    lyRise .7s cubic-bezier(.2,.7,.2,1) both;
 }
 
 @keyframes lyTwinkle { 0%,100% { opacity:0.25; } 50% { opacity:1; } }
@@ -51,37 +63,39 @@
 @keyframes lyRise    { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 
 /* =====================================================================
-   BASE
+   BASE — driven by semantic tokens (theme-aware).
    ===================================================================== */
 @layer base {
   html { scroll-behavior: smooth; }
-  body { background: var(--color-bg); font-family: var(--font-sans); color: var(--color-ink); -webkit-font-smoothing: antialiased; }
-  ::selection { background: var(--color-accent); color: var(--color-bg); }
+  body {
+    background-color: var(--surface-primary);
+    color: var(--content-primary);
+    font-family: var(--font-family-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--surface-brand); color: var(--content-on-brand); }
   a { color: inherit; text-decoration: none; }
 }
 
 /* =====================================================================
-   CUSTOM UTILITIES — repeated gradients + the gold text treatment.
+   CUSTOM UTILITIES — gold gradient treatments (built from gold primitives).
    ===================================================================== */
-/* Gold text gradient (headlines) */
 @utility text-gold {
-  background-image: linear-gradient(100deg, var(--color-accent-light), var(--color-accent-mid) 45%, var(--color-accent-deep));
+  background-image: linear-gradient(100deg, var(--color-gold-200), var(--color-gold-500) 45%, var(--color-gold-600));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
-/* Gold fill gradient (buttons, pills, badges) */
 @utility bg-gold {
-  background-image: linear-gradient(100deg, var(--color-accent-light), var(--color-accent-mid) 55%, var(--color-accent-deep));
+  background-image: linear-gradient(100deg, var(--color-gold-200), var(--color-gold-500) 55%, var(--color-gold-600));
 }
-/* Subtle raised-panel gradient (step cards, curriculum cards) */
 @utility bg-panel-soft {
   background-image: linear-gradient(180deg, rgba(40,52,128,0.4), rgba(20,28,74,0.22));
 }
 
 /* =====================================================================
-   JS-DRIVEN COMPONENT CLASSES (toggled by the client script) + native
-   <details> marker reset. Kept as plain CSS because JS references them.
+   JS-DRIVEN COMPONENT CLASSES (toggled by the client script) + <details>
+   marker reset. Plain CSS because the client script references them.
    ===================================================================== */
 @layer components {
   .ly-reveal.is-armed { opacity: 0; }

@@ -2,39 +2,39 @@
 import { nav, site } from '../data/content';
 import Icon from './Icon.astro';
 ---
-<footer class="border-t border-white/[0.08] max-w-[1280px] mx-auto px-[clamp(20px,5vw,72px)] py-[clamp(40px,5vw,56px)]">
+<footer class="border-t border-border-subtle max-w-[1280px] mx-auto px-[clamp(20px,5vw,72px)] py-[clamp(40px,5vw,56px)]">
   <div class="flex gap-8 flex-wrap justify-between items-start">
     <div class="max-w-[340px]">
       <div class="flex items-center gap-3 mb-4">
         <img src="/assets/layaung-logo.png" alt="La Yaung Hub logo" width="42" height="42" class="w-[42px] h-[42px] rounded-xl">
         <span class="font-display text-[19px] font-bold">La Yaung <span class="font-medium opacity-70 text-sm">Hub</span></span>
       </div>
-      <p class="italic font-medium text-base text-muted-2 leading-[1.5]">Interactive, bilingual exam prep — lighting the way for Myanmar students. <span class="font-mm text-ink-soft">လရောင်</span></p>
+      <p class="italic font-medium text-base text-neutral-500 leading-[1.5]">Interactive, bilingual exam prep — lighting the way for Myanmar students. <span class="font-mm text-neutral-200">လရောင်</span></p>
     </div>
     <div class="flex gap-[clamp(40px,6vw,80px)] flex-wrap">
       <div>
-        <div class="text-[12.5px] tracking-[0.1em] uppercase text-faint-2 font-semibold mb-4">Explore</div>
-        <div class="flex flex-col gap-[11px] text-[14.5px] text-ink-muted">
+        <div class="text-[12.5px] tracking-[0.1em] uppercase text-neutral-700 font-semibold mb-4">Explore</div>
+        <div class="flex flex-col gap-[11px] text-[14.5px] text-neutral-300">
           {nav.map((item) => (
-            <a href={item.href} class="transition-colors hover:text-accent">{item.label}</a>
+            <a href={item.href} class="transition-colors hover:text-content-brand">{item.label}</a>
           ))}
         </div>
       </div>
       <div>
-        <div class="text-[12.5px] tracking-[0.1em] uppercase text-faint-2 font-semibold mb-4">Contact</div>
-        <div class="flex flex-col gap-[13px] text-[14.5px] text-ink-muted">
-          <a href={`mailto:${site.email}`} class="transition-colors hover:text-accent flex items-center gap-[9px]"><Icon name="mail" size={17} class="text-accent shrink-0" />{site.email}</a>
+        <div class="text-[12.5px] tracking-[0.1em] uppercase text-neutral-700 font-semibold mb-4">Contact</div>
+        <div class="flex flex-col gap-[13px] text-[14.5px] text-neutral-300">
+          <a href={`mailto:${site.email}`} class="transition-colors hover:text-content-brand flex items-center gap-[9px]"><Icon name="mail" size={17} class="text-content-brand shrink-0" />{site.email}</a>
         </div>
         <div class="flex gap-2.5 mt-5">
-          <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="La Yaung Hub on Facebook" class="transition hover:text-accent hover:border-accent/45 hover:bg-accent/[0.08] w-10 h-10 rounded-[11px] bg-white/[0.05] border border-white/[0.12] flex items-center justify-center text-ink-soft"><Icon name="facebook" size={20} class="text-current" /></a>
-          <a href={site.social.telegram} target="_blank" rel="noopener" aria-label="La Yaung Hub on Telegram" class="transition hover:text-accent hover:border-accent/45 hover:bg-accent/[0.08] w-10 h-10 rounded-[11px] bg-white/[0.05] border border-white/[0.12] flex items-center justify-center text-ink-soft"><Icon name="telegram" size={20} class="text-current" /></a>
-          <a href={site.social.tiktok} target="_blank" rel="noopener" aria-label="La Yaung Hub on TikTok" class="transition hover:text-accent hover:border-accent/45 hover:bg-accent/[0.08] w-10 h-10 rounded-[11px] bg-white/[0.05] border border-white/[0.12] flex items-center justify-center text-ink-soft"><Icon name="tiktok" size={20} class="text-current" /></a>
+          <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="La Yaung Hub on Facebook" class="transition hover:text-content-brand hover:border-border-interactive/45 hover:bg-surface-brand/[0.08] w-10 h-10 rounded-[11px] bg-white/[0.05] border border-white/[0.12] flex items-center justify-center text-neutral-200"><Icon name="facebook" size={20} class="text-current" /></a>
+          <a href={site.social.telegram} target="_blank" rel="noopener" aria-label="La Yaung Hub on Telegram" class="transition hover:text-content-brand hover:border-border-interactive/45 hover:bg-surface-brand/[0.08] w-10 h-10 rounded-[11px] bg-white/[0.05] border border-white/[0.12] flex items-center justify-center text-neutral-200"><Icon name="telegram" size={20} class="text-current" /></a>
+          <a href={site.social.tiktok} target="_blank" rel="noopener" aria-label="La Yaung Hub on TikTok" class="transition hover:text-content-brand hover:border-border-interactive/45 hover:bg-surface-brand/[0.08] w-10 h-10 rounded-[11px] bg-white/[0.05] border border-white/[0.12] flex items-center justify-center text-neutral-200"><Icon name="tiktok" size={20} class="text-current" /></a>
         </div>
       </div>
     </div>
   </div>
-  <div class="mt-11 pt-6 border-t border-white/[0.06] flex gap-4 flex-wrap justify-between text-[13px] text-faint-2">
+  <div class="mt-11 pt-6 border-t border-white/[0.06] flex gap-4 flex-wrap justify-between text-[13px] text-neutral-700">
     <span>© 2026 La Yaung Hub. All rights reserved.</span>
-    <span class="inline-flex items-center gap-[7px]">Made with moonlight in Myanmar <Icon name="moon" size={15} class="text-accent" /></span>
+    <span class="inline-flex items-center gap-[7px]">Made with moonlight in Myanmar <Icon name="moon" size={15} class="text-content-brand" /></span>
   </div>
 </footer>

@@ -3,35 +3,35 @@ import { freePlan, proPlan } from '../data/content';
 ---
 <section id="pricing" class="ly-reveal max-w-[1100px] mx-auto pt-[clamp(40px,6vw,56px)] px-[clamp(20px,5vw,72px)] pb-[clamp(70px,9vw,110px)]">
   <div class="text-center max-w-[640px] mx-auto mb-[52px]">
-    <div class="font-mono text-xs tracking-[0.14em] uppercase text-accent mb-[18px]">05 / Pricing</div>
+    <div class="font-mono text-xs tracking-[0.14em] uppercase text-content-brand mb-[18px]">05 / Pricing</div>
     <h2 class="font-display text-[clamp(30px,4.6vw,52px)] font-bold leading-[1.06]">Start free. <span class="text-gold">Always.</span></h2>
-    <p class="text-[17px] text-muted mt-[18px] leading-[1.6]">The first lesson of every topic is free, forever. Upgrade only when you're ready for the full path.</p>
+    <p class="text-[17px] text-content-secondary mt-[18px] leading-[1.6]">The first lesson of every topic is free, forever. Upgrade only when you're ready for the full path.</p>
   </div>
   <div class="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[22px] items-stretch">
     <!-- free -->
-    <div class="bg-white/[0.04] border border-white/10 rounded-[26px] px-8 py-9 flex flex-col">
+    <div class="bg-surface-tertiary border border-white/10 rounded-[26px] px-8 py-9 flex flex-col">
       <div class="font-display text-xl font-semibold mb-2">Free</div>
-      <div class="flex items-baseline gap-1.5 mb-1.5"><span class="font-display text-[46px] font-extrabold">0</span><span class="text-base text-muted-2">MMK / forever</span></div>
-      <p class="text-[14.5px] text-muted-2 mb-[26px] leading-[1.5]">Everything you need to try La Yaung properly.</p>
+      <div class="flex items-baseline gap-1.5 mb-1.5"><span class="font-display text-[46px] font-extrabold">0</span><span class="text-base text-neutral-500">MMK / forever</span></div>
+      <p class="text-[14.5px] text-neutral-500 mb-[26px] leading-[1.5]">Everything you need to try La Yaung properly.</p>
       <div class="flex flex-col gap-[13px] mb-[30px]">
         {freePlan.map((x) => (
-          <div class="flex gap-[11px] items-start text-[15px] text-[#D6DBF6]"><span class="text-success">✓</span><span>{x}</span></div>
+          <div class="flex gap-[11px] items-start text-[15px] text-[#D6DBF6]"><span class="text-success-text">✓</span><span>{x}</span></div>
         ))}
       </div>
-      <a href="#access" class="ly-cta mt-auto text-center font-display font-semibold text-[15px] text-ink bg-white/[0.07] border border-white/[0.18] p-3.5 rounded-[14px] transition-transform hover:-translate-y-0.5">Start free</a>
+      <a href="#access" class="ly-cta mt-auto text-center font-display font-semibold text-[15px] text-content-primary bg-white/[0.07] border border-white/[0.18] p-3.5 rounded-[14px] transition-transform hover:-translate-y-0.5">Start free</a>
     </div>
     <!-- premium -->
-    <div class="bg-[linear-gradient(165deg,rgba(255,214,107,0.16),rgba(40,52,128,0.3))] border-[1.5px] border-accent/45 rounded-[26px] px-8 py-9 flex flex-col relative overflow-hidden">
-      <div class="font-mono absolute top-0 right-0 font-bold text-[10px] tracking-[0.1em] text-bg bg-accent px-4 py-2 rounded-[0_26px_0_14px]">COMING SOON</div>
-      <div class="font-display text-xl font-semibold mb-2 text-accent-light">Premium</div>
+    <div class="bg-[linear-gradient(165deg,rgba(255,214,107,0.16),rgba(40,52,128,0.3))] border-[1.5px] border-border-interactive/45 rounded-[26px] px-8 py-9 flex flex-col relative overflow-hidden">
+      <div class="font-mono absolute top-0 right-0 font-bold text-[10px] tracking-[0.1em] text-content-on-brand bg-surface-brand px-4 py-2 rounded-[0_26px_0_14px]">COMING SOON</div>
+      <div class="font-display text-xl font-semibold mb-2 text-gold-200">Premium</div>
       <div class="flex items-baseline gap-1.5 mb-1.5"><span class="font-display text-[46px] font-extrabold">Early-bird</span></div>
-      <p class="text-[14.5px] text-ink-soft mb-[26px] leading-[1.5]">Beta members lock in our lowest price for life.</p>
+      <p class="text-[14.5px] text-neutral-200 mb-[26px] leading-[1.5]">Beta members lock in our lowest price for life.</p>
       <div class="flex flex-col gap-[13px] mb-[30px]">
         {proPlan.map((x) => (
-          <div class="flex gap-[11px] items-start text-[15px] text-ink"><span class="text-accent">✦</span><span>{x}</span></div>
+          <div class="flex gap-[11px] items-start text-[15px] text-content-primary"><span class="text-content-brand">✦</span><span>{x}</span></div>
         ))}
       </div>
-      <a href="#access" class="ly-cta mt-auto text-center font-display font-semibold text-[15px] text-bg bg-gold p-3.5 rounded-[14px] shadow-[0_12px_28px_-8px_rgba(255,209,94,0.5)] transition-transform hover:-translate-y-0.5">Join the waitlist</a>
+      <a href="#access" class="ly-cta mt-auto text-center font-display font-semibold text-[15px] text-content-on-brand bg-gold p-3.5 rounded-[14px] shadow-[0_12px_28px_-8px_rgba(255,209,94,0.5)] transition-transform hover:-translate-y-0.5">Join the waitlist</a>
     </div>
   </div>
 </section>

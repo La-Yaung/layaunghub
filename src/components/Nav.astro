@@ -9,9 +9,9 @@ import { nav } from '../data/content';
   <div class="flex items-center gap-[30px]">
     <div class="flex gap-7 items-center max-[820px]:hidden">
       {nav.map((item) => (
-        <a href={item.href} class="text-[15px] font-medium text-ink-muted hover:text-accent transition-colors">{item.label}</a>
+        <a href={item.href} class="text-[15px] font-medium text-neutral-300 hover:text-content-brand transition-colors">{item.label}</a>
       ))}
     </div>
-    <a href="#access" class="font-display font-semibold text-[14.5px] text-bg bg-gold px-5 py-[11px] rounded-full shadow-[0_8px_22px_-6px_rgba(255,209,94,0.5)] transition-transform hover:-translate-y-0.5">Get Early Access</a>
+    <a href="#access" class="font-display font-semibold text-[14.5px] text-content-on-brand bg-gold px-5 py-[11px] rounded-full shadow-[0_8px_22px_-6px_rgba(255,209,94,0.5)] transition-transform hover:-translate-y-0.5">Get Early Access</a>
   </div>
 </nav>
