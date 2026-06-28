@@ -4,19 +4,19 @@ import { curriculum } from '../data/content';
 <section id="curriculum" class="ly-reveal relative">
   <div class="max-w-[1280px] mx-auto pt-[clamp(40px,6vw,64px)] px-[clamp(20px,5vw,72px)] pb-[clamp(70px,9vw,110px)]">
     <div class="max-w-[760px] mb-12">
-      <div class="font-mono text-xs tracking-[0.14em] uppercase text-content-brand mb-[18px]">04 / Who it's for</div>
-      <h2 class="font-display text-[clamp(30px,4.6vw,52px)] font-bold leading-[1.06]">Three paths, <span class="text-gold">one clear sky.</span></h2>
-      <p class="text-[17px] text-content-secondary mt-[18px] leading-[1.6]">Whichever exam you're aiming for, La Yaung maps your whole journey from where you are to a passing grade.</p>
+      <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">04 / Who it's for</div>
+      <h2 class="font-display text-display-md font-bold leading-106">Three paths, <span class="text-gold">one clear sky.</span></h2>
+      <p class="text-17 text-content-secondary mt-[18px] leading-160">Whichever exam you're aiming for, La Yaung maps your whole journey from where you are to a passing grade.</p>
     </div>
     <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-5">
       {curriculum.map((c) => (
-        <div class="transition duration-200 hover:-translate-y-1 hover:border-border-interactive/30 bg-[linear-gradient(180deg,rgba(40,52,128,0.4),rgba(20,28,74,0.25))] border border-white/10 rounded-[24px] py-8 px-[30px]">
-          <div class="font-display text-[14px] font-bold tracking-[0.06em] text-content-brand mb-[18px]">{c.tag}</div>
-          <h3 class="font-display text-[25px] font-bold mb-3 leading-[1.12]">{c.title}</h3>
-          <p class="text-[15px] leading-[1.6] text-neutral-500 mb-[22px]">{c.body}</p>
+        <div class="transition duration-200 hover:-translate-y-1 hover:border-border-interactive/30 bg-panel-soft-25 border border-glass-10 rounded-[24px] py-8 px-[30px]">
+          <div class="font-display text-14 font-bold tracking-looser text-content-brand mb-[18px]">{c.tag}</div>
+          <h3 class="font-display text-25 font-bold mb-3 leading-112">{c.title}</h3>
+          <p class="text-15 leading-160 text-neutral-500 mb-[22px]">{c.body}</p>
           <div class="flex flex-col gap-2.5">
             {c.points.map((pt) => (
-              <div class="flex gap-2.5 items-start text-[14.5px] text-neutral-200"><span class="text-content-brand mt-px">✦</span><span>{pt}</span></div>
+              <div class="flex gap-2.5 items-start text-14-5 text-neutral-200"><span class="text-content-brand mt-px">✦</span><span>{pt}</span></div>
             ))}
           </div>
         </div>

@@ -5,19 +5,19 @@ import Icon from './Icon.astro';
 <section id="how" class="ly-reveal relative">
   <div class="max-w-[1280px] mx-auto pt-[clamp(20px,4vw,40px)] px-[clamp(20px,5vw,72px)] pb-[clamp(70px,9vw,110px)]">
     <div class="max-w-[760px] mb-[52px]">
-      <div class="font-mono text-xs tracking-[0.14em] uppercase text-content-brand mb-[18px]">02 / How it works</div>
-      <h2 class="font-display text-[clamp(30px,4.6vw,52px)] font-bold leading-[1.06]">Watch. Practice. <span class="text-gold">Know you're ready.</span></h2>
-      <p class="text-[17px] text-content-secondary mt-[18px] leading-[1.6]">Every topic follows the same proven loop — so learning never feels like guesswork.</p>
+      <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">02 / How it works</div>
+      <h2 class="font-display text-display-md font-bold leading-106">Watch. Practice. <span class="text-gold">Know you're ready.</span></h2>
+      <p class="text-17 text-content-secondary mt-[18px] leading-160">Every topic follows the same proven loop — so learning never feels like guesswork.</p>
     </div>
     <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-5">
       {steps.map((s) => (
-        <div class="relative bg-panel-soft border border-white/[0.1] rounded-[24px] py-[34px] px-[30px] transition duration-200 hover:-translate-y-1 hover:border-border-interactive/30">
+        <div class="relative bg-panel-soft border border-glass-10 rounded-[24px] py-[34px] px-[30px] transition duration-200 hover:-translate-y-1 hover:border-border-interactive/30">
           <div class="flex items-center gap-[14px] mb-5">
-            <div class="w-[54px] h-[54px] rounded-2xl bg-[linear-gradient(135deg,rgba(255,214,107,0.22),rgba(255,214,107,0.06))] border border-border-interactive/[0.3] flex items-center justify-center"><Icon name={s.icon} size={27} class="text-gold-200" /></div>
-            <span class="font-display text-[42px] font-extrabold text-white/[0.1]">{s.n}</span>
+            <div class="w-[54px] h-[54px] rounded-2xl bg-icon-soft border border-border-interactive/[0.3] flex items-center justify-center"><Icon name={s.icon} size={27} class="text-gold-200" /></div>
+            <span class="font-display text-42 font-extrabold text-white/[0.1]">{s.n}</span>
           </div>
-          <h3 class="font-display text-[22px] font-bold mb-[11px]">{s.title}</h3>
-          <p class="text-[15px] leading-[1.6] text-neutral-500">{s.body}</p>
+          <h3 class="font-display text-22 font-bold mb-[11px]">{s.title}</h3>
+          <p class="text-15 leading-160 text-neutral-500">{s.body}</p>
         </div>
       ))}
     </div>

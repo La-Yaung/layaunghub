@@ -38,10 +38,13 @@
 
   /* Primitive shades used directly where the design needs fine hierarchy */
   --color-neutral-100: var(--color-neutral-100);
+  --color-neutral-150: var(--color-neutral-150);
   --color-neutral-200: var(--color-neutral-200);
   --color-neutral-300: var(--color-neutral-300);
   --color-neutral-500: var(--color-neutral-500);
+  --color-neutral-650: var(--color-neutral-650);
   --color-neutral-700: var(--color-neutral-700);
+  --color-deep:        var(--color-night-deep);
   --color-gold-200:    var(--color-gold-200);
 
   /* Type */
@@ -51,10 +54,55 @@
   --font-mm:      var(--font-family-myanmar);
 
   /* Motion */
-  --animate-float:   lyFloat 8s ease-in-out infinite;
-  --animate-glow:    lyGlow 7s ease-in-out infinite;
-  --animate-twinkle: lyTwinkle 3s ease-in-out infinite;
-  --animate-rise:    lyRise .7s cubic-bezier(.2,.7,.2,1) both;
+  --animate-float:   var(--motion-float);
+  --animate-glow:    var(--motion-glow);
+  --animate-twinkle: var(--motion-twinkle);
+  --animate-rise:    var(--motion-rise);
+}
+
+/* =====================================================================
+   TYPE SCALE · LINE-HEIGHT · TRACKING · GLASS — static tokens whose
+   values match the design exactly (so tokenizing changes no pixels).
+   `text-*` is a px-denominated scale; `-5` means the half-pixel (e.g.
+   text-12-5 = 12.5px). Fluid headings are named (display-*, lead, …).
+   `leading-NNN` is line-height ×100 (leading-160 = 1.6). `tracking-*`
+   are the letter-spacing steps. `glass-N` are white-alpha surfaces.
+   ===================================================================== */
+@theme inline {
+  /* Fixed type scale → text-* */
+  --text-9: var(--fs-9);       --text-10: var(--fs-10);     --text-10-5: var(--fs-10-5);
+  --text-11: var(--fs-11);     --text-11-5: var(--fs-11-5); --text-12: var(--fs-12);
+  --text-12-5: var(--fs-12-5); --text-13: var(--fs-13);     --text-13-5: var(--fs-13-5);
+  --text-14: var(--fs-14);     --text-14-5: var(--fs-14-5); --text-15: var(--fs-15);
+  --text-15-5: var(--fs-15-5); --text-16: var(--fs-16);     --text-16-5: var(--fs-16-5);
+  --text-17: var(--fs-17);     --text-18: var(--fs-18);     --text-19: var(--fs-19);
+  --text-20: var(--fs-20);     --text-21: var(--fs-21);     --text-22: var(--fs-22);
+  --text-24: var(--fs-24);     --text-25: var(--fs-25);     --text-42: var(--fs-42);
+  --text-46: var(--fs-46);
+  /* Fluid type */
+  --text-body: var(--fs-body);             --text-body-lg: var(--fs-body-lg);
+  --text-lead: var(--fs-lead);             --text-stat: var(--fs-stat);
+  --text-display-sm: var(--fs-display-sm); --text-display-md: var(--fs-display-md);
+  --text-display-lg: var(--fs-display-lg); --text-display-xl: var(--fs-display-xl);
+
+  /* Line-height → leading-* */
+  --leading-100: var(--lh-100); --leading-104: var(--lh-104); --leading-106: var(--lh-106);
+  --leading-110: var(--lh-110); --leading-112: var(--lh-112); --leading-120: var(--lh-120);
+  --leading-125: var(--lh-125); --leading-130: var(--lh-130); --leading-140: var(--lh-140);
+  --leading-150: var(--lh-150); --leading-155: var(--lh-155); --leading-160: var(--lh-160);
+  --leading-165: var(--lh-165);
+
+  /* Letter-spacing → tracking-* (custom names; Tailwind defaults untouched) */
+  --tracking-snug: var(--ls-snug);     --tracking-loose: var(--ls-loose);
+  --tracking-looser: var(--ls-looser); --tracking-loosest: var(--ls-loosest);
+  --tracking-caps: var(--ls-caps);     --tracking-caps-lg: var(--ls-caps-lg);
+  --tracking-caps-xl: var(--ls-caps-xl);
+
+  /* Glass → bg-glass-* / border-glass-* */
+  --color-glass-3: var(--glass-3);   --color-glass-5: var(--glass-5);   --color-glass-6: var(--glass-6);
+  --color-glass-7: var(--glass-7);   --color-glass-8: var(--glass-8);   --color-glass-9: var(--glass-9);
+  --color-glass-10: var(--glass-10); --color-glass-12: var(--glass-12); --color-glass-18: var(--glass-18);
+  --color-glass-20: var(--glass-20); --color-glass-25: var(--glass-25);
 }
 
 @keyframes lyTwinkle { 0%,100% { opacity:0.25; } 50% { opacity:1; } }
@@ -81,17 +129,33 @@
    CUSTOM UTILITIES — gold gradient treatments (built from gold primitives).
    ===================================================================== */
 @utility text-gold {
-  background-image: linear-gradient(100deg, var(--color-gold-200), var(--color-gold-500) 45%, var(--color-gold-600));
+  background-image: var(--gradient-gold-text);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
-@utility bg-gold {
-  background-image: linear-gradient(100deg, var(--color-gold-200), var(--color-gold-500) 55%, var(--color-gold-600));
-}
-@utility bg-panel-soft {
-  background-image: linear-gradient(180deg, rgba(40,52,128,0.4), rgba(20,28,74,0.22));
-}
+@utility bg-gold         { background-image: var(--gradient-gold); }
+@utility bg-panel-soft    { background-image: var(--gradient-panel-soft); }
+@utility bg-panel-soft-25 { background-image: var(--gradient-panel-soft-25); }
+
+/* --- Gradient tokens (background-image) — values live in tokens.css --- */
+@utility bg-app          { background-image: var(--gradient-app); }
+@utility bg-glow-hero    { background-image: var(--gradient-glow-hero); }
+@utility bg-glow-moon    { background-image: var(--gradient-glow-moon); }
+@utility bg-glow-spot    { background-image: var(--gradient-glow-spot); }
+@utility bg-glow-cta     { background-image: var(--gradient-glow-cta); }
+@utility bg-moon         { background-image: var(--gradient-moon); }
+@utility bg-screen       { background-image: var(--gradient-screen); }
+@utility bg-phone-a      { background-image: var(--gradient-phone-a); }
+@utility bg-phone-b      { background-image: var(--gradient-phone-b); }
+@utility bg-gold-bar     { background-image: var(--gradient-gold-bar); }
+@utility bg-gold-tab     { background-image: var(--gradient-gold-tab); }
+@utility bg-gold-tile    { background-image: var(--gradient-gold-tile); }
+@utility bg-icon-soft    { background-image: var(--gradient-icon-soft); }
+@utility bg-card-feature { background-image: var(--gradient-card-feature); }
+@utility bg-banner-gold  { background-image: var(--gradient-banner-gold); }
+@utility bg-premium      { background-image: var(--gradient-premium); }
+@utility bg-cta-card     { background-image: var(--gradient-cta-card); }
 
 /* =====================================================================
    JS-DRIVEN COMPONENT CLASSES (toggled by the client script) + <details>

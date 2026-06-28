@@ -30,12 +30,25 @@ Node 20+. There are no unit tests; **verification = `npm run build` succeeds + v
 ## Conventions (follow these)
 - **No inline `style=` attributes.** Express everything as Tailwind utility classes. The *only*
   allowed exception is the noise-texture data-URI in `Background.astro`.
-- **Use semantic color tokens, not raw hex.** Tokens are defined in
-  [`src/styles/global.css`](src/styles/global.css) `@theme`: `accent`, `accent-light/-mid/-deep`,
-  `ink`, `ink-soft`, `ink-muted`, `muted`, `muted-2`, `faint`, `faint-2`, `faint-3`, `bg`, `bg-2/-3`,
-  `panel`, `deep`, `success`. Use `text-ink`, `bg-accent`, `border-accent/30`, etc. Custom utilities:
-  `text-gold` (gradient text), `bg-gold` (gradient fill), `bg-panel-soft`. Reach for an arbitrary
-  value (`text-[#D6DBF6]`, `rounded-[18px]`, `text-[clamp(...)]`) only for genuinely one-off values.
+- **Use the design tokens, not raw values.** All token VALUES live in
+  [`tokens/tokens.css`](tokens/tokens.css) (the single source of truth, two-tier: primitives →
+  semantic light/dark). [`src/styles/global.css`](src/styles/global.css) is **reference-only** —
+  it just maps those vars to Tailwind utilities via `@theme inline` + `@utility`. **Never put a
+  literal value (hex/px/gradient) in global.css or a component;** add it to `tokens.css` and
+  reference it. The token utilities:
+  - **Color (semantic):** `text-content-primary/-secondary/-tertiary/-brand/-on-brand`,
+    `bg-surface-primary/-secondary/-tertiary/-brand`, `border-border-subtle/-strong/-interactive`,
+    `text-success-text` (+ warning/error/info). Fine-hierarchy primitives: `text-neutral-{100..700}`,
+    `text-gold-200`, `border-deep`. Glass: `bg-glass-{3..25}` / `border-glass-{3..25}`.
+  - **Type:** `text-{9..46}` (px scale; `-5` = half-px, e.g. `text-12-5`), fluid `text-display-{sm,md,lg,xl}`,
+    `text-lead`, `text-stat`, `text-body`, `text-body-lg`.
+  - **Line-height:** `leading-{100..165}` (×100). **Tracking:** `tracking-{snug,loose,looser,loosest,caps,caps-lg,caps-xl}`.
+  - **Gradients:** `bg-gold`, `text-gold`, `bg-app`, `bg-glow-{hero,moon,spot,cta}`, `bg-moon`,
+    `bg-screen`, `bg-phone-{a,b}`, `bg-gold-{bar,tab,tile}`, `bg-icon-soft`, `bg-card-feature`,
+    `bg-banner-gold`, `bg-premium`, `bg-cta-card`, `bg-panel-soft(-25)`.
+  - Theme is locked dark via `<html data-theme="dark">` (light map exists in tokens.css for a future toggle).
+  - Spacing/radius/sizing/shadows are still Tailwind arbitraries (`rounded-[18px]`, `gap-[18px]`,
+    `shadow-[...]`) — a deliberate escape hatch; tokenize only if asked.
 - **Icons:** `<Icon name="globe" size={24} class="text-accent" />`. Names are the keys in
   [`src/data/icons.ts`](src/data/icons.ts) (extracted from the `lineicons` package as `currentColor`
   SVGs). To add an icon: pick a Lineicons file, add it to the generator/map, then reference by name.
@@ -51,14 +64,14 @@ Node 20+. There are no unit tests; **verification = `npm run build` succeeds + v
   (512×512) with favicons/og-image derived from it.
 - After changing `content.ts` SEO strings, the JSON-LD + meta update automatically (they read `site`).
 
-## Design tokens (two systems, know the difference)
-1. **Live, single-tier** semantic tokens in `src/styles/global.css` `@theme` — what every component
-   currently uses (`text-ink`, `bg-accent`…). Dark-only.
-2. **Formal, two-tier** primitive→semantic system with **light/dark** in [`tokens/`](tokens/README.md)
-   (W3C DTCG JSON + CSS + a Tailwind `@theme inline` mapping). Standalone reference; not yet wired
-   into the build. If asked to "use the token system / add light mode", migrate global.css to import
-   `tokens/tokens.css` + `tokens/tailwind-theme.css` and rename utilities
-   (`text-ink → text-content-primary`, `bg-accent → bg-surface-brand`, …).
+## Design tokens (one wired two-tier system)
+- **Values:** [`tokens/tokens.css`](tokens/README.md) — primitives (`--color-gold-400`, `--fs-17`,
+  `--lh-160`, `--ls-caps`, `--glass-6`, `--gradient-*`, `--motion-*`) + semantic aliases that flip
+  light/dark (`--surface-*`, `--content-*`, `--border-*`, `--feedback-*`). Also exported as W3C DTCG
+  JSON in `tokens/design-tokens.json`.
+- **Wiring:** `src/styles/global.css` imports `tokens.css` and exposes everything as utilities via
+  `@theme inline` / `@utility`. It holds **no literal values** — only `var()` references + keyframes.
+- Components reference utilities only. Adding/altering a value = edit `tokens.css`, nothing else.
 
 ## Waitlist form
 Posts to Formspree (`FORMSPREE_ENDPOINT` in `content.ts`). Works without JS (native POST); the

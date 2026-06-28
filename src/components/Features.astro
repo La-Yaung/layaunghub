@@ -4,32 +4,32 @@ import Icon from './Icon.astro';
 ---
 <section id="features" class="ly-reveal max-w-[1280px] mx-auto pt-[clamp(40px,6vw,72px)] px-[clamp(20px,5vw,72px)] pb-[clamp(70px,9vw,120px)]">
   <div class="max-w-[760px] mb-12">
-    <div class="font-mono text-xs tracking-[0.14em] uppercase text-content-brand mb-[18px]">03 / What you get</div>
-    <h2 class="font-display text-[clamp(30px,4.6vw,52px)] font-bold leading-[1.06]">Everything a tutor gives you —<br><span class="text-gold">in one app.</span></h2>
+    <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">03 / What you get</div>
+    <h2 class="font-display text-display-md font-bold leading-106">Everything a tutor gives you —<br><span class="text-gold">in one app.</span></h2>
   </div>
 
   <!-- hero feature -->
-  <div class="flex gap-[clamp(32px,5vw,64px)] items-center flex-wrap bg-[linear-gradient(135deg,_rgba(40,52,128,0.55),_rgba(20,28,74,0.4))] border border-white/10 rounded-[28px] p-[clamp(28px,4vw,52px)] mb-5">
+  <div class="flex gap-[clamp(32px,5vw,64px)] items-center flex-wrap bg-card-feature border border-glass-10 rounded-[28px] p-[clamp(28px,4vw,52px)] mb-5">
     <div class="flex-[1_1_360px] min-w-[280px]">
-      <div class="font-mono inline-block font-bold text-[11px] tracking-[0.08em] text-content-on-brand bg-surface-brand px-3 py-1.5 rounded-lg mb-5">9 ACTIVITY TYPES</div>
-      <h3 class="font-display text-[clamp(24px,3vw,34px)] font-bold leading-[1.1] mb-4">Practice that makes it stick</h3>
-      <p class="text-[16.5px] leading-[1.6] text-content-secondary mb-[26px]">After you watch, lock it in. Each lesson turns into hands-on practice across nine interactive formats that keep you thinking — not just nodding along.</p>
+      <div class="font-mono inline-block font-bold text-11 tracking-loosest text-content-on-brand bg-surface-brand px-3 py-1.5 rounded-lg mb-5">9 ACTIVITY TYPES</div>
+      <h3 class="font-display text-display-sm font-bold leading-110 mb-4">Practice that makes it stick</h3>
+      <p class="text-16-5 leading-160 text-content-secondary mb-[26px]">After you watch, lock it in. Each lesson turns into hands-on practice across nine interactive formats that keep you thinking — not just nodding along.</p>
       <div class="flex flex-wrap gap-[9px]">
         {activities.map((a) => (
-          <span class="text-[13.5px] font-medium text-neutral-100 bg-white/[0.06] border border-white/[0.12] px-3.5 py-[9px] rounded-[100px]">{a}</span>
+          <span class="text-13-5 font-medium text-neutral-100 bg-glass-6 border border-glass-12 px-3.5 py-[9px] rounded-[100px]">{a}</span>
         ))}
       </div>
     </div>
     <!-- phone mockup -->
     <div class="flex-[0_0_auto] mx-auto">
-      <div class="w-[264px] bg-[linear-gradient(180deg,#141C4A,#0E1438)] border-[7px] border-[#05081E] rounded-[38px] overflow-hidden shadow-[0_30px_70px_-20px_rgba(0,0,0,0.6)]">
+      <div class="w-[264px] bg-phone-b border-[7px] border-deep rounded-[38px] overflow-hidden shadow-[0_30px_70px_-20px_rgba(0,0,0,0.6)]">
         <div class="pt-[26px] px-4 pb-[18px]">
-          <div class="flex items-center justify-between mb-4"><span class="font-display font-semibold text-[13px] text-content-primary">Biology · Cells</span><span class="text-[10px] font-display text-content-on-brand bg-surface-brand px-2 py-[3px] rounded-md">3 / 9</span></div>
-          <div class="flex gap-1 mb-5"><span class="flex-1 h-[5px] rounded-[10px] bg-surface-brand"></span><span class="flex-1 h-[5px] rounded-[10px] bg-surface-brand"></span><span class="flex-1 h-[5px] rounded-[10px] bg-surface-brand"></span><span class="flex-[6] h-[5px] rounded-[10px] bg-white/[0.12]"></span></div>
-          <div class="font-display font-semibold text-[15px] leading-[1.25] text-content-primary mb-[18px]">Which organelle releases energy in the cell?</div>
-          <div class="bg-surface-brand/[0.14] border-[1.5px] border-border-interactive rounded-[14px] p-[13px] flex items-center gap-2.5 mb-2.5"><span class="w-6 h-6 rounded-[7px] bg-surface-brand text-content-on-brand font-display font-bold text-xs flex items-center justify-center">A</span><span class="text-[12.5px] text-content-primary">Mitochondria</span><span class="ml-auto text-content-brand">✓</span></div>
-          <div class="bg-surface-tertiary border border-white/[0.1] rounded-[14px] p-[13px] flex items-center gap-2.5 mb-2.5"><span class="w-6 h-6 rounded-[7px] bg-white/[0.08] text-neutral-300 font-display font-bold text-xs flex items-center justify-center">B</span><span class="text-[12.5px] text-neutral-300">Nucleus</span></div>
-          <div class="bg-surface-tertiary border border-white/[0.1] rounded-[14px] p-[13px] flex items-center gap-2.5"><span class="w-6 h-6 rounded-[7px] bg-white/[0.08] text-neutral-300 font-display font-bold text-xs flex items-center justify-center">C</span><span class="text-[12.5px] text-neutral-300">Ribosome</span></div>
+          <div class="flex items-center justify-between mb-4"><span class="font-display font-semibold text-13 text-content-primary">Biology · Cells</span><span class="text-10 font-display text-content-on-brand bg-surface-brand px-2 py-[3px] rounded-md">3 / 9</span></div>
+          <div class="flex gap-1 mb-5"><span class="flex-1 h-[5px] rounded-[10px] bg-surface-brand"></span><span class="flex-1 h-[5px] rounded-[10px] bg-surface-brand"></span><span class="flex-1 h-[5px] rounded-[10px] bg-surface-brand"></span><span class="flex-[6] h-[5px] rounded-[10px] bg-glass-12"></span></div>
+          <div class="font-display font-semibold text-15 leading-125 text-content-primary mb-[18px]">Which organelle releases energy in the cell?</div>
+          <div class="bg-surface-brand/[0.14] border-[1.5px] border-border-interactive rounded-[14px] p-[13px] flex items-center gap-2.5 mb-2.5"><span class="w-6 h-6 rounded-[7px] bg-surface-brand text-content-on-brand font-display font-bold text-12 flex items-center justify-center">A</span><span class="text-12-5 text-content-primary">Mitochondria</span><span class="ml-auto text-content-brand">✓</span></div>
+          <div class="bg-surface-tertiary border border-glass-10 rounded-[14px] p-[13px] flex items-center gap-2.5 mb-2.5"><span class="w-6 h-6 rounded-[7px] bg-glass-8 text-neutral-300 font-display font-bold text-12 flex items-center justify-center">B</span><span class="text-12-5 text-neutral-300">Nucleus</span></div>
+          <div class="bg-surface-tertiary border border-glass-10 rounded-[14px] p-[13px] flex items-center gap-2.5"><span class="w-6 h-6 rounded-[7px] bg-glass-8 text-neutral-300 font-display font-bold text-12 flex items-center justify-center">C</span><span class="text-12-5 text-neutral-300">Ribosome</span></div>
         </div>
       </div>
     </div>
@@ -39,9 +39,9 @@ import Icon from './Icon.astro';
   <div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5">
     {features.map((f) => (
       <div class="transition duration-200 hover:-translate-y-1 hover:border-border-interactive/30 bg-surface-tertiary border border-border-subtle rounded-[22px] px-7 py-[30px]">
-        <div class="w-[50px] h-[50px] rounded-[14px] bg-[linear-gradient(135deg,_rgba(255,214,107,0.22),_rgba(255,214,107,0.06))] border border-border-interactive/[0.3] flex items-center justify-center mb-[22px]"><Icon name={f.icon} size={25} class="text-gold-200" /></div>
-        <h3 class="font-display text-xl font-semibold mb-[11px] leading-[1.2]">{f.title}</h3>
-        <p class="text-[15px] leading-[1.6] text-neutral-500">{f.body}</p>
+        <div class="w-[50px] h-[50px] rounded-[14px] bg-icon-soft border border-border-interactive/[0.3] flex items-center justify-center mb-[22px]"><Icon name={f.icon} size={25} class="text-gold-200" /></div>
+        <h3 class="font-display text-20 font-semibold mb-[11px] leading-120">{f.title}</h3>
+        <p class="text-15 leading-160 text-neutral-500">{f.body}</p>
       </div>
     ))}
   </div>
