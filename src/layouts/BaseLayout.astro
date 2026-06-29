@@ -166,26 +166,6 @@ const jsonLd = {
   <slot />
 
   <script>
-    // ===== Starfield ====================================================
-    function buildStars() {
-      const host = document.getElementById('ly-stars');
-      if (!host || host.dataset.built) return;
-      host.dataset.built = '1';
-      const animate = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const n = 90;
-      let html = '';
-      for (let i = 0; i < n; i++) {
-        const x = Math.random() * 100, y = Math.random() * 100;
-        const s = Math.random() * 2 + 1;
-        const d = (Math.random() * 4 + 2).toFixed(2);
-        const delay = (Math.random() * 5).toFixed(2);
-        const bright = Math.random() > 0.85;
-        const col = bright ? '#FFE7A0' : '#CFE0FF';
-        html += '<span style="position:absolute; left:' + x + '%; top:' + y + '%; width:' + s + 'px; height:' + s + 'px; border-radius:50%; background:' + col + '; box-shadow:0 0 ' + (s * 2) + 'px ' + col + '; ' + (animate ? ('animation:lyTwinkle ' + d + 's ease-in-out ' + delay + 's infinite;') : 'opacity:0.6;') + '"></span>';
-      }
-      host.innerHTML = html;
-    }
-
     // ===== Waitlist form (Formspree AJAX, progressive enhancement) =======
     function showSuccess(form: HTMLFormElement, email: string, dark: boolean) {
       const safe = email.replace(/[<>&]/g, (c) => (({ '<': '&lt;', '>': '&gt;', '&': '&amp;' } as Record<string, string>)[c]));
@@ -245,7 +225,6 @@ const jsonLd = {
       els.forEach((el) => io.observe(el));
     }
 
-    buildStars();
     initReveal();
     document.querySelectorAll<HTMLFormElement>('form.ly-waitlist').forEach((f) => f.addEventListener('submit', handleSubmit));
   </script>
