@@ -11,13 +11,13 @@ import Icon from './Icon.astro';
     </div>
     <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-5">
       {steps.map((s) => (
-        <div class="relative bg-panel-soft border border-glass-10 rounded-[24px] py-[34px] px-[30px] transition duration-200 hover:-translate-y-1 hover:border-border-interactive/30">
+        <div class="relative bg-panel-soft border border-border-subtle rounded-[24px] py-[34px] px-[30px] transition duration-200 hover:-translate-y-1 hover:border-border-interactive/30">
           <div class="flex items-center gap-[14px] mb-5">
-            <div class="w-[54px] h-[54px] rounded-2xl bg-icon-soft border border-border-interactive/[0.3] flex items-center justify-center"><Icon name={s.icon} size={27} class="text-gold-200" /></div>
-            <span class="font-display text-42 font-extrabold text-white/[0.1]">{s.n}</span>
+            <div class="w-[54px] h-[54px] rounded-2xl bg-icon-soft border border-border-interactive/[0.3] flex items-center justify-center"><Icon name={s.icon} size={27} class="text-content-brand" /></div>
+            <span class="font-display text-42 font-extrabold text-content-primary/10">{s.n}</span>
           </div>
           <h3 class="font-display text-22 font-bold mb-[11px]">{s.title}</h3>
-          <p class="text-15 leading-160 text-neutral-500">{s.body}</p>
+          <p class="text-15 leading-160 text-content-secondary">{s.body}</p>
         </div>
       ))}
     </div>
