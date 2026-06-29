@@ -57,7 +57,6 @@
   /* Motion */
   --animate-float:   var(--motion-float);
   --animate-glow:    var(--motion-glow);
-  --animate-twinkle: var(--motion-twinkle);
   --animate-rise:    var(--motion-rise);
 }
 
@@ -106,7 +105,6 @@
   --color-glass-20: var(--glass-20); --color-glass-25: var(--glass-25);
 }
 
-@keyframes lyTwinkle { 0%,100% { opacity:0.25; } 50% { opacity:1; } }
 @keyframes lyFloat   { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-14px); } }
 @keyframes lyGlow    { 0%,100% { opacity:0.6; transform:scale(1); } 50% { opacity:0.95; transform:scale(1.06); } }
 @keyframes lyRise    { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }

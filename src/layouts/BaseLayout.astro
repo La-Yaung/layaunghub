@@ -83,12 +83,12 @@ const jsonLd = {
     },
     {
       '@type': 'Service',
-      name: 'Bilingual GED & IGCSE exam preparation',
+      name: 'Bilingual GED exam preparation',
       provider: { '@id': orgId },
       areaServed: { '@type': 'Country', name: 'Myanmar' },
       serviceType: 'Online exam preparation',
       description:
-        'Interactive, bilingual (Burmese & English) preparation for the GED, IGCSE (Cambridge) and Myanmar Grade 10–12 curriculum, with video lessons, nine practice activity types and real teacher feedback.',
+        'Interactive, bilingual (Burmese & English) GED preparation with video lessons, nine practice activity types and real teacher feedback. IGCSE (Cambridge) and Myanmar Grade 10–12 tracks are coming soon.',
       offers: [
         { '@type': 'Offer', name: 'Free', price: '0', priceCurrency: 'MMK', description: 'First lesson of every topic, all 9 activity types, bilingual lessons and basic progress tracking.' },
         { '@type': 'Offer', name: 'Premium', priceCurrency: 'MMK', description: 'Every lesson unlocked, teacher feedback, full gap analysis and lifetime early-bird pricing.', availability: 'https://schema.org/PreOrder' },
@@ -98,9 +98,10 @@ const jsonLd = {
 };
 ---
 <!DOCTYPE html>
-<!-- data-theme="dark" locks the semantic tokens to the dark "moonlight" map.
-     The light map ships in tokens/ for when a theme toggle is added. -->
-<html lang="en" data-theme="dark">
+<!-- data-theme="light" is now the active brand map (warm daytime palette).
+     The dark token map is retained in tokens.css and applied via data-theme="dark"
+     on the <footer> element (Task 5 / Footer anchor). -->
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -129,7 +130,7 @@ const jsonLd = {
   <meta property="og:image" content={ogImageUrl} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="La Yaung Hub — interactive bilingual GED & IGCSE prep for Myanmar students" />
+  <meta property="og:image:alt" content="La Yaung Hub — interactive bilingual GED exam prep for Myanmar students" />
   <meta property="og:locale" content={site.locale} />
   <meta property="og:locale:alternate" content={site.localeAlternate} />
 
@@ -138,7 +139,7 @@ const jsonLd = {
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImageUrl} />
-  <meta name="twitter:image:alt" content="La Yaung Hub — interactive bilingual GED & IGCSE prep for Myanmar students" />
+  <meta name="twitter:image:alt" content="La Yaung Hub — interactive bilingual GED exam prep for Myanmar students" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -165,30 +166,10 @@ const jsonLd = {
   <slot />
 
   <script>
-    // ===== Starfield ====================================================
-    function buildStars() {
-      const host = document.getElementById('ly-stars');
-      if (!host || host.dataset.built) return;
-      host.dataset.built = '1';
-      const animate = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const n = 90;
-      let html = '';
-      for (let i = 0; i < n; i++) {
-        const x = Math.random() * 100, y = Math.random() * 100;
-        const s = Math.random() * 2 + 1;
-        const d = (Math.random() * 4 + 2).toFixed(2);
-        const delay = (Math.random() * 5).toFixed(2);
-        const bright = Math.random() > 0.85;
-        const col = bright ? '#FFE7A0' : '#CFE0FF';
-        html += '<span style="position:absolute; left:' + x + '%; top:' + y + '%; width:' + s + 'px; height:' + s + 'px; border-radius:50%; background:' + col + '; box-shadow:0 0 ' + (s * 2) + 'px ' + col + '; ' + (animate ? ('animation:lyTwinkle ' + d + 's ease-in-out ' + delay + 's infinite;') : 'opacity:0.6;') + '"></span>';
-      }
-      host.innerHTML = html;
-    }
-
     // ===== Waitlist form (Formspree AJAX, progressive enhancement) =======
     function showSuccess(form: HTMLFormElement, email: string, dark: boolean) {
       const safe = email.replace(/[<>&]/g, (c) => (({ '<': '&lt;', '>': '&gt;', '&': '&amp;' } as Record<string, string>)[c]));
-      form.innerHTML = '<div style="display:flex; align-items:center; gap:10px; font-family:Hanken Grotesk; font-size:15.5px; color:' + (dark ? '#0A1030' : '#BFE9CF') + '; font-weight:600; background:' + (dark ? 'rgba(10,16,48,0.12)' : 'rgba(58,209,122,0.1)') + '; border:1px solid ' + (dark ? 'rgba(10,16,48,0.25)' : 'rgba(58,209,122,0.35)') + '; padding:15px 20px; border-radius:14px; width:100%;"><span>✓</span><span>You’re on the list! We’ll email ' + safe + ' when the beta opens.</span></div>';
+      form.innerHTML = '<div style="display:flex; align-items:center; gap:10px; font-family:Hanken Grotesk; font-size:15.5px; color:' + (dark ? '#0A1030' : '#14773F') + '; font-weight:600; background:' + (dark ? 'rgba(10,16,48,0.12)' : 'rgba(34,183,101,0.12)') + '; border:1px solid ' + (dark ? 'rgba(10,16,48,0.25)' : 'rgba(34,183,101,0.35)') + '; padding:15px 20px; border-radius:14px; width:100%;"><span>✓</span><span>You’re on the list! We’ll email ' + safe + ' when the beta opens.</span></div>';
     }
 
     function showError(form: HTMLFormElement, btn: HTMLButtonElement | null) {
@@ -197,7 +178,7 @@ const jsonLd = {
       if (!msg) {
         msg = document.createElement('div');
         msg.className = 'ly-form-error';
-        msg.style.cssText = 'flex-basis:100%; font-family:Hanken Grotesk; font-size:13.5px; color:#FFB4B4; margin-top:2px;';
+        msg.style.cssText = 'flex-basis:100%; font-family:Hanken Grotesk; font-size:13.5px; color:#B91C1C; margin-top:2px;';
         form.appendChild(msg);
       }
       msg.textContent = 'Something went wrong — please try again, or email hlaminnaing@layaunghub.com.';
@@ -244,7 +225,6 @@ const jsonLd = {
       els.forEach((el) => io.observe(el));
     }
 
-    buildStars();
     initReveal();
     document.querySelectorAll<HTMLFormElement>('form.ly-waitlist').forEach((f) => f.addEventListener('submit', handleSubmit));
   </script>

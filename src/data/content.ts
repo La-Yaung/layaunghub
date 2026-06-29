@@ -7,16 +7,16 @@ export const site = {
   nameMy: 'လရောင်',
   url: 'https://layaunghub.com',
   // Keep <= ~60 chars for the SERP title.
-  title: 'La Yaung Hub — Bilingual GED & IGCSE Exam Prep for Myanmar',
+  title: 'La Yaung Hub — Bilingual GED Exam Prep for Myanmar',
   // Keep ~150–160 chars for the SERP description.
   description:
-    'La Yaung Hub (လရောင်) is interactive, bilingual exam prep for Myanmar students — short video lessons, hands-on practice and teacher feedback mapped to the real GED, IGCSE (Cambridge) and Grade 10–12 syllabus.',
+    'Interactive, bilingual GED exam prep for Myanmar students — video lessons, hands-on practice and real teacher feedback. IGCSE & Myanmar tracks coming soon.',
   tagline: 'Interactive, bilingual exam prep — lighting the way for Myanmar students.',
   locale: 'en_US',
   localeAlternate: 'my_MM',
   email: 'hlaminnaing@layaunghub.com',
   ogImage: '/og-image.png',
-  themeColor: '#0B1020',
+  themeColor: '#FFFBF2',
   gaId: 'G-7PZ1NYMGS0', // Google Analytics 4 measurement ID
   // Keywords are not used for ranking by Google, but help some engines/LLMs
   // and our own internal copy. They mirror the visible, factual content below.
@@ -98,10 +98,12 @@ export const features: { icon: IconName; title: string; body: string }[] = [
   { icon: 'translate', title: 'Fully bilingual', body: 'Learn in Burmese and English side by side — concepts first, exam-language second.' },
 ];
 
-export const curriculum: { tag: string; title: string; body: string; points: string[]; subjects: string[] }[] = [
-  { tag: 'IGCSE · CAMBRIDGE', title: 'International GCSE', body: 'Core subjects aligned to Cambridge assessment objectives, with exam-style practice.', points: ['Maths, Science, Language Arts', 'Past-paper-style questions', 'Grade-boundary tracking'], subjects: ['Mathematics', 'Add-Maths', 'Physics', 'Chemistry', 'Biology', 'English', 'Economics', 'Accounting'] },
-  { tag: 'GED', title: 'US High-School Equivalency', body: 'All four GED modules, built around the official test blueprint.', points: ['Math, Science, Social Studies, RLA', 'Timed practice tests', 'Readiness scoring'], subjects: ['Mathematical Reasoning', 'Reasoning Through Language Arts', 'Science', 'Social Studies'] },
-  { tag: 'GRADES 10–12', title: 'Myanmar National Curriculum', body: 'Local-curriculum support in Burmese for the matriculation years.', points: ['Aligned to national textbooks', 'Bilingual explanations', 'Matric exam preparation'], subjects: ['Myanmar', 'English', 'Maths', 'Physics', 'Chemistry', 'Biology', 'Economics'] },
+// `status` drives the launch focus: GED is live now; IGCSE and the Myanmar
+// curriculum are built but not yet uploaded, so they render as "Coming soon".
+export const curriculum: { tag: string; title: string; body: string; status: 'available' | 'soon'; points: string[]; subjects: string[] }[] = [
+  { tag: 'GED', title: 'US High-School Equivalency', body: 'All four GED modules, built around the official test blueprint.', status: 'available', points: ['Math, Science, Social Studies, RLA', 'Timed practice tests', 'Readiness scoring'], subjects: ['Mathematical Reasoning', 'Reasoning Through Language Arts', 'Science', 'Social Studies'] },
+  { tag: 'IGCSE · CAMBRIDGE', title: 'International GCSE', body: 'Core subjects aligned to Cambridge assessment objectives, with exam-style practice.', status: 'soon', points: ['Maths, Science, Language Arts', 'Past-paper-style questions', 'Grade-boundary tracking'], subjects: ['Mathematics', 'Add-Maths', 'Physics', 'Chemistry', 'Biology', 'English', 'Economics', 'Accounting'] },
+  { tag: 'GRADES 10–12', title: 'Myanmar National Curriculum', body: 'Local-curriculum support in Burmese for the matriculation years.', status: 'soon', points: ['Aligned to national textbooks', 'Bilingual explanations', 'Matric exam preparation'], subjects: ['Myanmar', 'English', 'Maths', 'Physics', 'Chemistry', 'Biology', 'Economics'] },
 ];
 
 export const freePlan = ['First lesson of every topic', 'All 9 activity types', 'Bilingual lessons', 'Basic progress tracking'];
@@ -119,12 +121,12 @@ export const faqs: { q: string; a: string }[] = [
     a: 'Yes. La Yaung Hub is built for Burmese-speaking students: every lesson is fully bilingual, explaining each concept in Burmese first and then in the English exam language. You can study GED Math, Science, Social Studies and RLA online from anywhere in Myanmar, at your own pace.',
   },
   {
-    q: 'How much does GED and IGCSE preparation cost on La Yaung?',
+    q: 'How much does GED preparation cost on La Yaung?',
     a: 'The first lesson of every topic is free forever, including all nine practice activity types. Private tutoring in Myanmar typically costs 50,000–150,000 MMK per subject each month; La Yaung’s Premium plan unlocks every lesson and teacher feedback for a fraction of that, with lifetime early-bird pricing for beta members.',
   },
   {
     q: 'What is the difference between the GED and IGCSE?',
-    a: 'IGCSE (International General Certificate of Secondary Education) is a Cambridge-assessed, subject-by-subject qualification usually taken around age 16, with formal exam sessions. The GED is a US equivalency test of four broad subjects that can be taken year-round. La Yaung Hub covers both pathways, plus the Myanmar national curriculum for Grades 10–12, so you can choose the route that fits your goals.',
+    a: 'IGCSE (International General Certificate of Secondary Education) is a Cambridge-assessed, subject-by-subject qualification usually taken around age 16, with formal exam sessions. The GED is a US equivalency test of four broad subjects that can be taken year-round. La Yaung Hub is launching with full GED preparation now; IGCSE and the Myanmar Grade 10–12 curriculum are coming soon, so you’ll be able to choose the route that fits your goals.',
   },
   {
     q: 'How long does it take to prepare for the GED?',

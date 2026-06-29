@@ -10,20 +10,27 @@ import { curriculum } from '../data/content';
     </div>
     <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-5">
       {curriculum.map((c) => (
-        <div class="transition duration-200 hover:-translate-y-1 hover:border-border-interactive/30 bg-panel-soft-25 border border-glass-10 rounded-[24px] py-8 px-[30px]">
-          <div class="font-display text-14 font-bold tracking-looser text-content-brand mb-[18px]">{c.tag}</div>
+        <div class={`transition duration-200 rounded-[24px] py-8 px-[30px] border ${c.status === 'available' ? 'hover:-translate-y-1 border-border-interactive/45 bg-banner-gold' : 'opacity-60 hover:opacity-80 border-border-subtle bg-panel-soft-25'}`}>
+          <div class="flex items-center justify-between gap-3 mb-[18px]">
+            <span class="font-display text-14 font-bold tracking-looser text-content-brand">{c.tag}</span>
+            {c.status === 'available' ? (
+              <span class="font-mono text-10 tracking-caps uppercase text-content-on-brand bg-gold px-2.5 py-1 rounded-full whitespace-nowrap">Available now</span>
+            ) : (
+              <span class="font-mono text-10 tracking-caps uppercase text-content-tertiary bg-surface-tertiary border border-border-subtle px-2.5 py-1 rounded-full whitespace-nowrap">Coming soon</span>
+            )}
+          </div>
           <h3 class="font-display text-25 font-bold mb-3 leading-112">{c.title}</h3>
-          <p class="text-15 leading-160 text-neutral-500 mb-[22px]">{c.body}</p>
+          <p class="text-15 leading-160 text-content-secondary mb-[22px]">{c.body}</p>
           <div class="flex flex-col gap-2.5">
             {c.points.map((pt) => (
-              <div class="flex gap-2.5 items-start text-14-5 text-neutral-200"><span class="text-content-brand mt-px">✦</span><span>{pt}</span></div>
+              <div class="flex gap-2.5 items-start text-14-5 text-content-primary"><span class="text-content-brand mt-px">✦</span><span>{pt}</span></div>
             ))}
           </div>
-          <div class="mt-[22px] pt-[18px] border-t border-glass-8">
-            <div class="font-mono text-11 tracking-caps uppercase text-neutral-500 mb-3">Subjects</div>
+          <div class="mt-[22px] pt-[18px] border-t border-border-subtle">
+            <div class="font-mono text-11 tracking-caps uppercase text-content-secondary mb-3">Subjects</div>
             <div class="flex flex-wrap gap-2">
               {c.subjects.map((s) => (
-                <span class="text-12-5 font-medium text-neutral-200 bg-support/[0.08] border border-support/20 px-2.5 py-1.5 rounded-full">{s}</span>
+                <span class="text-12-5 font-medium text-content-primary bg-support/[0.08] border border-support/20 px-2.5 py-1.5 rounded-full">{s}</span>
               ))}
             </div>
           </div>
