@@ -9,17 +9,17 @@ import { transformation } from '../data/content';
     <div class="absolute inset-0 bg-glow-cta pointer-events-none"></div>
 
     <div class="relative z-[1] max-w-[760px]">
-      <div class="font-mono text-12 tracking-caps-xl uppercase text-gold-200 mb-[18px] flex items-center gap-2"><Icon name="moon" size={15} class="text-content-brand shrink-0" /> The shift</div>
+      <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px] flex items-center gap-2"><Icon name="moon" size={15} class="text-content-brand shrink-0" /> The shift</div>
       <h2 class="font-display text-display-md font-bold leading-106">From studying in the dark —<br>to learning by <span class="text-gold">moonlight.</span></h2>
     </div>
 
     <!-- before → after -->
     <div class="relative z-[1] mt-[clamp(28px,4vw,48px)] grid grid-cols-[1fr_auto_1fr] max-[760px]:grid-cols-1 gap-5 items-center">
       <!-- in the dark -->
-      <div class="rounded-[20px] border border-glass-8 bg-glass-3 p-7">
-        <div class="font-display text-15 font-semibold text-neutral-400 mb-4">In the dark</div>
+      <div class="rounded-[20px] border border-border-subtle bg-surface-secondary p-7">
+        <div class="font-display text-15 font-semibold text-content-tertiary mb-4">In the dark</div>
         {transformation.dark.map((t) => (
-          <div class="flex gap-3 items-start text-14-5 text-neutral-500 mb-3 last:mb-0"><span class="text-neutral-600 mt-px">✕</span><span>{t}</span></div>
+          <div class="flex gap-3 items-start text-14-5 text-content-tertiary mb-3 last:mb-0"><span class="text-content-secondary mt-px">✕</span><span>{t}</span></div>
         ))}
       </div>
       <!-- moonbeam: a beam of light from the dark to the moon -->
@@ -30,9 +30,9 @@ import { transformation } from '../data/content';
       </div>
       <!-- by moonlight -->
       <div class="rounded-[20px] border border-border-interactive/[0.35] bg-surface-brand/[0.08] p-7">
-        <div class="font-display text-15 font-semibold text-gold-200 mb-4">By moonlight</div>
+        <div class="font-display text-15 font-semibold text-content-brand mb-4">By moonlight</div>
         {transformation.light.map((t) => (
-          <div class="flex gap-3 items-start text-14-5 text-neutral-200 mb-3 last:mb-0"><span class="text-content-brand mt-px">✦</span><span>{t}</span></div>
+          <div class="flex gap-3 items-start text-14-5 text-content-primary mb-3 last:mb-0"><span class="text-content-brand mt-px">✦</span><span>{t}</span></div>
         ))}
       </div>
     </div>
