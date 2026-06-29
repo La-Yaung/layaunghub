@@ -90,7 +90,7 @@
 
   /* Motion (paired with @keyframes in global.css) */
   --motion-float:lyFloat 8s ease-in-out infinite;   --motion-glow:lyGlow 7s ease-in-out infinite;
-  --motion-twinkle:lyTwinkle 3s ease-in-out infinite; --motion-rise:lyRise .7s cubic-bezier(.2,.7,.2,1) both;
+  --motion-rise:lyRise .7s cubic-bezier(.2,.7,.2,1) both;
 
   /* Gradients */
   --gradient-gold:linear-gradient(100deg, #FFE7A0, #FFD15E 55%, #F0A93A);
