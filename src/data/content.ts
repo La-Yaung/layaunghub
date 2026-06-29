@@ -16,7 +16,7 @@ export const site = {
   localeAlternate: 'my_MM',
   email: 'hlaminnaing@layaunghub.com',
   ogImage: '/og-image.png',
-  themeColor: '#0B1020',
+  themeColor: '#FFFBF2',
   gaId: 'G-7PZ1NYMGS0', // Google Analytics 4 measurement ID
   // Keywords are not used for ranking by Google, but help some engines/LLMs
   // and our own internal copy. They mirror the visible, factual content below.
