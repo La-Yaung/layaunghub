@@ -94,30 +94,30 @@
 
   /* Gradients */
   --gradient-gold:linear-gradient(100deg, #FFE7A0, #FFD15E 55%, #F0A93A);
-  --gradient-gold-text:linear-gradient(100deg, #FFE7A0, #FFD15E 45%, #F0A93A);
+  --gradient-gold-text:linear-gradient(100deg, #E0A53A, #CC861F 45%, #9C6618);
   --gradient-gold-bar:linear-gradient(90deg, #FFE7A0, #F0A93A);
   --gradient-gold-tab:linear-gradient(100deg, #FFE7A0, #F0A93A);
   --gradient-gold-tile:linear-gradient(135deg, #FFE7A0, #F0A93A);
-  --gradient-icon-soft:linear-gradient(135deg, rgba(255,214,107,0.22), rgba(255,214,107,0.06));
-  --gradient-card-feature:linear-gradient(135deg, rgba(42,58,107,0.55), rgba(17,23,51,0.4));
-  --gradient-banner-gold:linear-gradient(100deg, rgba(255,214,107,0.1), rgba(255,214,107,0.02));
-  --gradient-premium:linear-gradient(165deg, rgba(255,214,107,0.16), rgba(42,58,107,0.3));
-  --gradient-cta-card:linear-gradient(150deg, #2E4C9E 0%, #1B2E63 58%, #0C1740 100%);
-  --gradient-panel-soft:linear-gradient(180deg, rgba(42,58,107,0.4), rgba(17,23,51,0.22));
-  --gradient-panel-soft-25:linear-gradient(180deg, rgba(42,58,107,0.4), rgba(17,23,51,0.25));
-  /* "Light from above" — a luminous moonlit-blue glow breaking into the dark sky */
-  --gradient-app:radial-gradient(120% 85% at 50% -12%, #2E57C0 0%, #173A92 32%, #0C1E50 60%, #0A1330 82%);
-  --gradient-screen:radial-gradient(120% 90% at 30% 20%, #233A86, #141C36 70%);
-  --gradient-glow-hero:radial-gradient(circle, rgba(244,206,94,0.26), rgba(244,206,94,0.05) 55%, transparent 72%);
-  --gradient-glow-moon:radial-gradient(circle, rgba(244,206,94,0.16), rgba(244,206,94,0.04) 45%, transparent 70%);
-  --gradient-glow-spot:radial-gradient(circle at 75% 30%, rgba(244,206,94,0.45), transparent 45%);
-  --gradient-glow-cta:radial-gradient(circle at 80% 0%, rgba(244,206,94,0.18), transparent 45%);
+  --gradient-icon-soft:linear-gradient(135deg, rgba(240,169,58,0.20), rgba(240,169,58,0.06));
+  --gradient-card-feature:linear-gradient(135deg, rgba(255,244,216,0.85), rgba(255,255,255,0.6));
+  --gradient-banner-gold:linear-gradient(100deg, rgba(240,169,58,0.12), rgba(240,169,58,0.03));
+  --gradient-premium:linear-gradient(165deg, rgba(255,214,107,0.22), rgba(255,247,230,0.65));
+  --gradient-cta-card:linear-gradient(150deg, #FFFDF8 0%, #FFF4D8 58%, #FFE7B5 100%);
+  --gradient-panel-soft:linear-gradient(180deg, rgba(255,244,216,0.5), rgba(255,255,255,0.32));
+  --gradient-panel-soft-25:linear-gradient(180deg, rgba(255,244,216,0.5), rgba(255,255,255,0.4));
+  /* "Light from above" — warm sunrise halo breaking into a clear white sky */
+  --gradient-app:radial-gradient(120% 85% at 50% -12%, #FFF3D6 0%, #FFFBF2 34%, #FFFFFF 62%, #FCFDFF 84%);
+  --gradient-screen:radial-gradient(120% 90% at 30% 20%, #FFFDF8, #FFF3D6 70%);
+  --gradient-glow-hero:radial-gradient(circle, rgba(240,169,58,0.20), rgba(240,169,58,0.05) 55%, transparent 72%);
+  --gradient-glow-moon:radial-gradient(circle, rgba(240,169,58,0.18), rgba(240,169,58,0.05) 45%, transparent 70%);
+  --gradient-glow-spot:radial-gradient(circle at 75% 30%, rgba(240,169,58,0.26), transparent 45%);
+  --gradient-glow-cta:radial-gradient(circle at 80% 0%, rgba(240,169,58,0.14), transparent 45%);
   --gradient-moon:radial-gradient(circle at 40% 40%, #FBE39A, #EAB94E 55%, #C98F2E);
-  --gradient-phone-a:linear-gradient(180deg, #141E3C, #0A1330);
-  --gradient-phone-b:linear-gradient(180deg, #16224A, #0C173A);
-  /* "The shift" — a left-to-right journey from dark to moonlit blue */
-  --gradient-shift:linear-gradient(105deg, #0A1330 0%, #15306F 50%, #2550AE 100%);
-  --gradient-moonbeam:linear-gradient(90deg, rgba(255,214,107,0), #FFD66B);
+  --gradient-phone-a:linear-gradient(180deg, #FFFFFF, #FFF8E9);
+  --gradient-phone-b:linear-gradient(180deg, #FFFDF8, #FFF1D2);
+  /* "The shift" — a light dawn sweep from white into warm gold */
+  --gradient-shift:linear-gradient(105deg, #FFFFFF 0%, #FFF6E2 50%, #FFE7B5 100%);
+  --gradient-moonbeam:linear-gradient(90deg, rgba(240,169,58,0), #F0A93A);
 
   /* ---------- TIER 2 · SEMANTIC (LIGHT, default) ---------- */
   --surface-primary:   var(--color-neutral-0);
