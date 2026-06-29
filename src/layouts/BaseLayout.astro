@@ -169,7 +169,7 @@ const jsonLd = {
     // ===== Waitlist form (Formspree AJAX, progressive enhancement) =======
     function showSuccess(form: HTMLFormElement, email: string, dark: boolean) {
       const safe = email.replace(/[<>&]/g, (c) => (({ '<': '&lt;', '>': '&gt;', '&': '&amp;' } as Record<string, string>)[c]));
-      form.innerHTML = '<div style="display:flex; align-items:center; gap:10px; font-family:Hanken Grotesk; font-size:15.5px; color:' + (dark ? '#0A1030' : '#BFE9CF') + '; font-weight:600; background:' + (dark ? 'rgba(10,16,48,0.12)' : 'rgba(58,209,122,0.1)') + '; border:1px solid ' + (dark ? 'rgba(10,16,48,0.25)' : 'rgba(58,209,122,0.35)') + '; padding:15px 20px; border-radius:14px; width:100%;"><span>✓</span><span>You’re on the list! We’ll email ' + safe + ' when the beta opens.</span></div>';
+      form.innerHTML = '<div style="display:flex; align-items:center; gap:10px; font-family:Hanken Grotesk; font-size:15.5px; color:' + (dark ? '#0A1030' : '#14773F') + '; font-weight:600; background:' + (dark ? 'rgba(10,16,48,0.12)' : 'rgba(34,183,101,0.12)') + '; border:1px solid ' + (dark ? 'rgba(10,16,48,0.25)' : 'rgba(34,183,101,0.35)') + '; padding:15px 20px; border-radius:14px; width:100%;"><span>✓</span><span>You’re on the list! We’ll email ' + safe + ' when the beta opens.</span></div>';
     }
 
     function showError(form: HTMLFormElement, btn: HTMLButtonElement | null) {
@@ -178,7 +178,7 @@ const jsonLd = {
       if (!msg) {
         msg = document.createElement('div');
         msg.className = 'ly-form-error';
-        msg.style.cssText = 'flex-basis:100%; font-family:Hanken Grotesk; font-size:13.5px; color:#FFB4B4; margin-top:2px;';
+        msg.style.cssText = 'flex-basis:100%; font-family:Hanken Grotesk; font-size:13.5px; color:#B91C1C; margin-top:2px;';
         form.appendChild(msg);
       }
       msg.textContent = 'Something went wrong — please try again, or email hlaminnaing@layaunghub.com.';
