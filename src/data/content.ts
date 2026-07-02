@@ -14,7 +14,7 @@ export const site = {
   tagline: 'Interactive, bilingual exam prep — lighting the way for Myanmar students.',
   locale: 'en_US',
   localeAlternate: 'my_MM',
-  email: 'hlaminnaing@layaunghub.com',
+  email: 'contact@layaunghub.com',
   ogImage: '/og-image.png',
   themeColor: '#FFFBF2',
   gaId: 'G-7PZ1NYMGS0', // Google Analytics 4 measurement ID
