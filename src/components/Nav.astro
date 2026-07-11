@@ -1,17 +1,46 @@
 ---
-import { nav } from '../data/content';
+import { getContent } from '../data/i18n';
+
+interface Props {
+  /** Prefix for in-page anchor links. '' on the homepage (bare `#problem`
+   *  for smooth scroll); '/' or '/my/' on sub-pages so anchors jump home. */
+  base?: string;
+  /** Language-switcher target. Defaults to the other locale's home; guide
+   *  pages pass their own counterpart URL. */
+  switchHref?: string;
+}
+
+const locale = Astro.currentLocale ?? 'en';
+const { nav, ui } = getContent(locale);
+const { base = '', switchHref } = Astro.props;
+
+const homeHref = base || (locale === 'my' ? '/my/' : '/');
+
+// Locale-aware link to the GED guides hub (the pillar page cross-links the rest).
+const guidesHref = (locale === 'my' ? '/my/' : '/') + 'what-is-ged/';
+
+// Language switcher: link to the same page in the other locale.
+const otherHref = switchHref ?? (locale === 'my' ? '/' : '/my/');
+const otherLabel = locale === 'my' ? 'EN' : 'မြန်မာ';
 ---
 <nav class="flex items-center justify-between gap-5 py-5 px-[clamp(20px,5vw,72px)] max-w-[1280px] mx-auto">
-  <a href="#top" class="flex items-center gap-3" aria-label="La Yaung Hub home">
-    <img src="/assets/layaung-logo.png" alt="La Yaung Hub logo" width="46" height="46" class="w-[46px] h-[46px] rounded-[13px] shadow-[0_6px_20px_rgba(0,0,0,0.4)]" />
+  <a href={`${homeHref}#top`} class="flex items-center gap-3" aria-label="La Yaung Hub home">
+    <img src="/assets/layaung-logo.png" alt="La Yaung Hub logo" width="46" height="46" class="w-[46px] h-[46px] rounded-[13px] shadow-[0_6px_20px_rgba(19,15,38,0.16)]" />
     <span class="font-display text-21 font-bold tracking-snug">La Yaung <span class="font-medium opacity-70 text-15">Hub</span></span>
   </a>
-  <div class="flex items-center gap-[30px]">
+  <div class="flex items-center gap-[22px]">
     <div class="flex gap-7 items-center max-[820px]:hidden">
       {nav.map((item) => (
-        <a href={item.href} class="text-15 font-medium text-content-secondary hover:text-content-brand transition-colors">{item.label}</a>
+        <a href={`${base}${item.href}`} class="text-15 font-medium text-content-secondary hover:text-content-brand transition-colors">{item.label}</a>
       ))}
+      <a href={guidesHref} class="text-15 font-medium text-content-secondary hover:text-content-brand transition-colors">{ui.nav.guides}</a>
+      {locale === 'my' && <a href="/my/blog/" class="text-15 font-medium text-content-secondary hover:text-content-brand transition-colors">{ui.nav.blog}</a>}
     </div>
-    <a href="#access" class="font-display font-semibold text-14-5 text-content-on-brand bg-gold px-5 py-[11px] rounded-full shadow-[0_8px_22px_-6px_rgba(255,209,94,0.5)] transition-transform hover:-translate-y-0.5">Get Early Access</a>
+    <a
+      href={otherHref}
+      aria-label={locale === 'my' ? 'Switch to English' : 'မြန်မာဘာသာသို့ ပြောင်းရန်'}
+      class="font-display font-semibold text-13 text-content-secondary border border-border-strong px-3.5 py-[9px] rounded-full transition-colors hover:text-content-brand hover:border-border-interactive/60"
+    >{otherLabel}</a>
+    <a href={`${base}#access`} class="font-display font-semibold text-14-5 text-content-on-brand bg-gold px-5 py-[11px] rounded-full shadow-[0_8px_22px_-6px_rgba(95,75,241,0.45)] transition-transform hover:-translate-y-0.5">{ui.nav.cta}</a>
   </div>
 </nav>

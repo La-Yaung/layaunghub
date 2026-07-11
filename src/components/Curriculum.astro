@@ -1,12 +1,15 @@
 ---
-import { curriculum } from '../data/content';
+import { getContent } from '../data/i18n';
+
+const { curriculum, ui } = getContent(Astro.currentLocale);
+const cu = ui.curriculumUi;
 ---
 <section id="curriculum" class="ly-reveal relative">
   <div class="max-w-[1280px] mx-auto pt-[clamp(40px,6vw,64px)] px-[clamp(20px,5vw,72px)] pb-[clamp(70px,9vw,110px)]">
     <div class="max-w-[760px] mb-12">
-      <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">04 / Who it's for</div>
-      <h2 class="font-display text-display-md font-bold leading-106">Three paths, <span class="text-gold">one clear sky.</span></h2>
-      <p class="text-17 text-content-secondary mt-[18px] leading-160">Whichever exam you're aiming for, La Yaung maps your whole journey from where you are to a passing grade.</p>
+      <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">{cu.eyebrow}</div>
+      <h2 class="font-display text-display-md font-bold leading-106">{cu.h2Pre}<span class="text-gold">{cu.h2Highlight}</span></h2>
+      <p class="text-17 text-content-secondary mt-[18px] leading-160">{cu.sub}</p>
     </div>
     <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-5">
       {curriculum.map((c) => (
@@ -14,9 +17,9 @@ import { curriculum } from '../data/content';
           <div class="flex items-center justify-between gap-3 mb-[18px]">
             <span class="font-display text-14 font-bold tracking-looser text-content-brand">{c.tag}</span>
             {c.status === 'available' ? (
-              <span class="font-mono text-10 tracking-caps uppercase text-content-on-brand bg-gold px-2.5 py-1 rounded-full whitespace-nowrap">Available now</span>
+              <span class="font-mono text-10 tracking-caps uppercase text-content-on-brand bg-gold px-2.5 py-1 rounded-full whitespace-nowrap">{cu.available}</span>
             ) : (
-              <span class="font-mono text-10 tracking-caps uppercase text-content-tertiary bg-surface-tertiary border border-border-subtle px-2.5 py-1 rounded-full whitespace-nowrap">Coming soon</span>
+              <span class="font-mono text-10 tracking-caps uppercase text-content-tertiary bg-surface-tertiary border border-border-subtle px-2.5 py-1 rounded-full whitespace-nowrap">{cu.soon}</span>
             )}
           </div>
           <h3 class="font-display text-25 font-bold mb-3 leading-112">{c.title}</h3>
@@ -27,7 +30,7 @@ import { curriculum } from '../data/content';
             ))}
           </div>
           <div class="mt-[22px] pt-[18px] border-t border-border-subtle">
-            <div class="font-mono text-11 tracking-caps uppercase text-content-secondary mb-3">Subjects</div>
+            <div class="font-mono text-11 tracking-caps uppercase text-content-secondary mb-3">{cu.subjects}</div>
             <div class="flex flex-wrap gap-2">
               {c.subjects.map((s) => (
                 <span class="text-12-5 font-medium text-content-primary bg-support/[0.08] border border-support/20 px-2.5 py-1.5 rounded-full">{s}</span>

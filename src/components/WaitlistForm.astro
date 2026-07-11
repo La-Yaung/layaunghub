@@ -1,7 +1,16 @@
 ---
 import { FORMSPREE_ENDPOINT } from '../data/content';
-interface Props { dark?: boolean; center?: boolean; }
-const { dark = false, center = false } = Astro.props;
+import { getContent } from '../data/i18n';
+
+interface Props { dark?: boolean; center?: boolean; source?: string; }
+const { dark = false, center = false, source } = Astro.props;
+
+// Formspree `_source` attribution: which surface converted. Defaults to the
+// landing-page hero/final-cta; guide & quiz pages pass their own value.
+const src = source ?? (dark ? 'final-cta' : 'hero');
+
+const { ui } = getContent(Astro.currentLocale);
+const f = ui.form;
 
 const wrap = [
   'ly-waitlist flex flex-wrap gap-2.5 mt-[34px] max-w-[480px]',
@@ -16,7 +25,7 @@ const input = [
 
 const button =
   'ly-cta font-display font-semibold text-15 text-content-on-brand bg-gold border-none px-[26px] py-[15px] ' +
-  'rounded-[14px] cursor-pointer whitespace-nowrap shadow-[0_10px_26px_-8px_rgba(255,209,94,0.55)] ' +
+  'rounded-[14px] cursor-pointer whitespace-nowrap shadow-[0_10px_26px_-8px_rgba(95,75,241,0.45)] ' +
   'transition-transform hover:-translate-y-0.5';
 
 const fieldId = dark ? 'email-cta' : 'email-hero';
@@ -27,8 +36,11 @@ const fieldId = dark ? 'email-cta' : 'email-hero';
   method="POST"
   data-theme="light"
   data-endpoint={FORMSPREE_ENDPOINT}
+  data-success-pre={f.successPre}
+  data-success-post={f.successPost}
+  data-error-text={f.error}
 >
-  <label class="sr-only" for={fieldId}>Email address</label>
+  <label class="sr-only" for={fieldId}>{f.emailLabel}</label>
   <input
     id={fieldId}
     class={input}
@@ -36,10 +48,10 @@ const fieldId = dark ? 'email-cta' : 'email-hero';
     name="email"
     required
     autocomplete="email"
-    placeholder="Enter your email"
+    placeholder={f.placeholder}
   />
   <!-- Helps you see which CTA converted, inside Formspree submissions -->
-  <input type="hidden" name="_source" value={dark ? 'final-cta' : 'hero'} />
+  <input type="hidden" name="_source" value={src} />
   <input type="hidden" name="_subject" value="New La Yaung Hub early-access signup" />
-  <button class={button} type="submit">Get Early Access</button>
+  <button class={button} type="submit">{f.button}</button>
 </form>

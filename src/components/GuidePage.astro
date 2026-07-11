@@ -1,0 +1,112 @@
+---
+// Renders one bilingual informational guide (see src/data/guides.ts) as a full
+// page body: Nav → breadcrumb → article (typed blocks incl. tables) → FAQ →
+// related guides → waitlist CTA → Footer. Token utilities only, no inline CSS.
+import Background from './Background.astro';
+import Nav from './Nav.astro';
+import Footer from './Footer.astro';
+import Icon from './Icon.astro';
+import ContentBlocks from './ContentBlocks.astro';
+import WaitlistForm from './WaitlistForm.astro';
+import { getContent, getGuides, getQuiz } from '../data/i18n';
+import { guideOrder, type GuideSlug } from '../data/guides';
+
+interface Props { slug: GuideSlug; }
+const { slug } = Astro.props;
+
+const locale = Astro.currentLocale ?? 'en';
+const { site, ui } = getContent(locale);
+const guides = getGuides(locale);
+const guide = guides[slug];
+
+const base = locale === 'my' ? '/my/' : '/';
+const otherBase = locale === 'my' ? '/' : '/my/';
+const switchHref = `${otherBase}${slug}/`;
+const homeLabel = locale === 'my' ? 'ပင်မ' : 'Home';
+
+// The other two guides plus the free quiz — the "keep reading" cross-links.
+const quiz = getQuiz(locale);
+const related = [
+  ...guideOrder
+    .filter((s) => s !== slug)
+    .map((s) => ({ href: `${base}${s}/`, label: guides[s].navLabel, eyebrow: guides[s].eyebrow, icon: guides[s].icon })),
+  { href: `${base}ged-readiness-quiz/`, label: quiz.navLabel, eyebrow: quiz.eyebrow, icon: 'target' as const },
+];
+---
+<div class="relative overflow-hidden bg-app">
+  <Background />
+  <div class="relative z-[2]">
+    <Nav base={base} switchHref={switchHref} />
+
+    <article class="max-w-[820px] mx-auto px-[clamp(20px,5vw,72px)] pt-[clamp(24px,4vw,44px)] pb-[clamp(56px,7vw,88px)]">
+      <!-- Breadcrumb (matches the BreadcrumbList JSON-LD) -->
+      <nav aria-label="Breadcrumb" class="text-13 text-content-tertiary mb-7 flex items-center gap-2">
+        <a href={base} class="hover:text-content-brand transition-colors">{homeLabel}</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-content-secondary">{guide.eyebrow}</span>
+      </nav>
+
+      <!-- Header -->
+      <header class="ly-reveal mb-[clamp(28px,4vw,44px)]">
+        <div class="inline-flex items-center gap-2 mb-5 rounded-full bg-surface-brand/[0.08] border border-border-interactive/25 px-3.5 py-[7px]">
+          <Icon name={guide.icon} size={16} class="text-content-brand" />
+          <span class="font-mono text-11-5 tracking-caps uppercase text-content-brand">{guide.eyebrow}</span>
+        </div>
+        <h1 class="font-display text-display-sm font-bold leading-110 text-content-primary">{guide.h1}</h1>
+        <p class="text-19 text-content-secondary mt-5 leading-155">{guide.lead}</p>
+        <div class="flex items-center gap-3 mt-6 text-13 text-content-tertiary">
+          <span>{guide.updated}</span>
+          <span aria-hidden="true" class="w-1 h-1 rounded-full bg-border-strong"></span>
+          <span>{guide.readingTime}</span>
+        </div>
+      </header>
+
+      <!-- Body blocks (shared renderer, also used by the blog) -->
+      <ContentBlocks blocks={guide.blocks} />
+
+      <!-- Per-guide FAQ (feeds this page's FAQPage JSON-LD) -->
+      <section class="ly-reveal mt-[clamp(40px,6vw,64px)]">
+        <h2 class="font-display text-24 font-bold leading-120 text-content-primary mb-6">{guide.faqHeading}</h2>
+        <div class="flex flex-col gap-3">
+          {guide.faqs.map((f) => (
+            <details class="ly-faq transition duration-200 hover:-translate-y-1 hover:border-border-interactive/30 bg-surface-tertiary border border-border-subtle rounded-[18px] py-[22px] px-[26px]">
+              <summary class="flex items-center justify-between gap-4">
+                <span class="font-display text-17 font-semibold leading-130 text-content-primary">{f.q}</span>
+                <span class="ly-faq-plus flex-none text-content-brand text-24 leading-100 font-light" aria-hidden="true">+</span>
+              </summary>
+              <p class="text-15-5 leading-165 text-content-secondary mt-3.5">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <!-- Related guides -->
+      <section class="ly-reveal mt-[clamp(40px,6vw,64px)]">
+        <h2 class="font-display text-18 font-semibold text-content-primary mb-4">{guide.relatedHeading}</h2>
+        <div class="grid gap-3 sm:grid-cols-2">
+          {related.map((r) => (
+            <a href={r.href} class="group flex items-center gap-3.5 rounded-[16px] bg-surface-tertiary border border-border-subtle p-4 transition duration-200 hover:-translate-y-1 hover:border-border-interactive/40">
+              <div class="flex-none w-10 h-10 rounded-[12px] bg-icon-soft border border-border-interactive/20 flex items-center justify-center"><Icon name={r.icon} size={19} class="text-content-brand" /></div>
+              <div>
+                <div class="font-mono text-10-5 tracking-caps uppercase text-content-tertiary">{r.eyebrow}</div>
+                <div class="font-display text-15 font-semibold text-content-primary leading-130 group-hover:text-content-brand transition-colors">{r.label}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    </article>
+
+    <!-- Waitlist CTA -->
+    <section id="access" class="ly-reveal max-w-[820px] mx-auto px-[clamp(20px,5vw,72px)] pb-[clamp(64px,8vw,100px)]">
+      <div class="rounded-[24px] bg-cta-card border border-border-interactive/25 p-[clamp(28px,4vw,48px)] text-center">
+        <h2 class="font-display text-display-sm font-bold leading-110 text-content-primary">{guide.cta.title}</h2>
+        <p class="text-16-5 text-content-secondary mt-4 leading-160 max-w-[520px] mx-auto">{guide.cta.body}</p>
+        <WaitlistForm center={true} source={`guide:${slug}`} />
+        <p class="text-13 text-content-tertiary mt-4">{ui.cta.noSpam}</p>
+      </div>
+    </section>
+
+    <Footer base={base} />
+  </div>
+</div>

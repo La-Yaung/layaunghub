@@ -8,6 +8,13 @@ export default defineConfig({
   // Canonical production URL — powers sitemap, canonical tags & absolute OG URLs.
   site: 'https://layaunghub.com',
   trailingSlash: 'ignore',
+  // Bilingual routing: / = English, /my/ = Burmese (Unicode).
+  // `Astro.currentLocale` drives which content set components render.
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'my'],
+    routing: { prefixDefaultLocale: false },
+  },
   integrations: [
     sitemap({
       i18n: {

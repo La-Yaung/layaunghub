@@ -1,12 +1,42 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
-  "$description": "La Yaung Hub design tokens — W3C DTCG format. Tier 1 = primitives (raw palette/scale). Tier 2 = semantic aliases that reference primitives and switch between light & dark. Brand: bilingual GED/IGCSE EdTech for Myanmar students. Tone: calm, premium, 'moonlight'. Target: WCAG 2.1 AA.",
+  "$description": "La Yaung Hub design tokens — W3C DTCG format. Tier 1 = primitives (raw palette/scale). Tier 2 = semantic aliases that reference primitives and switch between light & dark. Brand: bilingual GED/IGCSE EdTech for Myanmar students, mirroring the app's Figma design system. Tone: calm, focused, monochrome purple on a cool-light ground. Target: WCAG 2.1 AA.",
 
   "color": {
     "$type": "color",
 
+    "primary": {
+      "$description": "Brand primary — purple #5F4BF1 (from the app design system).",
+      "50":  { "$value": "#EFEBFE" },
+      "100": { "$value": "#DED7FC" },
+      "200": { "$value": "#C3B7F9" },
+      "300": { "$value": "#A08FF4" },
+      "400": { "$value": "#7C64F0" },
+      "500": { "$value": "#5F4BF1" },
+      "600": { "$value": "#4B38C4" },
+      "700": { "$value": "#3B2C9B" },
+      "800": { "$value": "#2C2172" },
+      "900": { "$value": "#1E164E" }
+    },
+
+    "ink": {
+      "$description": "Cool text inks (design-system values).",
+      "base": { "$value": "#130F26" },
+      "2":    { "$value": "#3A3646" },
+      "3":    { "$value": "#727272" },
+      "4":    { "$value": "#9A95A6" }
+    },
+
+    "cloud": {
+      "$description": "Cool light surfaces & hairlines.",
+      "base":   { "$value": "#F8F9FC" },
+      "2":      { "$value": "#F1F0F7" },
+      "line":   { "$value": "#ECEAF4" },
+      "line-2": { "$value": "#DEDBEC" }
+    },
+
     "gold": {
-      "$description": "Primary brand — moonlight gold.",
+      "$description": "Retired — kept as a primitive only; brand is now monochrome purple and gold is off-page.",
       "50":  { "$value": "#FFF9E8" },
       "100": { "$value": "#FFEFC2" },
       "200": { "$value": "#FFE7A0" },
@@ -20,7 +50,7 @@
     },
 
     "indigo": {
-      "$description": "Secondary brand — night sky.",
+      "$description": "Legacy secondary — night sky (unused).",
       "50":  { "$value": "#EDEFFB" },
       "100": { "$value": "#D6DBF6" },
       "200": { "$value": "#B9C0E6" },
@@ -34,7 +64,7 @@
     },
 
     "neutral": {
-      "$description": "Blue-tinted grays for text & surfaces.",
+      "$description": "Blue-tinted grays (still used by the dark Footer panel).",
       "0":   { "$value": "#FFFFFF" },
       "50":  { "$value": "#EDF0FF" },
       "100": { "$value": "#DCE2FB" },
@@ -50,13 +80,13 @@
     },
 
     "green": {
-      "$description": "Success.",
+      "$description": "Correct #26CC4B (app value).",
       "50":  { "$value": "#E7F9EF" },
       "100": { "$value": "#C6F0D8" },
       "400": { "$value": "#3AD17A" },
-      "500": { "$value": "#22B765" },
-      "600": { "$value": "#1A9A53" },
-      "700": { "$value": "#14773F" }
+      "500": { "$value": "#26CC4B" },
+      "600": { "$value": "#1FA83E" },
+      "700": { "$value": "#167A2E" }
     },
 
     "amber": {
@@ -70,12 +100,12 @@
     },
 
     "red": {
-      "$description": "Error / danger.",
+      "$description": "Wrong / danger #F75455 (app value).",
       "50":  { "$value": "#FEECEC" },
       "100": { "$value": "#FBD0D0" },
       "400": { "$value": "#F87171" },
-      "500": { "$value": "#EF4444" },
-      "600": { "$value": "#DC2626" },
+      "500": { "$value": "#F75455" },
+      "600": { "$value": "#E23B3C" },
       "700": { "$value": "#B91C1C" }
     },
 
@@ -121,8 +151,8 @@
   "font": {
     "family": {
       "$type": "fontFamily",
-      "display": { "$value": ["Bricolage Grotesque", "sans-serif"] },
-      "sans":    { "$value": ["Hanken Grotesk", "system-ui", "sans-serif"] },
+      "display": { "$value": ["Poppins", "system-ui", "sans-serif"] },
+      "sans":    { "$value": ["Poppins", "system-ui", "sans-serif"] },
       "mono":    { "$value": ["Space Mono", "monospace"] },
       "myanmar": { "$value": ["Noto Sans Myanmar", "sans-serif"] }
     },
@@ -168,30 +198,30 @@
   },
 
   "semantic": {
-    "$description": "Tier-2 aliases. Reference primitives via {color.x.y}. Each role has a light and a dark value.",
+    "$description": "Tier-2 aliases. Reference primitives via {color.x.y}. Light drives the whole page; dark now only skins the Footer panel.",
 
     "light": {
       "$type": "color",
       "surface": {
-        "primary":   { "$value": "{color.neutral.0}",   "$description": "Page background" },
-        "secondary": { "$value": "{color.neutral.50}",  "$description": "Cards / raised panels" },
-        "tertiary":  { "$value": "{color.neutral.100}", "$description": "Insets, hover fills" },
-        "brand":     { "$value": "{color.gold.400}",    "$description": "Brand fills (primary buttons)" },
-        "inverse":   { "$value": "{color.neutral.950}", "$description": "Inverted blocks (dark CTA on light page)" },
+        "primary":   { "$value": "{color.neutral.0}",   "$description": "White cards" },
+        "secondary": { "$value": "{color.cloud.base}",  "$description": "#F8F9FC app ground / sections" },
+        "tertiary":  { "$value": "{color.cloud.2}",     "$description": "Insets, hover fills" },
+        "brand":     { "$value": "{color.primary.500}", "$description": "Brand fills (primary buttons)" },
+        "inverse":   { "$value": "{color.ink.base}",    "$description": "Inverted blocks" },
         "danger":    { "$value": "{color.red.50}",      "$description": "Destructive surfaces" }
       },
       "content": {
-        "primary":   { "$value": "{color.neutral.950}", "$description": "Headings & body" },
-        "secondary": { "$value": "{color.neutral.700}", "$description": "Muted / supporting text" },
-        "tertiary":  { "$value": "{color.neutral.600}", "$description": "Fine print, placeholders" },
-        "inverse":   { "$value": "{color.neutral.0}",   "$description": "Text on inverse/brand surfaces" },
-        "brand":     { "$value": "{color.gold.800}",    "$description": "Brand-colored text (AA on white)" },
-        "on-brand":  { "$value": "{color.neutral.950}", "$description": "Text/icon on gold fills" }
+        "primary":   { "$value": "{color.ink.base}", "$description": "Headings & body (#130F26)" },
+        "secondary": { "$value": "{color.ink.2}",    "$description": "Muted / supporting text" },
+        "tertiary":  { "$value": "{color.ink.3}",    "$description": "Fine print, placeholders" },
+        "inverse":   { "$value": "{color.neutral.0}",   "$description": "Text on inverse surfaces" },
+        "brand":     { "$value": "{color.primary.600}", "$description": "Brand-colored text (AA on white)" },
+        "on-brand":  { "$value": "{color.neutral.0}",   "$description": "White text/icon on purple fills" }
       },
       "border": {
-        "subtle":      { "$value": "{color.neutral.200}", "$description": "Hairlines, dividers" },
-        "strong":      { "$value": "{color.neutral.300}", "$description": "Input borders, emphasis" },
-        "interactive": { "$value": "{color.gold.400}",    "$description": "Focus / active edges" }
+        "subtle":      { "$value": "{color.cloud.line}",   "$description": "Hairlines, dividers" },
+        "strong":      { "$value": "{color.cloud.line-2}", "$description": "Input borders, emphasis" },
+        "interactive": { "$value": "{color.primary.500}",  "$description": "Focus / active edges" }
       },
       "feedback": {
         "success": {
@@ -220,25 +250,25 @@
     "dark": {
       "$type": "color",
       "surface": {
-        "primary":   { "$value": "{color.neutral.950}", "$description": "Page background (night sky)" },
-        "secondary": { "$value": "#0E1640",             "$description": "Cards / raised panels" },
+        "primary":   { "$value": "#17122E",             "$description": "Deep purple-ink Footer panel" },
+        "secondary": { "$value": "#221B45",             "$description": "Cards / raised panels" },
         "tertiary":  { "$value": "rgba(255,255,255,0.04)", "$description": "Glass insets, hover fills" },
-        "brand":     { "$value": "{color.gold.400}",    "$description": "Brand fills (primary buttons)" },
+        "brand":     { "$value": "{color.primary.500}", "$description": "Brand fills" },
         "inverse":   { "$value": "{color.neutral.50}",  "$description": "Inverted blocks on dark" },
-        "danger":    { "$value": "rgba(239,68,68,0.12)", "$description": "Destructive surfaces" }
+        "danger":    { "$value": "rgba(247,84,85,0.12)", "$description": "Destructive surfaces" }
       },
       "content": {
-        "primary":   { "$value": "{color.neutral.50}",  "$description": "Headings & body" },
-        "secondary": { "$value": "{color.neutral.400}", "$description": "Muted / supporting text" },
-        "tertiary":  { "$value": "{color.neutral.600}", "$description": "Fine print, placeholders" },
-        "inverse":   { "$value": "{color.neutral.950}", "$description": "Text on inverse/brand surfaces" },
-        "brand":     { "$value": "{color.gold.400}",    "$description": "Brand-colored text (AA on navy)" },
-        "on-brand":  { "$value": "{color.neutral.950}", "$description": "Text/icon on gold fills" }
+        "primary":   { "$value": "#F4F2FF",             "$description": "Headings & body" },
+        "secondary": { "$value": "#B7B0D8",             "$description": "Muted / supporting text" },
+        "tertiary":  { "$value": "#8981AE",             "$description": "Fine print, placeholders" },
+        "inverse":   { "$value": "{color.ink.base}",    "$description": "Text on inverse/brand surfaces" },
+        "brand":     { "$value": "{color.primary.300}", "$description": "Brand-colored text (bright purple on dark)" },
+        "on-brand":  { "$value": "{color.neutral.0}",   "$description": "White text/icon on purple fills" }
       },
       "border": {
         "subtle":      { "$value": "rgba(255,255,255,0.08)", "$description": "Hairlines, dividers" },
         "strong":      { "$value": "rgba(255,255,255,0.16)", "$description": "Input borders, emphasis" },
-        "interactive": { "$value": "{color.gold.400}",       "$description": "Focus / active edges" }
+        "interactive": { "$value": "{color.primary.400}",    "$description": "Focus / active edges" }
       },
       "feedback": {
         "success": {
@@ -253,8 +283,8 @@
         },
         "error": {
           "text":   { "$value": "{color.red.400}" },
-          "bg":     { "$value": "rgba(248,113,113,0.12)" },
-          "border": { "$value": "rgba(248,113,113,0.35)" }
+          "bg":     { "$value": "rgba(247,84,85,0.12)" },
+          "border": { "$value": "rgba(247,84,85,0.35)" }
         },
         "info": {
           "text":   { "$value": "{color.blue.400}" },

@@ -1,11 +1,14 @@
 ---
-import { problems } from '../data/content';
 import Icon from './Icon.astro';
+import { getContent } from '../data/i18n';
+
+const { problems, ui } = getContent(Astro.currentLocale);
+const p9 = ui.problem;
 ---
 <section id="problem" class="ly-reveal max-w-[1280px] mx-auto py-[clamp(70px,9vw,120px)] px-[clamp(20px,5vw,72px)]">
   <div class="max-w-[760px] mb-14">
-    <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">01 / The problem</div>
-    <h2 class="font-display text-display-md font-bold leading-106">Studying for IGCSE &amp; GED in Myanmar is <span class="italic font-medium text-gold">harder than it should be.</span></h2>
+    <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">{p9.eyebrow}</div>
+    <h2 class="font-display text-display-md font-bold leading-106">{p9.h2Pre}<span class="italic font-medium text-gold">{p9.h2Highlight}</span></h2>
   </div>
   <div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-[18px]">
     {problems.map((p) => (
@@ -17,7 +20,7 @@ import Icon from './Icon.astro';
     ))}
   </div>
   <div class="mt-[42px] flex items-center gap-[18px] flex-wrap bg-banner-gold border border-border-interactive/20 rounded-[18px] px-7 py-[22px]">
-    <div class="font-display text-gold text-stat font-extrabold">50k–150k</div>
-    <div class="text-15-5 text-content-primary leading-150"><strong class="text-content-primary">MMK per subject, every month.</strong> That's what private tutoring costs — out of reach for most families.</div>
+    <div class="font-display text-gold text-stat font-extrabold">{p9.statNum}</div>
+    <div class="text-15-5 text-content-primary leading-150"><strong class="text-content-primary">{p9.statStrong}</strong> {p9.statBody}</div>
   </div>
 </section>

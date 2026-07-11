@@ -1,0 +1,19 @@
+---
+// "What is the GED?" — English (en). Burmese counterpart at /my/what-is-ged/.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GuidePage from '../components/GuidePage.astro';
+import { getGuides } from '../data/i18n';
+
+const slug = 'what-is-ged' as const;
+const guide = getGuides(Astro.currentLocale)[slug];
+---
+<BaseLayout
+  path="/what-is-ged/"
+  title={guide.meta.title}
+  description={guide.meta.description}
+  faqItems={guide.faqs}
+  articleHeadline={guide.h1}
+  breadcrumb={guide.navLabel}
+>
+  <GuidePage slug={slug} />
+</BaseLayout>

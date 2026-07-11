@@ -8,7 +8,18 @@
 
 :root {
   /* ---------- TIER 1 · PRIMITIVES ---------- */
-  /* Gold — primary brand (moonlight) */
+  /* Primary — brand (purple #5F4BF1, straight from the app design system) */
+  --color-primary-50:  #EFEBFE; --color-primary-100: #DED7FC; --color-primary-200: #C3B7F9;
+  --color-primary-300: #A08FF4; --color-primary-400: #7C64F0; --color-primary-500: #5F4BF1;
+  --color-primary-600: #4B38C4; --color-primary-700: #3B2C9B; --color-primary-800: #2C2172;
+  --color-primary-900: #1E164E;
+
+  /* App neutrals — cool ink + cloud surfaces (design-system values) */
+  --color-ink:      #130F26;  --color-ink-2:    #3A3646;  --color-ink-3:    #727272;
+  --color-ink-4:    #9A95A6;  --color-cloud:    #F8F9FC;  --color-cloud-2:  #F1F0F7;
+  --color-cloud-line: #ECEAF4; --color-cloud-line-2: #DEDBEC;
+
+  /* Gold — retained as a primitive (no longer used on the page; brand is now monochrome purple) */
   --color-gold-50:  #FFF9E8;  --color-gold-100: #FFEFC2;  --color-gold-200: #FFE7A0;
   --color-gold-300: #FFDC85;  --color-gold-400: #FFD66B;  --color-gold-500: #FFD15E;
   --color-gold-600: #F0A93A;  --color-gold-700: #CC861F;  --color-gold-800: #9C6618;
@@ -20,8 +31,8 @@
   --color-indigo-600: #2A3A6B; --color-indigo-700: #1B2350; --color-indigo-800: #111733;
   --color-indigo-900: #0B1020;
 
-  /* Support — subtle modern blue (SAYA-style secondary accent) */
-  --color-support: #5B8DEF;
+  /* Support — folds into the primary purple (brand is monochrome) */
+  --color-support: var(--color-primary-500);
 
   /* Neutral — blue-tinted grays */
   --color-neutral-0:   #FFFFFF; --color-neutral-50:  #EDF1FF; --color-neutral-100: #DBE2F5;
@@ -33,11 +44,11 @@
 
   /* Feedback hues */
   --color-green-50: #E7F9EF; --color-green-100: #C6F0D8; --color-green-400: #3AD17A;
-  --color-green-500: #22B765; --color-green-600: #1A9A53; --color-green-700: #14773F;
+  --color-green-500: #26CC4B; --color-green-600: #1FA83E; --color-green-700: #167A2E; /* Correct #26CC4B */
   --color-amber-50: #FFF6E5; --color-amber-100: #FFE8BF; --color-amber-400: #FFB020;
   --color-amber-500: #F59E0B; --color-amber-600: #D98309; --color-amber-700: #B26707;
   --color-red-50:   #FEECEC; --color-red-100:   #FBD0D0; --color-red-400:   #F87171;
-  --color-red-500:  #EF4444; --color-red-600:   #DC2626; --color-red-700:   #B91C1C;
+  --color-red-500:  #F75455; --color-red-600:   #E23B3C; --color-red-700:   #B91C1C; /* Wrong #F75455 */
   --color-blue-50:  #E8F1FE; --color-blue-100:  #C9DDFB; --color-blue-400:  #5B9BF8;
   --color-blue-500: #3B82F6; --color-blue-600:  #2563EB; --color-blue-700:  #1D4ED8;
 
@@ -51,9 +62,11 @@
   --radius-lg:20px; --radius-xl:26px; --radius-2xl:32px; --radius-full:9999px;
 
   /* Type */
-  --font-family-display: 'Bricolage Grotesque', sans-serif;
-  --font-family-sans: 'Hanken Grotesk', system-ui, sans-serif;
-  --font-family-mono: 'Space Mono', monospace;
+  /* Noto Sans Myanmar sits behind Poppins so Burmese glyphs on /my/ render
+     in the brand's Myanmar face instead of an arbitrary system fallback. */
+  --font-family-display: 'Poppins', 'Noto Sans Myanmar', system-ui, sans-serif;
+  --font-family-sans: 'Poppins', 'Noto Sans Myanmar', system-ui, sans-serif;
+  --font-family-mono: 'Space Mono', 'Noto Sans Myanmar', monospace;
   --font-family-myanmar: 'Noto Sans Myanmar', sans-serif;
   --font-size-xs:12px; --font-size-sm:14px; --font-size-base:16px; --font-size-md:18px;
   --font-size-lg:20px; --font-size-xl:24px; --font-size-2xl:30px; --font-size-3xl:38px;
@@ -92,51 +105,51 @@
   --motion-float:lyFloat 8s ease-in-out infinite;   --motion-glow:lyGlow 7s ease-in-out infinite;
   --motion-rise:lyRise .7s cubic-bezier(.2,.7,.2,1) both;
 
-  /* Gradients */
-  --gradient-gold:linear-gradient(100deg, #FFE7A0, #FFD15E 55%, #F0A93A);
-  --gradient-gold-text:linear-gradient(100deg, #E0A53A, #CC861F 45%, #9C6618);
-  --gradient-gold-bar:linear-gradient(90deg, #FFE7A0, #F0A93A);
-  --gradient-gold-tab:linear-gradient(100deg, #FFE7A0, #F0A93A);
-  --gradient-gold-tile:linear-gradient(135deg, #FFE7A0, #F0A93A);
-  --gradient-icon-soft:linear-gradient(135deg, rgba(240,169,58,0.20), rgba(240,169,58,0.06));
-  --gradient-card-feature:linear-gradient(135deg, rgba(255,244,216,0.85), rgba(255,255,255,0.6));
-  --gradient-banner-gold:linear-gradient(100deg, rgba(240,169,58,0.12), rgba(240,169,58,0.03));
-  --gradient-premium:linear-gradient(165deg, rgba(255,214,107,0.22), rgba(255,247,230,0.65));
-  --gradient-cta-card:linear-gradient(150deg, #FFFDF8 0%, #FFF4D8 58%, #FFE7B5 100%);
-  --gradient-panel-soft:linear-gradient(180deg, rgba(255,244,216,0.5), rgba(255,255,255,0.32));
-  --gradient-panel-soft-25:linear-gradient(180deg, rgba(255,244,216,0.5), rgba(255,255,255,0.4));
-  /* "Light from above" — warm sunrise halo breaking into a clear white sky */
-  --gradient-app:radial-gradient(120% 85% at 50% -12%, #FFF3D6 0%, #FFFBF2 34%, #FFFFFF 62%, #FCFDFF 84%);
-  --gradient-screen:radial-gradient(120% 90% at 30% 20%, #FFFDF8, #FFF3D6 70%);
-  --gradient-glow-hero:radial-gradient(circle, rgba(240,169,58,0.20), rgba(240,169,58,0.05) 55%, transparent 72%);
-  --gradient-glow-moon:radial-gradient(circle, rgba(240,169,58,0.18), rgba(240,169,58,0.05) 45%, transparent 70%);
-  --gradient-glow-spot:radial-gradient(circle at 75% 30%, rgba(240,169,58,0.26), transparent 45%);
-  --gradient-glow-cta:radial-gradient(circle at 80% 0%, rgba(240,169,58,0.14), transparent 45%);
-  --gradient-moon:radial-gradient(circle at 40% 40%, #FBE39A, #EAB94E 55%, #C98F2E);
-  --gradient-phone-a:linear-gradient(180deg, #FFFFFF, #FFF8E9);
-  --gradient-phone-b:linear-gradient(180deg, #FFFDF8, #FFF1D2);
-  /* "The shift" — a light dawn sweep from white into warm gold */
-  --gradient-shift:linear-gradient(105deg, #FFFFFF 0%, #FFF6E2 50%, #FFE7B5 100%);
-  --gradient-moonbeam:linear-gradient(90deg, rgba(240,169,58,0), #F0A93A);
+  /* Gradients — monochrome purple (primary #5F4BF1) on a cool light ground */
+  --gradient-gold:linear-gradient(100deg, #7C64F0, #5F4BF1 55%, #4B38C4);
+  --gradient-gold-text:linear-gradient(100deg, #6E5BF5, #4B38C4);
+  --gradient-gold-bar:linear-gradient(90deg, #7C64F0, #4B38C4);
+  --gradient-gold-tab:linear-gradient(100deg, #6E5BF5, #4B38C4);
+  --gradient-gold-tile:linear-gradient(135deg, #6E5BF5, #4B38C4);
+  --gradient-icon-soft:linear-gradient(135deg, rgba(95,75,241,0.20), rgba(95,75,241,0.06));
+  --gradient-card-feature:linear-gradient(135deg, rgba(239,235,254,0.9), rgba(255,255,255,0.6));
+  --gradient-banner-gold:linear-gradient(100deg, rgba(95,75,241,0.10), rgba(95,75,241,0.03));
+  --gradient-premium:linear-gradient(165deg, rgba(124,100,240,0.20), rgba(239,235,254,0.65));
+  --gradient-cta-card:linear-gradient(150deg, #FBFAFF 0%, #EFEBFE 58%, #DED7FC 100%);
+  --gradient-panel-soft:linear-gradient(180deg, rgba(239,235,254,0.5), rgba(255,255,255,0.32));
+  --gradient-panel-soft-25:linear-gradient(180deg, rgba(239,235,254,0.5), rgba(255,255,255,0.4));
+  /* "Light from above" — a faint purple halo settling onto the #F8F9FC app surface */
+  --gradient-app:radial-gradient(120% 85% at 50% -12%, #ECE9FC 0%, #F4F4FB 34%, #F8F9FC 64%, #FFFFFF 100%);
+  --gradient-screen:radial-gradient(120% 90% at 30% 20%, #FBFAFF, #EEEBFE 70%);
+  --gradient-glow-hero:radial-gradient(circle, rgba(95,75,241,0.20), rgba(95,75,241,0.05) 55%, transparent 72%);
+  --gradient-glow-moon:radial-gradient(circle, rgba(95,75,241,0.16), rgba(95,75,241,0.05) 45%, transparent 70%);
+  --gradient-glow-spot:radial-gradient(circle at 75% 30%, rgba(95,75,241,0.24), transparent 45%);
+  --gradient-glow-cta:radial-gradient(circle at 80% 0%, rgba(95,75,241,0.14), transparent 45%);
+  --gradient-moon:radial-gradient(circle at 40% 40%, #A08FF4, #6E5BF5 55%, #4B38C4);
+  --gradient-phone-a:linear-gradient(180deg, #FFFFFF, #F4F2FE);
+  --gradient-phone-b:linear-gradient(180deg, #FBFAFF, #EFEBFE);
+  /* "The shift" — a light sweep from white into soft purple */
+  --gradient-shift:linear-gradient(105deg, #FFFFFF 0%, #F1EEFD 50%, #DED7FC 100%);
+  --gradient-moonbeam:linear-gradient(90deg, rgba(95,75,241,0), #5F4BF1);
 
   /* ---------- TIER 2 · SEMANTIC (LIGHT, default) ---------- */
-  --surface-primary:   var(--color-neutral-0);
-  --surface-secondary: var(--color-neutral-50);
-  --surface-tertiary:  var(--color-neutral-100);
-  --surface-brand:     var(--color-gold-400);
-  --surface-inverse:   var(--color-neutral-950);
+  --surface-primary:   var(--color-neutral-0);   /* white cards */
+  --surface-secondary: var(--color-cloud);       /* #F8F9FC app ground */
+  --surface-tertiary:  var(--color-cloud-2);     /* #F1F0F7 */
+  --surface-brand:     var(--color-primary-500); /* #5F4BF1 */
+  --surface-inverse:   var(--color-ink);
   --surface-danger:    var(--color-red-50);
 
-  --content-primary:   var(--color-neutral-950);
-  --content-secondary: var(--color-neutral-700);
-  --content-tertiary:  var(--color-neutral-600);
+  --content-primary:   var(--color-ink);         /* #130F26 */
+  --content-secondary: var(--color-ink-2);       /* #3A3646 */
+  --content-tertiary:  var(--color-ink-3);       /* #727272 */
   --content-inverse:   var(--color-neutral-0);
-  --content-brand:     var(--color-gold-800);
-  --content-on-brand:  var(--color-neutral-950);
+  --content-brand:     var(--color-primary-600); /* #4B38C4 — readable purple on light */
+  --content-on-brand:  var(--color-neutral-0);   /* white text on purple */
 
-  --border-subtle:      var(--color-neutral-200);
-  --border-strong:      var(--color-neutral-300);
-  --border-interactive: var(--color-gold-400);
+  --border-subtle:      var(--color-cloud-line);   /* #ECEAF4 */
+  --border-strong:      var(--color-cloud-line-2); /* #DEDBEC */
+  --border-interactive: var(--color-primary-500);
 
   --feedback-success-text: var(--color-green-700); --feedback-success-bg: var(--color-green-50);  --feedback-success-border: var(--color-green-100);
   --feedback-warning-text: var(--color-amber-700); --feedback-warning-bg: var(--color-amber-50);  --feedback-warning-border: var(--color-amber-100);
@@ -147,23 +160,23 @@
 /* ---------- TIER 2 · SEMANTIC (DARK) ---------- */
 /* Explicit opt-in via [data-theme="dark"] … */
 [data-theme="dark"] {
-  --surface-primary:   var(--color-neutral-950);
-  --surface-secondary: #141E3C;
+  --surface-primary:   #17122E;  /* deep purple-ink footer */
+  --surface-secondary: #221B45;
   --surface-tertiary:  rgba(255,255,255,0.04);
-  --surface-brand:     var(--color-gold-400);
+  --surface-brand:     var(--color-primary-500);
   --surface-inverse:   var(--color-neutral-50);
-  --surface-danger:    rgba(239,68,68,0.12);
+  --surface-danger:    rgba(247,84,85,0.12);
 
-  --content-primary:   var(--color-neutral-50);
-  --content-secondary: var(--color-neutral-400);
-  --content-tertiary:  var(--color-neutral-600);
-  --content-inverse:   var(--color-neutral-950);
-  --content-brand:     var(--color-gold-400);
-  --content-on-brand:  var(--color-neutral-950);
+  --content-primary:   #F4F2FF;
+  --content-secondary: #B7B0D8;
+  --content-tertiary:  #8981AE;
+  --content-inverse:   var(--color-ink);
+  --content-brand:     var(--color-primary-300); /* bright purple on dark */
+  --content-on-brand:  var(--color-neutral-0);
 
   --border-subtle:      rgba(255,255,255,0.08);
   --border-strong:      rgba(255,255,255,0.16);
-  --border-interactive: var(--color-gold-400);
+  --border-interactive: var(--color-primary-400);
 
   --feedback-success-text: var(--color-green-400); --feedback-success-bg: rgba(58,209,122,0.12);  --feedback-success-border: rgba(58,209,122,0.35);
   --feedback-warning-text: var(--color-amber-400); --feedback-warning-bg: rgba(255,176,32,0.12);  --feedback-warning-border: rgba(255,176,32,0.35);
