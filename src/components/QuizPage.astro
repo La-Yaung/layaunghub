@@ -61,7 +61,7 @@ const quizData = {
       <form id="ly-quiz" data-max={maxScore} class="ly-reveal flex flex-col gap-6" novalidate>
         {q.questions.map((question, qi) => (
           <fieldset data-qid={question.id} class="rounded-[20px] bg-surface-tertiary border border-border-subtle p-[clamp(18px,3vw,26px)]">
-            <legend class="font-display text-17 font-semibold leading-135 text-content-primary mb-4 px-1">
+            <legend class="font-display text-17 font-semibold leading-130 text-content-primary mb-4 px-1">
               <span class="text-content-brand">{qi + 1}.</span> {question.question}
             </legend>
             <div class="flex flex-col gap-2.5">

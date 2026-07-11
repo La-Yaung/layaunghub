@@ -35,7 +35,7 @@ const base = '/my/';
       {post.cover ? (
         <>
           <img src={post.cover} alt={post.title} class="w-full rounded-[24px] border border-border-subtle mb-6" />
-          <h1 class="font-display text-display-sm font-bold leading-115 text-content-primary mb-8">{post.title}</h1>
+          <h1 class="font-display text-display-sm font-bold leading-120 text-content-primary mb-8">{post.title}</h1>
         </>
       ) : (
         <div data-theme="dark" class="relative overflow-hidden rounded-[24px] border border-border-subtle bg-surface-primary px-[clamp(24px,5vw,56px)] py-[clamp(40px,7vw,72px)] text-center mb-8">
@@ -85,7 +85,7 @@ const base = '/my/';
             {related.map((r) => (
               <a href={`${base}blog/${r.slug}/`} class="group flex flex-col gap-1.5 rounded-[16px] bg-surface-tertiary border border-border-subtle p-4 transition duration-200 hover:-translate-y-1 hover:border-border-interactive/40">
                 <span class="text-11-5 font-mono tracking-caps uppercase text-content-tertiary">{r.dateLabel}</span>
-                <span class="font-display text-15 font-semibold text-content-primary leading-135 group-hover:text-content-brand transition-colors">{r.title}</span>
+                <span class="font-display text-15 font-semibold text-content-primary leading-130 group-hover:text-content-brand transition-colors">{r.title}</span>
               </a>
             ))}
           </div>
