@@ -1,19 +1,22 @@
 ---
-import { features, activities } from '../data/content';
 import Icon from './Icon.astro';
+import { getContent } from '../data/i18n';
+
+const { features, activities, ui } = getContent(Astro.currentLocale);
+const f9 = ui.featuresUi;
 ---
 <section id="features" class="ly-reveal max-w-[1280px] mx-auto pt-[clamp(40px,6vw,72px)] px-[clamp(20px,5vw,72px)] pb-[clamp(70px,9vw,120px)]">
   <div class="max-w-[760px] mb-12">
-    <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">03 / What you get</div>
-    <h2 class="font-display text-display-md font-bold leading-106">Everything a tutor gives you —<br><span class="text-gold">in one app.</span></h2>
+    <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">{f9.eyebrow}</div>
+    <h2 class="font-display text-display-md font-bold leading-106">{f9.h2Line1}<br><span class="text-gold">{f9.h2Highlight}</span></h2>
   </div>
 
   <!-- hero feature -->
   <div class="flex gap-[clamp(32px,5vw,64px)] items-center flex-wrap bg-card-feature border border-border-subtle rounded-[28px] p-[clamp(28px,4vw,52px)] mb-5">
     <div class="flex-[1_1_360px] min-w-[280px]">
-      <div class="font-mono inline-block font-bold text-11 tracking-loosest text-content-on-brand bg-surface-brand px-3 py-1.5 rounded-lg mb-5">9 ACTIVITY TYPES</div>
-      <h3 class="font-display text-display-sm font-bold leading-110 mb-4">Practice that makes it stick</h3>
-      <p class="text-16-5 leading-160 text-content-secondary mb-[26px]">After you watch, lock it in. Each lesson turns into hands-on practice across nine interactive formats that keep you thinking — not just nodding along.</p>
+      <div class="font-mono inline-block font-bold text-11 tracking-loosest text-content-on-brand bg-surface-brand px-3 py-1.5 rounded-lg mb-5">{f9.badge}</div>
+      <h3 class="font-display text-display-sm font-bold leading-110 mb-4">{f9.practiceTitle}</h3>
+      <p class="text-16-5 leading-160 text-content-secondary mb-[26px]">{f9.practiceBody}</p>
       <div class="flex flex-wrap gap-[9px]">
         {activities.map((a) => (
           <span class="text-13-5 font-medium text-content-primary bg-surface-secondary border border-border-subtle px-3.5 py-[9px] rounded-[100px]">{a}</span>
@@ -22,7 +25,7 @@ import Icon from './Icon.astro';
     </div>
     <!-- phone mockup -->
     <div class="flex-[0_0_auto] mx-auto">
-      <div class="w-[264px] bg-phone-b border-[7px] border-deep rounded-[38px] overflow-hidden shadow-[0_30px_70px_-20px_rgba(0,0,0,0.6)]">
+      <div class="w-[264px] bg-phone-b border-[7px] border-deep rounded-[38px] overflow-hidden shadow-[0_30px_70px_-20px_rgba(19,15,38,0.22)]">
         <div class="pt-[26px] px-4 pb-[18px]">
           <div class="flex items-center justify-between mb-4"><span class="font-display font-semibold text-13 text-content-primary">Biology · Cells</span><span class="text-10 font-display text-content-on-brand bg-surface-brand px-2 py-[3px] rounded-md">3 / 9</span></div>
           <div class="flex gap-1 mb-5"><span class="flex-1 h-[5px] rounded-[10px] bg-surface-brand"></span><span class="flex-1 h-[5px] rounded-[10px] bg-surface-brand"></span><span class="flex-1 h-[5px] rounded-[10px] bg-surface-brand"></span><span class="flex-[6] h-[5px] rounded-[10px] bg-surface-tertiary"></span></div>

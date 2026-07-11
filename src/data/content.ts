@@ -16,7 +16,7 @@ export const site = {
   localeAlternate: 'my_MM',
   email: 'contact@layaunghub.com',
   ogImage: '/og-image.png',
-  themeColor: '#FFFBF2',
+  themeColor: '#F8F9FC',
   gaId: 'G-7PZ1NYMGS0', // Google Analytics 4 measurement ID
   // Keywords are not used for ranking by Google, but help some engines/LLMs
   // and our own internal copy. They mirror the visible, factual content below.
@@ -108,6 +108,111 @@ export const curriculum: { tag: string; title: string; body: string; status: 'av
 
 export const freePlan = ['First lesson of every topic', 'All 9 activity types', 'Bilingual lessons', 'Basic progress tracking'];
 export const proPlan = ['Every lesson, fully unlocked', 'Teacher feedback on written work', 'Full gap analysis & study plan', 'Lifetime early-bird pricing'];
+
+// UI strings — every piece of marketing copy that used to live in component
+// markup. Kept here so the Burmese locale (content.my.ts) can mirror it 1:1.
+// Headings are split into pre/highlight parts to preserve the styled <span>s.
+export const ui = {
+  nav: { cta: 'Get Early Access' },
+  hero: {
+    badge: 'Beta launching 2026',
+    h1Line1: 'Watch the lesson.',
+    h1Line2Pre: 'Then ',
+    h1Highlight: 'actually do it.',
+    lead: '— interactive, bilingual learning for Myanmar students.',
+    body: 'Short video lessons paired with hands-on practice — all mapped to the real GED exam, with teacher feedback and a clear map of what to study next. IGCSE & Myanmar tracks coming soon.',
+    moonPre: ' means ',
+    moonWord: 'moonlight',
+    moonPost: ' — because no one should have to study in the dark.',
+    free: 'Free to start · First lesson of every topic, on us.',
+    trust: { builtFor: 'Built for', available: 'Available now', soon: '· soon', ged: 'GED', igcse: 'IGCSE · Cambridge', grades: 'Myanmar Grades 10–12' },
+  },
+  problem: {
+    eyebrow: '01 / The problem',
+    h2Pre: 'Studying for IGCSE & GED in Myanmar is ',
+    h2Highlight: 'harder than it should be.',
+    statNum: '50k–150k',
+    statStrong: 'MMK per subject, every month.',
+    statBody: "That's what private tutoring costs — out of reach for most families.",
+  },
+  shift: {
+    eyebrow: 'The shift',
+    h2Line1: 'From studying in the dark —',
+    h2Line2Pre: 'to learning by ',
+    h2Highlight: 'moonlight.',
+    darkTitle: 'In the dark',
+    lightTitle: 'By moonlight',
+  },
+  how: {
+    eyebrow: '02 / How it works',
+    h2Pre: 'Watch. Practice. ',
+    h2Highlight: "Know you're ready.",
+    sub: 'Every topic follows the same proven loop — so learning never feels like guesswork.',
+  },
+  featuresUi: {
+    eyebrow: '03 / What you get',
+    h2Line1: 'Everything a tutor gives you —',
+    h2Highlight: 'in one app.',
+    badge: '9 ACTIVITY TYPES',
+    practiceTitle: 'Practice that makes it stick',
+    practiceBody: 'After you watch, lock it in. Each lesson turns into hands-on practice across nine interactive formats that keep you thinking — not just nodding along.',
+  },
+  curriculumUi: {
+    eyebrow: "04 / Who it's for",
+    h2Pre: 'Three paths, ',
+    h2Highlight: 'one clear sky.',
+    sub: "Whichever exam you're aiming for, La Yaung maps your whole journey from where you are to a passing grade.",
+    available: 'Available now',
+    soon: 'Coming soon',
+    subjects: 'Subjects',
+  },
+  pricing: {
+    eyebrow: '05 / Pricing',
+    h2Pre: 'Start free. ',
+    h2Highlight: 'Always.',
+    sub: "The first lesson of every topic is free, forever. Upgrade only when you're ready for the full path.",
+    freeName: 'Free',
+    freePrice: '0',
+    freeUnit: 'MMK / forever',
+    freeDesc: 'Everything you need to try La Yaung properly.',
+    freeCta: 'Start free',
+    premiumName: 'Premium',
+    premiumPrice: 'Early-bird',
+    premiumDesc: 'Beta members lock in our lowest price for life.',
+    premiumCta: 'Join the waitlist',
+    comingSoon: 'COMING SOON',
+  },
+  faqUi: {
+    eyebrow: '06 / FAQ',
+    h2Pre: 'GED & IGCSE, ',
+    h2Highlight: 'questions answered.',
+    subPre: 'Everything Myanmar students ask before they start. Still curious? ',
+    subLink: 'Email us',
+    subPost: '.',
+  },
+  cta: {
+    badge: 'Beta launching 2026 · Limited early access',
+    h2Pre: 'Be first under ',
+    h2Highlight: 'the moonlight.',
+    body: "No one should have to study in the dark. Join the waitlist and we'll bring you under the moonlight the moment the beta opens — with lifetime early-bird pricing.",
+    noSpam: "No spam. Just one email when we're ready for you.",
+  },
+  form: {
+    placeholder: 'Enter your email',
+    button: 'Get Early Access',
+    emailLabel: 'Email address',
+    successPre: "You're on the list! We'll email ",
+    successPost: ' when the beta opens.',
+    error: 'Something went wrong — please try again, or email contact@layaunghub.com.',
+  },
+  footer: {
+    explore: 'Explore',
+    resources: 'Guides',
+    contact: 'Contact',
+    tagline: 'Interactive, bilingual exam prep — lighting the way for Myanmar students.',
+    rights: '© 2026 La Yaung Hub. All rights reserved.',
+  },
+};
 
 // FAQ — visible content + FAQPage structured data. Written to match the real
 // questions students search for, so the page can rank and be cited by AI engines.

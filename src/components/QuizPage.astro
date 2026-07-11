@@ -1,0 +1,244 @@
+---
+// Free GED readiness quiz (see src/data/quiz.ts): Nav → intro → radio-group
+// questions → client-scored result panel → waitlist CTA → Footer. Scoring runs
+// entirely client-side (no backend); band + tip copy is passed to the script as
+// JSON so it stays locale-correct. Token utilities only, no author inline CSS.
+import Background from './Background.astro';
+import Nav from './Nav.astro';
+import Footer from './Footer.astro';
+import Icon from './Icon.astro';
+import WaitlistForm from './WaitlistForm.astro';
+import { getContent, getQuiz } from '../data/i18n';
+
+const locale = Astro.currentLocale ?? 'en';
+const { ui } = getContent(locale);
+const q = getQuiz(locale);
+
+const base = locale === 'my' ? '/my/' : '/';
+const otherBase = locale === 'my' ? '/' : '/my/';
+const switchHref = `${otherBase}ged-readiness-quiz/`;
+
+// Max attainable score across the scoring questions (drives the percentage).
+const maxScore = q.questions
+  .filter((qq) => qq.scoring)
+  .reduce((sum, qq) => sum + Math.max(...qq.options.map((o) => o.points)), 0);
+
+// Copy the client script needs at runtime, kept locale-correct.
+const quizData = {
+  bands: q.bands.map((b) => ({ min: b.min, title: b.title, body: b.body })),
+  tips: q.subjectTips,
+  incomplete: q.incomplete,
+  scoreLabel: q.scoreLabel,
+};
+---
+<div class="relative overflow-hidden bg-app">
+  <Background />
+  <div class="relative z-[2]">
+    <Nav base={base} switchHref={switchHref} />
+
+    <main class="max-w-[760px] mx-auto px-[clamp(20px,5vw,72px)] pt-[clamp(24px,4vw,44px)] pb-[clamp(56px,7vw,88px)]">
+      <nav aria-label="Breadcrumb" class="text-13 text-content-tertiary mb-7 flex items-center gap-2">
+        <a href={base} class="hover:text-content-brand transition-colors">{q.homeLabel}</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-content-secondary">{q.eyebrow}</span>
+      </nav>
+
+      <header class="ly-reveal mb-[clamp(28px,4vw,40px)]">
+        <div class="inline-flex items-center gap-2 mb-5 rounded-full bg-surface-brand/[0.08] border border-border-interactive/25 px-3.5 py-[7px]">
+          <Icon name="target" size={16} class="text-content-brand" />
+          <span class="font-mono text-11-5 tracking-caps uppercase text-content-brand">{q.eyebrow}</span>
+        </div>
+        <h1 class="font-display text-display-sm font-bold leading-110 text-content-primary">{q.h1}</h1>
+        <p class="text-19 text-content-secondary mt-5 leading-155">{q.lead}</p>
+        <p class="text-16 text-content-secondary mt-4 leading-160">{q.intro}</p>
+        <div class="flex items-center gap-2 mt-6 text-13 text-content-tertiary">
+          <Icon name="bulb" size={15} class="text-content-brand" />
+          <span>{q.startNote}</span>
+        </div>
+      </header>
+
+      <!-- Quiz -->
+      <form id="ly-quiz" data-max={maxScore} class="ly-reveal flex flex-col gap-6" novalidate>
+        {q.questions.map((question, qi) => (
+          <fieldset data-qid={question.id} class="rounded-[20px] bg-surface-tertiary border border-border-subtle p-[clamp(18px,3vw,26px)]">
+            <legend class="font-display text-17 font-semibold leading-135 text-content-primary mb-4 px-1">
+              <span class="text-content-brand">{qi + 1}.</span> {question.question}
+            </legend>
+            <div class="flex flex-col gap-2.5">
+              {question.options.map((opt, oi) => (
+                <label class="group relative block cursor-pointer">
+                  <input
+                    type="radio"
+                    name={question.id}
+                    value={oi}
+                    class="sr-only"
+                    data-points={question.scoring ? opt.points : undefined}
+                    data-index={question.id === 'subject' ? oi : undefined}
+                  />
+                  <span class="flex items-center gap-3 rounded-[13px] border border-border-subtle bg-surface-primary px-4 py-3 text-15-5 text-content-secondary transition duration-150 hover:border-border-interactive/40 group-has-[:checked]:border-border-interactive group-has-[:checked]:bg-surface-brand/[0.07] group-has-[:checked]:text-content-primary group-has-[:focus-visible]:ring-2 group-has-[:focus-visible]:ring-border-interactive/50">
+                    <span class="flex-none w-[18px] h-[18px] rounded-full border-2 border-border-strong grid place-items-center group-has-[:checked]:border-border-interactive">
+                      <span class="w-2 h-2 rounded-full bg-surface-brand scale-0 group-has-[:checked]:scale-100 transition-transform" aria-hidden="true"></span>
+                    </span>
+                    <span>{opt.label}</span>
+                  </span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        ))}
+
+        <div class="flex flex-col items-center gap-3 pt-1">
+          <button
+            type="button"
+            id="ly-quiz-submit"
+            class="font-display font-semibold text-16 text-content-on-brand bg-gold px-8 py-[15px] rounded-full cursor-pointer shadow-[0_10px_26px_-8px_rgba(95,75,241,0.45)] transition-transform hover:-translate-y-0.5"
+          >{q.seeResult}</button>
+          <p id="ly-quiz-error" hidden class="text-14 text-error-text">{q.incomplete}</p>
+        </div>
+      </form>
+
+      <!-- Result (revealed by the client script) -->
+      <section id="ly-quiz-result" hidden aria-live="polite" class="mt-8 scroll-mt-24">
+        <div class="rounded-[24px] bg-card-feature border border-border-interactive/25 p-[clamp(22px,4vw,36px)]">
+          <div class="font-mono text-11-5 tracking-caps uppercase text-content-brand mb-4">{q.resultKicker}</div>
+          <div class="flex items-center gap-4">
+            <div class="flex-none w-14 h-14 rounded-[16px] bg-icon-soft border border-border-interactive/25 grid place-items-center">
+              {q.bands.map((b, i) => (
+                <span data-band-icon={i} hidden><Icon name={b.icon} size={26} class="text-content-brand" /></span>
+              ))}
+            </div>
+            <div class="min-w-0">
+              <h2 id="ly-quiz-band-title" class="font-display text-22 font-bold leading-120 text-content-primary"></h2>
+              <div class="text-13 text-content-tertiary mt-0.5"><span id="ly-quiz-score-label"></span>: <span id="ly-quiz-score-pct" class="font-semibold text-content-brand"></span></div>
+            </div>
+          </div>
+
+          <div class="mt-4 h-2 rounded-full bg-surface-secondary overflow-hidden" role="presentation">
+            <div id="ly-quiz-bar" class="h-full bg-gold rounded-full w-0 transition-[width] duration-700"></div>
+          </div>
+
+          <p id="ly-quiz-band-body" class="text-16 leading-160 text-content-secondary mt-5"></p>
+
+          <div class="mt-5 rounded-[16px] bg-surface-primary border border-border-subtle p-4">
+            <div class="font-display text-14 font-semibold text-content-primary mb-1.5 flex items-center gap-2">
+              <Icon name="bulb" size={16} class="text-content-brand" />{q.tipHeading}
+            </div>
+            <p id="ly-quiz-tip" class="text-15 leading-160 text-content-secondary"></p>
+          </div>
+
+          <button type="button" id="ly-quiz-retake" class="mt-5 text-14-5 font-semibold text-content-brand hover:underline cursor-pointer">{q.retake}</button>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="ly-reveal mt-[clamp(40px,6vw,64px)]">
+        <h2 class="font-display text-22 font-bold leading-120 text-content-primary mb-5">{q.faqHeading}</h2>
+        <div class="flex flex-col gap-3">
+          {q.faqs.map((f) => (
+            <details class="ly-faq transition duration-200 hover:-translate-y-1 hover:border-border-interactive/30 bg-surface-tertiary border border-border-subtle rounded-[18px] py-[22px] px-[26px]">
+              <summary class="flex items-center justify-between gap-4">
+                <span class="font-display text-16-5 font-semibold leading-130 text-content-primary">{f.q}</span>
+                <span class="ly-faq-plus flex-none text-content-brand text-24 leading-100 font-light" aria-hidden="true">+</span>
+              </summary>
+              <p class="text-15-5 leading-165 text-content-secondary mt-3.5">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+    </main>
+
+    <!-- Waitlist CTA -->
+    <section id="access" class="ly-reveal max-w-[760px] mx-auto px-[clamp(20px,5vw,72px)] pb-[clamp(64px,8vw,100px)]">
+      <div class="rounded-[24px] bg-cta-card border border-border-interactive/25 p-[clamp(28px,4vw,48px)] text-center">
+        <h2 class="font-display text-display-sm font-bold leading-110 text-content-primary">{q.cta.title}</h2>
+        <p class="text-16-5 text-content-secondary mt-4 leading-160 max-w-[520px] mx-auto">{q.cta.body}</p>
+        <WaitlistForm center={true} />
+        <p class="text-13 text-content-tertiary mt-4">{ui.cta.noSpam}</p>
+      </div>
+    </section>
+
+    <Footer base={base} />
+  </div>
+</div>
+
+<script type="application/json" id="ly-quiz-data" set:html={JSON.stringify(quizData)} />
+
+<script>
+  // Client-side scoring for the GED readiness quiz. All copy comes from the
+  // #ly-quiz-data JSON block so this stays locale-agnostic.
+  function initQuiz() {
+    const form = document.getElementById('ly-quiz') as HTMLFormElement | null;
+    const dataEl = document.getElementById('ly-quiz-data');
+    const result = document.getElementById('ly-quiz-result');
+    if (!form || !dataEl || !result) return;
+
+    const data = JSON.parse(dataEl.textContent || '{}') as {
+      bands: { min: number; title: string; body: string }[];
+      tips: string[];
+      incomplete: string;
+      scoreLabel: string;
+    };
+    const max = Number(form.dataset.max) || 1;
+    const submit = document.getElementById('ly-quiz-submit');
+    const retake = document.getElementById('ly-quiz-retake');
+    const errorEl = document.getElementById('ly-quiz-error');
+    const fieldsets = Array.from(form.querySelectorAll<HTMLFieldSetElement>('fieldset[data-qid]'));
+
+    function score() {
+      // Require every question to be answered.
+      const unanswered = fieldsets.filter((fs) => !fs.querySelector('input:checked'));
+      if (unanswered.length) {
+        if (errorEl) errorEl.hidden = false;
+        unanswered[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      if (errorEl) errorEl.hidden = true;
+
+      let sum = 0;
+      form.querySelectorAll<HTMLInputElement>('input[data-points]:checked').forEach((el) => {
+        sum += Number(el.dataset.points) || 0;
+      });
+      const pct = Math.round((sum / max) * 100);
+
+      // Highest band whose threshold the score clears.
+      let band = data.bands[0];
+      let bandIndex = 0;
+      data.bands.forEach((b, i) => { if (pct >= b.min) { band = b; bandIndex = i; } });
+
+      const subject = form.querySelector<HTMLInputElement>('input[name="subject"]:checked');
+      const tipIndex = subject ? Number(subject.dataset.index) || 0 : 0;
+
+      const set = (id: string, text: string) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+      set('ly-quiz-band-title', band.title);
+      set('ly-quiz-band-body', band.body);
+      set('ly-quiz-tip', data.tips[tipIndex] || '');
+      set('ly-quiz-score-label', data.scoreLabel);
+      set('ly-quiz-score-pct', pct + '%');
+
+      document.querySelectorAll<HTMLElement>('[data-band-icon]').forEach((el) => {
+        el.hidden = Number(el.dataset.bandIcon) !== bandIndex;
+      });
+
+      result!.hidden = false;
+      const bar = document.getElementById('ly-quiz-bar');
+      // Defer so the transition animates from 0 to the final width.
+      requestAnimationFrame(() => { if (bar) bar.style.width = pct + '%'; });
+      result!.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function reset() {
+      form.querySelectorAll<HTMLInputElement>('input:checked').forEach((el) => { el.checked = false; });
+      result!.hidden = true;
+      const bar = document.getElementById('ly-quiz-bar');
+      if (bar) bar.style.width = '0';
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    submit?.addEventListener('click', score);
+    retake?.addEventListener('click', reset);
+    // Clear the "answer everything" warning as soon as the user makes a choice.
+    form.addEventListener('change', () => { if (errorEl) errorEl.hidden = true; });
+  }
+
+  initQuiz();
+</script>

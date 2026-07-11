@@ -1,11 +1,14 @@
 ---
-import { faqs } from '../data/content';
+import { getContent } from '../data/i18n';
+
+const { faqs, ui, site } = getContent(Astro.currentLocale);
+const fq = ui.faqUi;
 ---
 <section id="faq" class="ly-reveal max-w-[880px] mx-auto pt-[clamp(40px,6vw,56px)] px-[clamp(20px,5vw,72px)] pb-[clamp(70px,9vw,110px)]">
   <div class="max-w-[760px] mb-11">
-    <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">06 / FAQ</div>
-    <h2 class="font-display text-display-md font-bold leading-106">GED &amp; IGCSE, <span class="text-gold">questions answered.</span></h2>
-    <p class="text-17 text-content-secondary mt-[18px] leading-160">Everything Myanmar students ask before they start. Still curious? <a href={`mailto:hlaminnaing@layaunghub.com`} class="text-content-brand hover:text-content-brand transition-colors">Email us</a>.</p>
+    <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">{fq.eyebrow}</div>
+    <h2 class="font-display text-display-md font-bold leading-106">{fq.h2Pre}<span class="text-gold">{fq.h2Highlight}</span></h2>
+    <p class="text-17 text-content-secondary mt-[18px] leading-160">{fq.subPre}<a href={`mailto:${site.email}`} class="text-content-brand hover:text-content-brand transition-colors">{fq.subLink}</a>{fq.subPost}</p>
   </div>
   <div class="flex flex-col gap-3">
     {faqs.map((f) => (

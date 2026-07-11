@@ -1,23 +1,26 @@
 ---
 import Icon from './Icon.astro';
-import { transformation } from '../data/content';
+import { getContent } from '../data/i18n';
+
+const { transformation, ui } = getContent(Astro.currentLocale);
+const s = ui.shift;
 ---
 <section class="ly-reveal max-w-[1280px] mx-auto px-[clamp(20px,5vw,72px)] py-[clamp(20px,4vw,44px)]">
   <div class="relative overflow-hidden rounded-[32px] border border-border-interactive/[0.18] bg-shift px-[clamp(28px,5vw,64px)] py-[clamp(40px,6vw,72px)]">
     <!-- moonlight on the right -->
-    <div class="absolute top-[-100px] right-[-70px] w-[360px] h-[360px] rounded-full bg-moon shadow-[0_0_120px_rgba(244,206,94,0.5)] opacity-90"></div>
+    <div class="absolute top-[-100px] right-[-70px] w-[360px] h-[360px] rounded-full bg-moon shadow-[0_0_120px_rgba(95,75,241,0.4)] opacity-90"></div>
     <div class="absolute inset-0 bg-glow-cta pointer-events-none"></div>
 
     <div class="relative z-[1] max-w-[760px]">
-      <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px] flex items-center gap-2"><Icon name="moon" size={15} class="text-content-brand shrink-0" /> The shift</div>
-      <h2 class="font-display text-display-md font-bold leading-106">From studying in the dark —<br>to learning by <span class="text-gold">moonlight.</span></h2>
+      <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px] flex items-center gap-2"><Icon name="moon" size={15} class="text-content-brand shrink-0" /> {s.eyebrow}</div>
+      <h2 class="font-display text-display-md font-bold leading-106">{s.h2Line1}<br>{s.h2Line2Pre}<span class="text-gold">{s.h2Highlight}</span></h2>
     </div>
 
     <!-- before → after -->
     <div class="relative z-[1] mt-[clamp(28px,4vw,48px)] grid grid-cols-[1fr_auto_1fr] max-[760px]:grid-cols-1 gap-5 items-center">
       <!-- in the dark -->
       <div class="rounded-[20px] border border-border-subtle bg-surface-secondary p-7">
-        <div class="font-display text-15 font-semibold text-content-tertiary mb-4">In the dark</div>
+        <div class="font-display text-15 font-semibold text-content-tertiary mb-4">{s.darkTitle}</div>
         {transformation.dark.map((t) => (
           <div class="flex gap-3 items-start text-14-5 text-content-tertiary mb-3 last:mb-0"><span class="text-content-secondary mt-px">✕</span><span>{t}</span></div>
         ))}
@@ -25,12 +28,12 @@ import { transformation } from '../data/content';
       <!-- moonbeam: a beam of light from the dark to the moon -->
       <div class="flex items-center justify-center max-[760px]:py-2 max-[760px]:rotate-90">
         <div class="relative h-[3px] w-[clamp(36px,5vw,84px)] rounded-full bg-moonbeam">
-          <span class="absolute right-[-7px] top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-surface-brand shadow-[0_0_20px_7px_rgba(255,214,107,0.55)]"></span>
+          <span class="absolute right-[-7px] top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-surface-brand shadow-[0_0_20px_7px_rgba(95,75,241,0.5)]"></span>
         </div>
       </div>
       <!-- by moonlight -->
       <div class="rounded-[20px] border border-border-interactive/[0.35] bg-surface-brand/[0.08] p-7">
-        <div class="font-display text-15 font-semibold text-content-brand mb-4">By moonlight</div>
+        <div class="font-display text-15 font-semibold text-content-brand mb-4">{s.lightTitle}</div>
         {transformation.light.map((t) => (
           <div class="flex gap-3 items-start text-14-5 text-content-primary mb-3 last:mb-0"><span class="text-content-brand mt-px">✦</span><span>{t}</span></div>
         ))}

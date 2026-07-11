@@ -1,0 +1,16 @@
+---
+// Free GED readiness quiz — Burmese (my). English at /ged-readiness-quiz/.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import QuizPage from '../../components/QuizPage.astro';
+import { getQuiz } from '../../data/i18n';
+
+const q = getQuiz(Astro.currentLocale);
+---
+<BaseLayout
+  path="/my/ged-readiness-quiz/"
+  title={q.meta.title}
+  description={q.meta.description}
+  faqItems={q.faqs}
+>
+  <QuizPage />
+</BaseLayout>

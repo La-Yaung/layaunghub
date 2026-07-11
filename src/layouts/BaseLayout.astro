@@ -1,20 +1,34 @@
 ---
-import { site, faqs } from '../data/content';
+import { getContent } from '../data/i18n';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
-  /** Path of the current page, e.g. "/" — used for canonical + og:url */
+  /** Path of the current page, e.g. "/" or "/ged-cost/" — canonical + og:url */
   path?: string;
   image?: string;
+  /** Per-page FAQ set for FAQPage JSON-LD. Defaults to the home FAQ. */
+  faqItems?: { q: string; a: string }[];
+  /** When set, the page is treated as an Article (og:type + Article/Breadcrumb
+   *  structured data) rather than the default website. */
+  articleHeadline?: string;
+  /** Breadcrumb label for the article (defaults to its title). */
+  breadcrumb?: string;
 }
+
+// Locale comes from Astro's i18n routing: "/" → en, "/my/" → my.
+const locale = Astro.currentLocale ?? 'en';
+const { site, faqs } = getContent(locale);
 
 const {
   title = site.title,
   description = site.description,
   path = '/',
   image = site.ogImage,
+  faqItems,
+  articleHeadline,
+  breadcrumb,
 } = Astro.props;
 
 // Prefer the configured production `site`; fall back to the request origin in dev.
@@ -22,86 +36,130 @@ const origin = (Astro.site ?? new URL(site.url)).toString().replace(/\/$/, '');
 const canonical = origin + (path === '/' ? '/' : path);
 const ogImageUrl = image.startsWith('http') ? image : origin + image;
 
+// Bilingual alternates derived from this page's own path, so every page —
+// home or guide — points at its true counterpart. Strip a leading "/my" to get
+// the shared slug; the English URL is that slug, the Burmese one is "/my" + slug.
+const baseSlug = path.replace(/^\/my(?=\/|$)/, '') || '/';
+const enHref = origin + baseSlug;
+const myHref = origin + '/my' + (baseSlug === '/' ? '/' : baseSlug);
+
+// FAQ shown in structured data: the page's own set, else the site-wide home FAQ.
+const faqSource = faqItems ?? faqs;
+const isArticle = Boolean(articleHeadline);
+
 // ---- Structured data (JSON-LD) ----------------------------------------------
 // One @graph linking the organisation, website, web page and FAQ so search
 // engines and AI answer engines understand what La Yaung Hub is and offers.
 const orgId = `${origin}/#organization`;
 const webId = `${origin}/#website`;
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': ['Organization', 'EducationalOrganization'],
-      '@id': orgId,
-      name: site.name,
-      alternateName: ['La Yaung', 'လရောင်', 'La Yaung Hub'],
-      url: origin + '/',
-      logo: {
-        '@type': 'ImageObject',
-        url: origin + '/icon-512.png',
-        width: 512,
-        height: 512,
-      },
-      image: ogImageUrl,
-      email: site.email,
-      description: site.description,
-      slogan: 'Watch the lesson. Then actually do it.',
-      areaServed: { '@type': 'Country', name: 'Myanmar' },
-      knowsLanguage: ['my', 'en'],
-      sameAs: [site.social.facebook, site.social.telegram, site.social.tiktok],
+const graph: Record<string, unknown>[] = [
+  {
+    '@type': ['Organization', 'EducationalOrganization'],
+    '@id': orgId,
+    name: site.name,
+    alternateName: ['La Yaung', 'လရောင်', 'La Yaung Hub'],
+    url: origin + '/',
+    logo: {
+      '@type': 'ImageObject',
+      url: origin + '/icon-512.png',
+      width: 512,
+      height: 512,
     },
+    image: ogImageUrl,
+    email: site.email,
+    description: site.description,
+    slogan: 'Watch the lesson. Then actually do it.',
+    areaServed: { '@type': 'Country', name: 'Myanmar' },
+    knowsLanguage: ['my', 'en'],
+    sameAs: [site.social.facebook, site.social.telegram, site.social.tiktok],
+  },
+  {
+    '@type': 'WebSite',
+    '@id': webId,
+    url: origin + '/',
+    name: site.name,
+    description: site.description,
+    publisher: { '@id': orgId },
+    inLanguage: ['en', 'my'],
+  },
+  {
+    '@type': 'WebPage',
+    '@id': canonical + '#webpage',
+    url: canonical,
+    name: title,
+    description,
+    isPartOf: { '@id': webId },
+    about: { '@id': orgId },
+    inLanguage: locale === 'my' ? 'my' : 'en',
+    primaryImageOfPage: ogImageUrl,
+  },
+];
+
+// An informational guide is an Article with a breadcrumb back to home.
+if (isArticle) {
+  graph.push(
     {
-      '@type': 'WebSite',
-      '@id': webId,
-      url: origin + '/',
-      name: site.name,
-      description: site.description,
-      publisher: { '@id': orgId },
-      inLanguage: ['en', 'my'],
-    },
-    {
-      '@type': 'WebPage',
-      '@id': canonical + '#webpage',
-      url: canonical,
-      name: title,
-      description,
-      isPartOf: { '@id': webId },
-      about: { '@id': orgId },
-      inLanguage: 'en',
-      primaryImageOfPage: ogImageUrl,
-    },
-    {
-      '@type': 'FAQPage',
-      '@id': canonical + '#faq',
+      '@type': 'Article',
+      '@id': canonical + '#article',
       isPartOf: { '@id': canonical + '#webpage' },
-      mainEntity: faqs.map((f) => ({
-        '@type': 'Question',
-        name: f.q,
-        acceptedAnswer: { '@type': 'Answer', text: f.a },
-      })),
+      headline: articleHeadline,
+      description,
+      inLanguage: locale === 'my' ? 'my' : 'en',
+      image: ogImageUrl,
+      author: { '@id': orgId },
+      publisher: { '@id': orgId },
+      mainEntityOfPage: { '@id': canonical + '#webpage' },
     },
     {
-      '@type': 'Service',
-      name: 'Bilingual GED exam preparation',
-      provider: { '@id': orgId },
-      areaServed: { '@type': 'Country', name: 'Myanmar' },
-      serviceType: 'Online exam preparation',
-      description:
-        'Interactive, bilingual (Burmese & English) GED preparation with video lessons, nine practice activity types and real teacher feedback. IGCSE (Cambridge) and Myanmar Grade 10–12 tracks are coming soon.',
-      offers: [
-        { '@type': 'Offer', name: 'Free', price: '0', priceCurrency: 'MMK', description: 'First lesson of every topic, all 9 activity types, bilingual lessons and basic progress tracking.' },
-        { '@type': 'Offer', name: 'Premium', priceCurrency: 'MMK', description: 'Every lesson unlocked, teacher feedback, full gap analysis and lifetime early-bird pricing.', availability: 'https://schema.org/PreOrder' },
+      '@type': 'BreadcrumbList',
+      '@id': canonical + '#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: site.name, item: enHref === canonical ? origin + '/' : (locale === 'my' ? origin + '/my/' : origin + '/') },
+        { '@type': 'ListItem', position: 2, name: breadcrumb ?? title, item: canonical },
       ],
     },
-  ],
-};
+  );
+}
+
+// FAQ block (page-specific set, or the site-wide home FAQ on the landing page).
+if (faqSource.length) {
+  graph.push({
+    '@type': 'FAQPage',
+    '@id': canonical + '#faq',
+    isPartOf: { '@id': canonical + '#webpage' },
+    mainEntity: faqSource.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  });
+}
+
+// The Service offer belongs on the landing pages, not the informational guides.
+if (!isArticle) {
+  graph.push({
+    '@type': 'Service',
+    name: 'Bilingual GED exam preparation',
+    provider: { '@id': orgId },
+    areaServed: { '@type': 'Country', name: 'Myanmar' },
+    serviceType: 'Online exam preparation',
+    description:
+      'Interactive, bilingual (Burmese & English) GED preparation with video lessons, nine practice activity types and real teacher feedback. IGCSE (Cambridge) and Myanmar Grade 10–12 tracks are coming soon.',
+    offers: [
+      { '@type': 'Offer', name: 'Free', price: '0', priceCurrency: 'MMK', description: 'First lesson of every topic, all 9 activity types, bilingual lessons and basic progress tracking.' },
+      { '@type': 'Offer', name: 'Premium', priceCurrency: 'MMK', description: 'Every lesson unlocked, teacher feedback, full gap analysis and lifetime early-bird pricing.', availability: 'https://schema.org/PreOrder' },
+    ],
+  });
+}
+
+const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
 ---
 <!DOCTYPE html>
-<!-- data-theme="light" is now the active brand map (warm daytime palette).
-     The dark token map is retained in tokens.css and applied via data-theme="dark"
-     on the <footer> element (Task 5 / Footer anchor). -->
-<html lang="en" data-theme="light">
+<!-- data-theme="light" is the active brand map (app design system, purple/light).
+     The dark token map only skins the <footer> (data-theme="dark").
+     lang switches per locale: "/" = en, "/my/" = my (Burmese, Unicode). -->
+<html lang={locale} data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -113,6 +171,10 @@ const jsonLd = {
   <meta name="keywords" content={site.keywords.join(', ')} />
   <meta name="author" content={site.name} />
   <link rel="canonical" href={canonical} />
+  <!-- Bilingual alternates for THIS page (derived from its path). -->
+  <link rel="alternate" hreflang="en" href={enHref} />
+  <link rel="alternate" hreflang="my" href={myHref} />
+  <link rel="alternate" hreflang="x-default" href={enHref} />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="theme-color" content={site.themeColor} />
 
@@ -122,7 +184,7 @@ const jsonLd = {
   <link rel="manifest" href="/site.webmanifest" />
 
   <!-- Open Graph (Facebook, Messenger, LinkedIn, etc.) -->
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content={isArticle ? 'article' : 'website'} />
   <meta property="og:site_name" content={site.name} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
@@ -144,7 +206,7 @@ const jsonLd = {
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Mono:wght@400;700&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Space+Mono:wght@400;700&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <!-- Structured data -->
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
@@ -167,9 +229,13 @@ const jsonLd = {
 
   <script>
     // ===== Waitlist form (Formspree AJAX, progressive enhancement) =======
+    // Success/error copy comes from the form's data-* attributes so each
+    // locale (en at "/", my at "/my/") shows its own message.
     function showSuccess(form: HTMLFormElement, email: string, dark: boolean) {
       const safe = email.replace(/[<>&]/g, (c) => (({ '<': '&lt;', '>': '&gt;', '&': '&amp;' } as Record<string, string>)[c]));
-      form.innerHTML = '<div style="display:flex; align-items:center; gap:10px; font-family:Hanken Grotesk; font-size:15.5px; color:' + (dark ? '#0A1030' : '#14773F') + '; font-weight:600; background:' + (dark ? 'rgba(10,16,48,0.12)' : 'rgba(34,183,101,0.12)') + '; border:1px solid ' + (dark ? 'rgba(10,16,48,0.25)' : 'rgba(34,183,101,0.35)') + '; padding:15px 20px; border-radius:14px; width:100%;"><span>✓</span><span>You’re on the list! We’ll email ' + safe + ' when the beta opens.</span></div>';
+      const pre = form.dataset.successPre || "You're on the list! We'll email ";
+      const post = form.dataset.successPost || ' when the beta opens.';
+      form.innerHTML = '<div style="display:flex; align-items:center; gap:10px; font-family:Poppins, \'Noto Sans Myanmar\', sans-serif; font-size:15.5px; color:' + (dark ? '#0A1030' : '#14773F') + '; font-weight:600; background:' + (dark ? 'rgba(10,16,48,0.12)' : 'rgba(34,183,101,0.12)') + '; border:1px solid ' + (dark ? 'rgba(10,16,48,0.25)' : 'rgba(34,183,101,0.35)') + '; padding:15px 20px; border-radius:14px; width:100%;"><span>✓</span><span>' + pre + safe + post + '</span></div>';
     }
 
     function showError(form: HTMLFormElement, btn: HTMLButtonElement | null) {
@@ -178,10 +244,10 @@ const jsonLd = {
       if (!msg) {
         msg = document.createElement('div');
         msg.className = 'ly-form-error';
-        msg.style.cssText = 'flex-basis:100%; font-family:Hanken Grotesk; font-size:13.5px; color:#B91C1C; margin-top:2px;';
+        msg.style.cssText = 'flex-basis:100%; font-family:Poppins, \'Noto Sans Myanmar\', sans-serif; font-size:13.5px; color:#B91C1C; margin-top:2px;';
         form.appendChild(msg);
       }
-      msg.textContent = 'Something went wrong — please try again, or email hlaminnaing@layaunghub.com.';
+      msg.textContent = form.dataset.errorText || 'Something went wrong — please try again, or email contact@layaunghub.com.';
     }
 
     async function handleSubmit(e: Event) {
