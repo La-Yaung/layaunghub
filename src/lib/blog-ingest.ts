@@ -41,11 +41,18 @@ export async function ingestPost(input: IngestInput): Promise<{ slug: string }> 
     coverUrl = c.storage.from('blog').getPublicUrl(path).data.publicUrl;
   }
 
-  // Branded share card (always) — rendered once, stored, referenced by og:image.
-  const ogPng = await renderOgPng({ eyebrow, title: input.title });
-  const ogPath = `og/${slug}.png`;
-  await c.storage.from('blog').upload(ogPath, ogPng, { contentType: 'image/png', upsert: true });
-  const ogUrl = c.storage.from('blog').getPublicUrl(ogPath).data.publicUrl;
+  // Branded share card — rendered once, stored, referenced by og:image. Never
+  // let a rendering hiccup (fonts, wasm, memory) block publishing: on failure
+  // the post still goes live and falls back to the site's default OG image.
+  let ogUrl: string | null = null;
+  try {
+    const ogPng = await renderOgPng({ eyebrow, title: input.title });
+    const ogPath = `og/${slug}.png`;
+    await c.storage.from('blog').upload(ogPath, ogPng, { contentType: 'image/png', upsert: true });
+    ogUrl = c.storage.from('blog').getPublicUrl(ogPath).data.publicUrl;
+  } catch (err) {
+    console.error('[ingest] OG render failed, publishing without a custom card:', err);
+  }
 
   const { error } = await c.from('posts').upsert(
     {

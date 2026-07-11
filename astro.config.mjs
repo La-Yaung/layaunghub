@@ -13,7 +13,16 @@ export default defineConfig({
   // to the CDN. Only the DB-backed blog routes + Telegram webhook opt into
   // on-demand rendering via `export const prerender = false`, served by the
   // Vercel adapter as serverless functions.
-  adapter: vercel(),
+  adapter: vercel({
+    // The OG-card renderer reads these at runtime via computed paths, which
+    // Vercel's dependency tracer can't see — force them into the function bundle.
+    includeFiles: [
+      'node_modules/@expo-google-fonts/poppins/700Bold/Poppins_700Bold.ttf',
+      'node_modules/@expo-google-fonts/noto-sans-myanmar/700Bold/NotoSansMyanmar_700Bold.ttf',
+      'node_modules/harfbuzzjs/dist/harfbuzz.wasm',
+      'public/assets/layaung-logo.png',
+    ],
+  }),
   // Bilingual routing: / = English, /my/ = Burmese (Unicode).
   // `Astro.currentLocale` drives which content set components render.
   i18n: {
