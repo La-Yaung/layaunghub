@@ -1,0 +1,26 @@
+---
+// Burmese blog post pages (/my/blog/<slug>/), one per entry in blog.my.ts.
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogPost from '../../../components/BlogPost.astro';
+import { posts, blog } from '../../../data/blog.my';
+
+export function getStaticPaths() {
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const origin = 'https://layaunghub.com';
+---
+<BaseLayout
+  path={`/my/blog/${post.slug}/`}
+  title={`${post.title} | La Yaung Hub`}
+  description={post.excerpt}
+  articleHeadline={post.title}
+  articleType="BlogPosting"
+  datePublished={post.date}
+  breadcrumb={post.title}
+  breadcrumbParent={{ name: blog.eyebrow, url: `${origin}/my/blog/` }}
+  noAlternates
+>
+  <BlogPost post={post} />
+</BaseLayout>

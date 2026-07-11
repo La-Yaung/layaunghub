@@ -1,0 +1,105 @@
+---
+// Renders one Burmese blog post (see src/data/blog.my.ts): Nav → breadcrumb →
+// cover → title/date/tags → article body (shared ContentBlocks) → Facebook
+// source link → related posts → waitlist CTA → Footer. Served under /my/blog/.
+import Background from './Background.astro';
+import Nav from './Nav.astro';
+import Footer from './Footer.astro';
+import Icon from './Icon.astro';
+import ContentBlocks from './ContentBlocks.astro';
+import WaitlistForm from './WaitlistForm.astro';
+import { getContent } from '../data/i18n';
+import { posts, blog, type BlogPost } from '../data/blog.my';
+
+interface Props { post: BlogPost; }
+const { post } = Astro.props;
+
+const { ui } = getContent('my');
+const base = '/my/';
+const related = posts.filter((p) => p.slug !== post.slug).slice(0, 2);
+---
+<div class="relative overflow-hidden bg-app">
+  <Background />
+  <div class="relative z-[2]">
+    <Nav base={base} />
+
+    <article class="max-w-[820px] mx-auto px-[clamp(20px,5vw,72px)] pt-[clamp(24px,4vw,44px)] pb-[clamp(56px,7vw,88px)]">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="text-13 text-content-tertiary mb-6 flex items-center gap-2 flex-wrap">
+        <a href={base} class="hover:text-content-brand transition-colors">{blog.home}</a>
+        <span aria-hidden="true">/</span>
+        <a href={`${base}blog/`} class="hover:text-content-brand transition-colors">{blog.eyebrow}</a>
+      </nav>
+
+      <!-- Cover: original image if provided, else a designed brand panel -->
+      {post.cover ? (
+        <>
+          <img src={post.cover} alt={post.title} class="w-full rounded-[24px] border border-border-subtle mb-6" />
+          <h1 class="font-display text-display-sm font-bold leading-115 text-content-primary mb-8">{post.title}</h1>
+        </>
+      ) : (
+        <div data-theme="dark" class="relative overflow-hidden rounded-[24px] border border-border-subtle bg-surface-primary px-[clamp(22px,5vw,52px)] py-[clamp(36px,7vw,64px)] text-center mb-8">
+          <div class="absolute inset-0 bg-glow-moon opacity-70" aria-hidden="true"></div>
+          <div class="relative">
+            <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-4">{post.coverEyebrow}</div>
+            <h1 class="font-display text-display-sm font-bold leading-120 text-content-primary max-w-[620px] mx-auto">{post.title}</h1>
+          </div>
+        </div>
+      )}
+
+      <!-- Meta -->
+      <div class="flex items-center gap-3 flex-wrap mb-1">
+        <time datetime={post.date} class="text-13 text-content-tertiary">{post.dateLabel}</time>
+        {post.tags.map((t) => (
+          <span class="text-11-5 font-mono tracking-caps uppercase text-content-brand bg-surface-brand/[0.08] border border-border-interactive/25 rounded-full px-2.5 py-1">{t}</span>
+        ))}
+      </div>
+
+      <p class="text-19 text-content-secondary mt-5 mb-2 leading-155">{post.excerpt}</p>
+
+      <!-- Body -->
+      <div class="mt-4">
+        <ContentBlocks blocks={post.body} />
+      </div>
+
+      <!-- Original Facebook post -->
+      <a
+        href={post.fbUrl}
+        target="_blank"
+        rel="noopener"
+        class="mt-8 inline-flex items-center gap-2.5 rounded-full border border-border-strong px-5 py-3 text-14-5 font-semibold text-content-secondary transition-colors hover:text-content-brand hover:border-border-interactive/60"
+      >
+        <Icon name="facebook" size={18} class="text-content-brand" />{blog.onFacebook}
+      </a>
+
+      <!-- Related -->
+      <section class="mt-[clamp(40px,6vw,64px)]">
+        <h2 class="font-display text-18 font-semibold text-content-primary mb-4">{blog.relatedHeading}</h2>
+        {related.length ? (
+          <div class="grid gap-3 sm:grid-cols-2">
+            {related.map((r) => (
+              <a href={`${base}blog/${r.slug}/`} class="group flex flex-col gap-1.5 rounded-[16px] bg-surface-tertiary border border-border-subtle p-4 transition duration-200 hover:-translate-y-1 hover:border-border-interactive/40">
+                <span class="text-11-5 font-mono tracking-caps uppercase text-content-tertiary">{r.dateLabel}</span>
+                <span class="font-display text-15 font-semibold text-content-primary leading-135 group-hover:text-content-brand transition-colors">{r.title}</span>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <a href={`${base}blog/`} class="inline-flex items-center gap-2 text-14-5 font-semibold text-content-brand hover:underline">{blog.emptyRelated}<Icon name="compass" size={16} class="text-content-brand" /></a>
+        )}
+      </section>
+    </article>
+
+    <!-- Waitlist CTA -->
+    <section id="access" class="max-w-[820px] mx-auto px-[clamp(20px,5vw,72px)] pb-[clamp(64px,8vw,100px)]">
+      <div class="rounded-[24px] bg-cta-card border border-border-interactive/25 p-[clamp(28px,4vw,48px)] text-center">
+        <h2 class="font-display text-display-sm font-bold leading-110 text-content-primary">{ui.cta.h2Pre}<span class="text-gold">{ui.cta.h2Highlight}</span></h2>
+        <p class="text-16-5 text-content-secondary mt-4 leading-160 max-w-[520px] mx-auto">{ui.cta.body}</p>
+        <WaitlistForm center={true} source={`blog:${post.slug}`} />
+        <p class="text-13 text-content-tertiary mt-4">{ui.cta.noSpam}</p>
+      </div>
+    </section>
+
+    <Footer base={base} />
+  </div>
+</div>

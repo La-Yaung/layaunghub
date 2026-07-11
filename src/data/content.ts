@@ -114,7 +114,7 @@ export const proPlan = ['Every lesson, fully unlocked', 'Teacher feedback on wri
 // markup. Kept here so the Burmese locale (content.my.ts) can mirror it 1:1.
 // Headings are split into pre/highlight parts to preserve the styled <span>s.
 export const ui = {
-  nav: { cta: 'Get Early Access', guides: 'GED Guides' },
+  nav: { cta: 'Get Early Access', guides: 'GED Guides', blog: 'Blog' },
   hero: {
     badge: 'Beta launching 2026',
     h1Line1: 'Watch the lesson.',

@@ -6,6 +6,7 @@ import Background from './Background.astro';
 import Nav from './Nav.astro';
 import Footer from './Footer.astro';
 import Icon from './Icon.astro';
+import ContentBlocks from './ContentBlocks.astro';
 import WaitlistForm from './WaitlistForm.astro';
 import { getContent, getGuides, getQuiz } from '../data/i18n';
 import { guideOrder, type GuideSlug } from '../data/guides';
@@ -60,67 +61,8 @@ const related = [
         </div>
       </header>
 
-      <!-- Body blocks -->
-      <div class="flex flex-col">
-        {guide.blocks.map((block) => {
-          if (block.type === 'h2') return (
-            <h2 class="font-display text-24 font-bold leading-125 text-content-primary mt-[clamp(30px,4vw,44px)] mb-3.5">{block.text}</h2>
-          );
-          if (block.type === 'h3') return (
-            <h3 class="font-display text-19 font-semibold leading-130 text-content-primary mt-7 mb-2.5">{block.text}</h3>
-          );
-          if (block.type === 'p') return (
-            <p class="text-17 leading-165 text-content-secondary mb-4">{block.text}</p>
-          );
-          if (block.type === 'ul') return (
-            <ul class="flex flex-col gap-3 my-2 mb-5">
-              {block.items.map((item) => (
-                <li class="flex gap-3 text-16-5 leading-160 text-content-secondary">
-                  <span class="mt-[9px] flex-none w-1.5 h-1.5 rounded-full bg-surface-brand" aria-hidden="true"></span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          );
-          if (block.type === 'callout') return (
-            <div class="my-6 rounded-[18px] bg-card-feature border border-border-interactive/25 p-[clamp(20px,3vw,28px)] flex gap-4">
-              {block.icon && <div class="flex-none w-11 h-11 rounded-[13px] bg-icon-soft border border-border-interactive/25 flex items-center justify-center"><Icon name={block.icon} size={22} class="text-content-brand" /></div>}
-              <div>
-                <div class="font-display text-18 font-semibold text-content-primary leading-130 mb-1.5">{block.title}</div>
-                <p class="text-15-5 leading-160 text-content-secondary">{block.text}</p>
-              </div>
-            </div>
-          );
-          // table
-          return (
-            <figure class="my-6">
-              <div class="overflow-x-auto rounded-[16px] border border-border-subtle">
-                <table class="w-full border-collapse text-left text-15">
-                  <thead>
-                    <tr class="bg-surface-tertiary">
-                      {block.columns.map((col) => (
-                        <th scope="col" class="font-display text-13 font-semibold uppercase tracking-caps text-content-tertiary px-4 py-3 border-b border-border-subtle align-bottom">{col}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {block.rows.map((row) => (
-                      <tr class="border-b border-border-subtle last:border-b-0">
-                        {row.map((cell, ci) => (
-                          ci === 0
-                            ? <th scope="row" class="font-semibold text-content-primary px-4 py-3.5 align-top leading-140 min-w-[130px]">{cell}</th>
-                            : <td class="text-content-secondary px-4 py-3.5 align-top leading-150">{cell}</td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              {block.caption && <figcaption class="text-12-5 text-content-tertiary mt-2.5 px-1">{block.caption}</figcaption>}
-            </figure>
-          );
-        })}
-      </div>
+      <!-- Body blocks (shared renderer, also used by the blog) -->
+      <ContentBlocks blocks={guide.blocks} />
 
       <!-- Per-guide FAQ (feeds this page's FAQPage JSON-LD) -->
       <section class="ly-reveal mt-[clamp(40px,6vw,64px)]">

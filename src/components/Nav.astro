@@ -34,6 +34,7 @@ const otherLabel = locale === 'my' ? 'EN' : 'မြန်မာ';
         <a href={`${base}${item.href}`} class="text-15 font-medium text-content-secondary hover:text-content-brand transition-colors">{item.label}</a>
       ))}
       <a href={guidesHref} class="text-15 font-medium text-content-secondary hover:text-content-brand transition-colors">{ui.nav.guides}</a>
+      {locale === 'my' && <a href="/my/blog/" class="text-15 font-medium text-content-secondary hover:text-content-brand transition-colors">{ui.nav.blog}</a>}
     </div>
     <a
       href={otherHref}

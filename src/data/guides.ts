@@ -22,7 +22,8 @@ export type Block =
   | { type: 'h3'; text: string }
   | { type: 'ul'; items: string[] }
   | { type: 'table'; caption?: string; columns: string[]; rows: string[][] }
-  | { type: 'callout'; icon?: IconName; title: string; text: string };
+  | { type: 'callout'; icon?: IconName; title: string; text: string }
+  | { type: 'image'; src: string; alt: string; caption?: string };
 
 export interface Guide {
   slug: GuideSlug;

@@ -13,8 +13,17 @@ interface Props {
   /** When set, the page is treated as an Article (og:type + Article/Breadcrumb
    *  structured data) rather than the default website. */
   articleHeadline?: string;
+  /** Article subtype — 'BlogPosting' for blog posts, else 'Article'. */
+  articleType?: 'Article' | 'BlogPosting';
+  /** ISO publish date for BlogPosting/Article structured data. */
+  datePublished?: string;
   /** Breadcrumb label for the article (defaults to its title). */
   breadcrumb?: string;
+  /** Breadcrumb parent { name, url } inserted between home and this page. */
+  breadcrumbParent?: { name: string; url: string };
+  /** Suppress the en/my/x-default hreflang links for single-language pages
+   *  (e.g. the Burmese-only blog) whose counterpart URL does not exist. */
+  noAlternates?: boolean;
 }
 
 // Locale comes from Astro's i18n routing: "/" → en, "/my/" → my.
@@ -28,7 +37,11 @@ const {
   image = site.ogImage,
   faqItems,
   articleHeadline,
+  articleType = 'Article',
+  datePublished,
   breadcrumb,
+  breadcrumbParent,
+  noAlternates = false,
 } = Astro.props;
 
 // Prefer the configured production `site`; fall back to the request origin in dev.
@@ -96,11 +109,21 @@ const graph: Record<string, unknown>[] = [
   },
 ];
 
-// An informational guide is an Article with a breadcrumb back to home.
+// An informational guide / blog post is an Article (or BlogPosting) with a
+// breadcrumb back to home (and an optional intermediate parent, e.g. the blog).
 if (isArticle) {
+  const homeItem = locale === 'my' ? origin + '/my/' : origin + '/';
+  const crumbs: Record<string, unknown>[] = [
+    { '@type': 'ListItem', position: 1, name: site.name, item: homeItem },
+  ];
+  if (breadcrumbParent) {
+    crumbs.push({ '@type': 'ListItem', position: crumbs.length + 1, name: breadcrumbParent.name, item: breadcrumbParent.url });
+  }
+  crumbs.push({ '@type': 'ListItem', position: crumbs.length + 1, name: breadcrumb ?? title, item: canonical });
+
   graph.push(
     {
-      '@type': 'Article',
+      '@type': articleType,
       '@id': canonical + '#article',
       isPartOf: { '@id': canonical + '#webpage' },
       headline: articleHeadline,
@@ -110,14 +133,12 @@ if (isArticle) {
       author: { '@id': orgId },
       publisher: { '@id': orgId },
       mainEntityOfPage: { '@id': canonical + '#webpage' },
+      ...(datePublished ? { datePublished, dateModified: datePublished } : {}),
     },
     {
       '@type': 'BreadcrumbList',
       '@id': canonical + '#breadcrumb',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: site.name, item: enHref === canonical ? origin + '/' : (locale === 'my' ? origin + '/my/' : origin + '/') },
-        { '@type': 'ListItem', position: 2, name: breadcrumb ?? title, item: canonical },
-      ],
+      itemListElement: crumbs,
     },
   );
 }
@@ -171,10 +192,15 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
   <meta name="keywords" content={site.keywords.join(', ')} />
   <meta name="author" content={site.name} />
   <link rel="canonical" href={canonical} />
-  <!-- Bilingual alternates for THIS page (derived from its path). -->
-  <link rel="alternate" hreflang="en" href={enHref} />
-  <link rel="alternate" hreflang="my" href={myHref} />
-  <link rel="alternate" hreflang="x-default" href={enHref} />
+  <!-- Bilingual alternates for THIS page (derived from its path). Suppressed on
+       single-language pages (e.g. the Burmese-only blog) with no counterpart. -->
+  {!noAlternates && (
+    <>
+      <link rel="alternate" hreflang="en" href={enHref} />
+      <link rel="alternate" hreflang="my" href={myHref} />
+      <link rel="alternate" hreflang="x-default" href={enHref} />
+    </>
+  )}
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="theme-color" content={site.themeColor} />
 
