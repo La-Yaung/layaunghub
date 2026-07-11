@@ -1,6 +1,24 @@
 ---
-import { nav, site } from '../data/content';
 import Icon from './Icon.astro';
+import { getContent, getGuides, getQuiz } from '../data/i18n';
+import { guideOrder } from '../data/guides';
+
+interface Props {
+  /** Anchor prefix — '' on home (bare `#problem`), '/' or '/my/' on sub-pages. */
+  base?: string;
+}
+const locale = Astro.currentLocale ?? 'en';
+const { nav, site, ui } = getContent(locale);
+const ft = ui.footer;
+const { base = '' } = Astro.props;
+
+// Guide links for sitewide internal linking (helps SEO + discovery).
+const guideBase = base || (locale === 'my' ? '/my/' : '/');
+const guides = getGuides(locale);
+const guideLinks = [
+  ...guideOrder.map((s) => ({ href: `${guideBase}${s}/`, label: guides[s].navLabel })),
+  { href: `${guideBase}ged-readiness-quiz/`, label: getQuiz(locale).navLabel },
+];
 ---
 <footer data-theme="dark" class="bg-surface-primary text-content-primary border-t border-border-subtle max-w-[1280px] mx-auto px-[clamp(20px,5vw,72px)] py-[clamp(40px,5vw,56px)]">
   <div class="flex gap-8 flex-wrap justify-between items-start">
@@ -9,19 +27,27 @@ import Icon from './Icon.astro';
         <img src="/assets/layaung-logo.png" alt="La Yaung Hub logo" width="42" height="42" class="w-[42px] h-[42px] rounded-xl">
         <span class="font-display text-19 font-bold">La Yaung <span class="font-medium opacity-70 text-14">Hub</span></span>
       </div>
-      <p class="italic font-medium text-16 text-neutral-500 leading-150">Interactive, bilingual exam prep — lighting the way for Myanmar students. <span class="font-mm text-neutral-200">လရောင်</span></p>
+      <p class="italic font-medium text-16 text-neutral-500 leading-150">{ft.tagline} <span class="font-mm text-neutral-200">{site.nameMy}</span></p>
     </div>
     <div class="flex gap-[clamp(40px,6vw,80px)] flex-wrap">
       <div>
-        <div class="text-12-5 tracking-caps uppercase text-neutral-700 font-semibold mb-4">Explore</div>
+        <div class="text-12-5 tracking-caps uppercase text-neutral-700 font-semibold mb-4">{ft.explore}</div>
         <div class="flex flex-col gap-[11px] text-14-5 text-neutral-300">
           {nav.map((item) => (
-            <a href={item.href} class="transition-colors hover:text-content-brand">{item.label}</a>
+            <a href={`${base}${item.href}`} class="transition-colors hover:text-content-brand">{item.label}</a>
           ))}
         </div>
       </div>
       <div>
-        <div class="text-12-5 tracking-caps uppercase text-neutral-700 font-semibold mb-4">Contact</div>
+        <div class="text-12-5 tracking-caps uppercase text-neutral-700 font-semibold mb-4">{ft.resources}</div>
+        <div class="flex flex-col gap-[11px] text-14-5 text-neutral-300 max-w-[220px]">
+          {guideLinks.map((g) => (
+            <a href={g.href} class="transition-colors hover:text-content-brand leading-130">{g.label}</a>
+          ))}
+        </div>
+      </div>
+      <div>
+        <div class="text-12-5 tracking-caps uppercase text-neutral-700 font-semibold mb-4">{ft.contact}</div>
         <div class="flex flex-col gap-[13px] text-14-5 text-neutral-300">
           <a href={`mailto:${site.email}`} class="transition-colors hover:text-content-brand flex items-center gap-[9px]"><Icon name="mail" size={17} class="text-content-brand shrink-0" />{site.email}</a>
         </div>
@@ -34,6 +60,6 @@ import Icon from './Icon.astro';
     </div>
   </div>
   <div class="mt-11 pt-6 border-t border-glass-6 flex gap-4 flex-wrap justify-center text-13 text-neutral-700">
-    <span>© 2026 La Yaung Hub. All rights reserved.</span>
+    <span>{ft.rights}</span>
   </div>
 </footer>

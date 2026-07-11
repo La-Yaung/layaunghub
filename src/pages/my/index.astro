@@ -1,0 +1,35 @@
+---
+// Burmese (Unicode) home page — same sections as "/", rendered from the
+// `my` locale via Astro.currentLocale. Served at /my/ with lang="my".
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Background from '../../components/Background.astro';
+import Nav from '../../components/Nav.astro';
+import Hero from '../../components/Hero.astro';
+import Problem from '../../components/Problem.astro';
+import Transformation from '../../components/Transformation.astro';
+import HowItWorks from '../../components/HowItWorks.astro';
+import Features from '../../components/Features.astro';
+import Curriculum from '../../components/Curriculum.astro';
+import Pricing from '../../components/Pricing.astro';
+import Faq from '../../components/Faq.astro';
+import FinalCTA from '../../components/FinalCTA.astro';
+import Footer from '../../components/Footer.astro';
+---
+<BaseLayout path="/my/">
+  <div class="relative overflow-hidden bg-app">
+    <Background />
+    <div class="relative z-[2]">
+      <Nav />
+      <Hero />
+      <Problem />
+      <Transformation />
+      <HowItWorks />
+      <Features />
+      <Curriculum />
+      <Pricing />
+      <Faq />
+      <FinalCTA />
+      <Footer />
+    </div>
+  </div>
+</BaseLayout>

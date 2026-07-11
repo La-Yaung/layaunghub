@@ -1,25 +1,29 @@
 ---
 import WaitlistForm from './WaitlistForm.astro';
 import Icon from './Icon.astro';
+import { getContent } from '../data/i18n';
+
+const { ui, site } = getContent(Astro.currentLocale);
+const h = ui.hero;
 ---
 <header id="top" class="max-w-[1280px] mx-auto pt-[clamp(36px,6vw,80px)] px-[clamp(20px,5vw,72px)] pb-[clamp(60px,8vw,110px)] flex gap-[clamp(40px,6vw,80px)] items-center flex-wrap">
   <!-- left -->
   <div class="flex-[1_1_440px] min-w-[300px]">
     <div class="inline-flex items-center gap-[9px] bg-surface-brand/10 border border-border-interactive/[0.28] px-3.5 py-[7px] rounded-full mb-7">
-      <span class="w-[7px] h-[7px] rounded-full bg-surface-brand shadow-[0_0_10px_#FFD66B]"></span>
-      <span class="font-mono text-12 font-normal tracking-looser text-content-brand">Beta launching 2026</span>
+      <span class="w-[7px] h-[7px] rounded-full bg-surface-brand shadow-[0_0_10px_#7C64F0]"></span>
+      <span class="font-mono text-12 font-normal tracking-looser text-content-brand">{h.badge}</span>
     </div>
-    <h1 class="font-display text-display-xl font-extrabold leading-100">Watch the lesson.<br>Then <span class="text-gold">actually do it.</span></h1>
-    <p class="italic font-medium text-lead text-content-primary mt-5 leading-140">La Yaung · <span class="font-mm">လရောင်</span> — interactive, bilingual learning for Myanmar students.</p>
-    <p class="text-body text-content-secondary mt-[18px] leading-160 max-w-[520px]">Short video lessons paired with hands-on practice — all mapped to the real GED exam, with teacher feedback and a clear map of what to study next. IGCSE &amp; Myanmar tracks coming soon.</p>
+    <h1 class="font-display text-display-xl font-extrabold leading-100">{h.h1Line1}<br>{h.h1Line2Pre}<span class="text-gold">{h.h1Highlight}</span></h1>
+    <p class="italic font-medium text-lead text-content-primary mt-5 leading-140">La Yaung · <span class="font-mm">{site.nameMy}</span> {h.lead}</p>
+    <p class="text-body text-content-secondary mt-[18px] leading-160 max-w-[520px]">{h.body}</p>
 
     <p class="italic font-medium text-15-5 text-content-primary mt-6 flex items-center gap-2.5 max-w-[520px]">
       <Icon name="moon" size={18} class="text-content-brand shrink-0" />
-      <span><span class="font-mm not-italic">လရောင်</span> means <em class="text-gold not-italic font-semibold">moonlight</em> — because no one should have to study in the dark.</span>
+      <span><span class="font-mm not-italic">{site.nameMy}</span>{h.moonPre}<em class="text-gold not-italic font-semibold">{h.moonWord}</em>{h.moonPost}</span>
     </p>
 
     <WaitlistForm />
-    <div class="text-13-5 text-content-tertiary mt-3.5 flex items-center gap-2"><span class="text-content-brand">✦</span> Free to start · First lesson of every topic, on us.</div>
+    <div class="text-13-5 text-content-tertiary mt-3.5 flex items-center gap-2"><span class="text-content-brand">✦</span> {h.free}</div>
   </div>
 
   <!-- right: product mockup -->
@@ -27,7 +31,7 @@ import Icon from './Icon.astro';
     <div class="absolute w-[440px] h-[440px] rounded-full bg-glow-hero animate-glow z-0"></div>
     <div class="relative z-[1] animate-float">
       <!-- phone -->
-      <div class="w-[288px] bg-phone-a border-8 border-deep rounded-[44px] overflow-hidden shadow-[0_44px_90px_-26px_rgba(0,0,0,0.75),0_0_70px_-16px_rgba(244,206,94,0.22)]">
+      <div class="w-[288px] bg-phone-a border-8 border-deep rounded-[44px] overflow-hidden shadow-[0_44px_90px_-26px_rgba(19,15,38,0.28),0_0_70px_-16px_rgba(95,75,241,0.30)]">
         <div class="pt-7 px-[18px] pb-[22px]">
           <div class="font-display text-18 font-bold text-content-primary mb-3.5">Quadratic Equations</div>
           <div class="flex items-center justify-between text-11-5 text-content-secondary mb-[7px]"><span>Lesson 3 of 8</span><span class="text-content-brand font-semibold">45%</span></div>
@@ -42,7 +46,7 @@ import Icon from './Icon.astro';
           <!-- video -->
           <div class="relative h-[140px] rounded-2xl overflow-hidden bg-screen border border-border-subtle mb-3.5">
             <div class="absolute inset-0 opacity-50 bg-glow-spot"></div>
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-surface-brand/95 flex items-center justify-center shadow-[0_8px_24px_rgba(244,206,94,0.5)]"><span class="text-content-on-brand text-16 ml-[3px]">▶</span></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-surface-brand/95 flex items-center justify-center shadow-[0_8px_24px_rgba(95,75,241,0.5)]"><span class="text-content-on-brand text-16 ml-[3px]">▶</span></div>
             <div class="absolute left-2.5 right-2.5 bottom-[9px] flex items-center gap-[7px]"><span class="text-9 text-content-primary">0:51</span><span class="flex-1 h-[3px] rounded-[10px] bg-surface-tertiary"><span class="block w-[34%] h-full rounded-[10px] bg-surface-brand"></span></span><span class="text-9 text-content-primary">2:31</span></div>
           </div>
           <!-- explanation -->
@@ -52,8 +56,8 @@ import Icon from './Icon.astro';
           </div>
         </div>
       </div>
-      <img src="/assets/layaung-logo.png" alt="" aria-hidden="true" width="72" height="72" class="absolute top-[-22px] left-[-30px] w-[72px] h-[72px] rounded-[18px] shadow-[0_16px_32px_-8px_rgba(0,0,0,0.6)] border-2 border-border-subtle" />
-      <div class="absolute bottom-[46px] right-[-34px] bg-surface-secondary border border-border-interactive/40 rounded-2xl px-4 py-[13px] shadow-[0_18px_40px_-12px_rgba(0,0,0,0.6)] flex items-center gap-[11px]">
+      <img src="/assets/layaung-logo.png" alt="" aria-hidden="true" width="72" height="72" class="absolute top-[-22px] left-[-30px] w-[72px] h-[72px] rounded-[18px] shadow-[0_16px_32px_-8px_rgba(19,15,38,0.20)] border-2 border-border-subtle" />
+      <div class="absolute bottom-[46px] right-[-34px] bg-surface-primary border border-border-interactive/40 rounded-2xl px-4 py-[13px] shadow-[0_18px_40px_-12px_rgba(19,15,38,0.18)] flex items-center gap-[11px]">
         <div class="w-[34px] h-[34px] rounded-[10px] bg-gold-tile flex items-center justify-center"><Icon name="target" size={19} class="text-content-on-brand" /></div>
         <div><div class="font-display font-semibold text-12-5 text-content-primary">Practice</div><div class="text-10-5 text-content-secondary">9 activity types</div></div>
       </div>
@@ -64,11 +68,11 @@ import Icon from './Icon.astro';
 <!-- logo strip / trust -->
 <div class="max-w-[1280px] mx-auto px-[clamp(20px,5vw,72px)] pb-5">
   <div class="flex gap-[clamp(20px,4vw,56px)] flex-wrap justify-center items-center px-7 py-6 bg-surface-secondary border border-border-subtle rounded-[18px]">
-    <span class="font-mono text-11-5 tracking-caps-lg uppercase text-content-tertiary">Built for</span>
-    <span class="inline-flex items-center gap-2.5 font-display text-18 font-semibold text-content-primary">GED <span class="font-mono text-10 tracking-caps uppercase text-content-on-brand bg-gold px-2.5 py-1 rounded-full whitespace-nowrap">Available now</span></span>
+    <span class="font-mono text-11-5 tracking-caps-lg uppercase text-content-tertiary">{h.trust.builtFor}</span>
+    <span class="inline-flex items-center gap-2.5 font-display text-18 font-semibold text-content-primary">{h.trust.ged} <span class="font-mono text-10 tracking-caps uppercase text-content-on-brand bg-gold px-2.5 py-1 rounded-full whitespace-nowrap">{h.trust.available}</span></span>
     <span class="w-[5px] h-[5px] rounded-full bg-border-strong"></span>
-    <span class="font-display text-18 font-semibold text-content-tertiary">IGCSE · Cambridge <span class="font-mono text-11 tracking-caps uppercase">· soon</span></span>
+    <span class="font-display text-18 font-semibold text-content-tertiary">{h.trust.igcse} <span class="font-mono text-11 tracking-caps uppercase">{h.trust.soon}</span></span>
     <span class="w-[5px] h-[5px] rounded-full bg-border-strong"></span>
-    <span class="font-display text-18 font-semibold text-content-tertiary">Myanmar Grades 10–12 <span class="font-mono text-11 tracking-caps uppercase">· soon</span></span>
+    <span class="font-display text-18 font-semibold text-content-tertiary">{h.trust.grades} <span class="font-mono text-11 tracking-caps uppercase">{h.trust.soon}</span></span>
   </div>
 </div>
