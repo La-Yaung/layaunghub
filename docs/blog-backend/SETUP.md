@@ -82,6 +82,7 @@ Visit `http://localhost:4321/my/blog/` (via `npm run dev`) to confirm it shows.
 
 ## 6. How to post (authoring convention)
 
+Full guide + an AI reformatting prompt: [`POST-FORMAT.md`](./POST-FORMAT.md).
 Just post normally in your Telegram channel. Formatting rules:
 
 | In your Telegram message        | Becomes on the blog            |
