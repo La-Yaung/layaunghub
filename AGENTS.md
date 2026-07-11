@@ -4,8 +4,9 @@ Guidance for AI coding agents working in this repo. Humans: see [README.md](READ
 
 ## What this is
 A single-page **Astro 5** marketing site (static, zero-JS-by-default) for *La Yaung Hub* —
-bilingual GED/IGCSE exam prep for Myanmar students. Dark **"moonlit-blue"** theme where **gold is
-the brand accent**. Styling is **Tailwind CSS v4** driven by a **two-tier design-token system**;
+bilingual GED/IGCSE exam prep for Myanmar students. Light **cool** theme that mirrors the app's
+Figma design system: **purple `#5F4BF1` is the brand primary** (monochrome purple, **Poppins** type,
+`#F8F9FC` surface, white cards, pill buttons). Styling is **Tailwind CSS v4** driven by a **two-tier design-token system**;
 icons are inline **Lineicons**. Google Analytics (GA4) is wired in. Deploys static to **Vercel**
 (`layaunghub.com`). No backend except a Formspree-backed waitlist form.
 
@@ -52,7 +53,10 @@ Node 20+. There are no unit tests; **verification = `npm run build` succeeds + v
     `bg-screen`, `bg-phone-{a,b}`, `bg-gold-{bar,tab,tile}`, `bg-icon-soft`, `bg-card-feature`,
     `bg-banner-gold`, `bg-premium`, `bg-cta-card`, `bg-panel-soft(-25)`, `bg-shift` (dark→light panel),
     `bg-moonbeam`. Support accent: `text-support`/`bg-support`/`border-support` (subtle blue).
-  - Theme is locked dark via `<html data-theme="dark">` (light map exists in tokens.css for a future toggle).
+  - Theme is light via `<html data-theme="light">`; the dark token map now only skins the Footer
+    (`data-theme="dark"`). The brand is monochrome purple — `--surface-brand` / `--content-brand` /
+    `--border-interactive` all resolve to `--color-primary-*`, and the `bg-gold`/`text-gold` utility
+    names now render **purple** gradients (values in `tokens.css`; names kept to avoid churn).
   - Spacing/radius/sizing/shadows are still Tailwind arbitraries (`rounded-[18px]`, `gap-[18px]`,
     `shadow-[...]`) — a deliberate escape hatch; tokenize only if asked.
 - **Icons:** `<Icon name="globe" size={24} class="text-accent" />`. Names are the keys in
