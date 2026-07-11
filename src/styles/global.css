@@ -174,13 +174,20 @@
   .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 }
 
-/* Burmese script stacks vowels/medials taller than Latin, so the tight
-   heading leadings tuned for Poppins (leading-100..112) clip it. Unlayered
-   on purpose: it must outrank the utilities layer, and only applies on the
-   Burmese page (html[lang="my"]). Values reference tokens only. */
+/* Burmese script stacks vowels/medials/tone-marks taller than Latin, so the
+   tight heading leadings tuned for Poppins (leading-100..112) clip it — and the
+   gradient-clipped highlight words (background-clip:text) get sliced at the line
+   box. Fix: give Burmese headings more leading and normalise tracking. Burmese
+   has no italic, so synthetic slant (e.g. Problem.astro's `italic text-gold`)
+   is reset to upright. Unlayered on purpose: must outrank the utilities layer;
+   only applies on /my/ (html[lang="my"]). Values reference tokens only. */
 html[lang="my"] h1,
 html[lang="my"] h2,
-html[lang="my"] h3 { line-height: var(--lh-140); }
+html[lang="my"] h3,
+html[lang="my"] h4 { line-height: var(--lh-150); letter-spacing: normal; }
+html[lang="my"] .italic,
+html[lang="my"] em,
+html[lang="my"] i { font-style: normal; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }

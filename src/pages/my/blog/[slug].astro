@@ -1,21 +1,25 @@
 ---
-// Burmese blog post pages (/my/blog/<slug>/), one per entry in blog.my.ts.
+// Burmese blog post — server-rendered from Supabase at request time, so a new
+// post (e.g. ingested from Telegram) is live instantly with no rebuild.
+export const prerender = false;
+
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import BlogPost from '../../../components/BlogPost.astro';
-import { posts, blog } from '../../../data/blog.my';
+import { blog } from '../../../data/blog.my';
+import { getPostBySlug, getPosts } from '../../../lib/blog-db';
 
-export function getStaticPaths() {
-  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
-}
+const { slug } = Astro.params;
+const post = slug ? await getPostBySlug(slug) : null;
+if (!post) return new Response('Not found', { status: 404 });
 
-const { post } = Astro.props;
+const related = (await getPosts()).filter((p) => p.slug !== post.slug).slice(0, 2);
 const origin = 'https://layaunghub.com';
 ---
 <BaseLayout
   path={`/my/blog/${post.slug}/`}
   title={`${post.title} | La Yaung Hub`}
   description={post.excerpt}
-  image={`/my/blog/${post.slug}/og.png`}
+  image={post.ogUrl ?? '/og-image.png'}
   imageAlt={post.title}
   articleHeadline={post.title}
   articleType="BlogPosting"
@@ -25,5 +29,5 @@ const origin = 'https://layaunghub.com';
   breadcrumbParent={{ name: blog.eyebrow, url: `${origin}/my/blog/` }}
   noAlternates
 >
-  <BlogPost post={post} />
+  <BlogPost post={post} related={related} />
 </BaseLayout>
