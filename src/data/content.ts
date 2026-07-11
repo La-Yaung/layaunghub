@@ -35,6 +35,7 @@ export const site = {
   ],
   social: {
     facebook: 'https://web.facebook.com/layaunghub/',
+    instagram: 'https://www.instagram.com/layaunghub/',
     telegram: 'https://t.me/layaunghub',
     tiktok: 'https://www.tiktok.com/@layaunghub',
   },
@@ -69,7 +70,7 @@ export const nav = [
 export type IconName =
   | 'globe' | 'coins' | 'compass' | 'help' | 'play' | 'target' | 'trend'
   | 'video' | 'map' | 'note' | 'pen' | 'bars' | 'translate' | 'bulb' | 'moon'
-  | 'mail' | 'facebook' | 'telegram' | 'tiktok';
+  | 'mail' | 'facebook' | 'telegram' | 'tiktok' | 'instagram';
 
 export const problems: { icon: IconName; title: string; body: string }[] = [
   { icon: 'globe', title: 'English-only resources', body: 'Most prep material assumes fluent English, leaving Burmese-speaking students stuck before they even start.' },
