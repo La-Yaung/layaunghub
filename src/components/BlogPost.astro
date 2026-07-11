@@ -38,11 +38,16 @@ const related = posts.filter((p) => p.slug !== post.slug).slice(0, 2);
           <h1 class="font-display text-display-sm font-bold leading-115 text-content-primary mb-8">{post.title}</h1>
         </>
       ) : (
-        <div data-theme="dark" class="relative overflow-hidden rounded-[24px] border border-border-subtle bg-surface-primary px-[clamp(22px,5vw,52px)] py-[clamp(36px,7vw,64px)] text-center mb-8">
+        <div data-theme="dark" class="relative overflow-hidden rounded-[24px] border border-border-subtle bg-surface-primary px-[clamp(24px,5vw,56px)] py-[clamp(40px,7vw,72px)] text-center mb-8">
           <div class="absolute inset-0 bg-glow-moon opacity-70" aria-hidden="true"></div>
-          <div class="relative">
+          <div class="relative flex flex-col items-center">
+            <div class="flex items-center gap-2.5 mb-6">
+              <img src="/assets/layaung-logo.png" alt="La Yaung Hub logo" width="40" height="40" class="w-10 h-10 rounded-[11px] shadow-[0_6px_20px_rgba(0,0,0,0.35)]" />
+              <span class="font-display text-17 font-bold text-content-primary">La Yaung <span class="font-medium opacity-70 text-13">Hub</span></span>
+            </div>
             <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-4">{post.coverEyebrow}</div>
             <h1 class="font-display text-display-sm font-bold leading-120 text-content-primary max-w-[620px] mx-auto">{post.title}</h1>
+            <div class="mt-6 h-px w-24 bg-gold rounded-full opacity-80" aria-hidden="true"></div>
           </div>
         </div>
       )}

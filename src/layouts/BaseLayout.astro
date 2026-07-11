@@ -15,8 +15,12 @@ interface Props {
   articleHeadline?: string;
   /** Article subtype — 'BlogPosting' for blog posts, else 'Article'. */
   articleType?: 'Article' | 'BlogPosting';
+  /** Tags for article:tag meta + structured-data keywords. */
+  articleTags?: string[];
   /** ISO publish date for BlogPosting/Article structured data. */
   datePublished?: string;
+  /** Alt text for the og:/twitter: share image (defaults to the site line). */
+  imageAlt?: string;
   /** Breadcrumb label for the article (defaults to its title). */
   breadcrumb?: string;
   /** Breadcrumb parent { name, url } inserted between home and this page. */
@@ -38,7 +42,9 @@ const {
   faqItems,
   articleHeadline,
   articleType = 'Article',
+  articleTags,
   datePublished,
+  imageAlt = 'La Yaung Hub — interactive bilingual GED exam prep for Myanmar students',
   breadcrumb,
   breadcrumbParent,
   noAlternates = false,
@@ -134,6 +140,7 @@ if (isArticle) {
       publisher: { '@id': orgId },
       mainEntityOfPage: { '@id': canonical + '#webpage' },
       ...(datePublished ? { datePublished, dateModified: datePublished } : {}),
+      ...(articleTags?.length ? { keywords: articleTags.join(', ') } : {}),
     },
     {
       '@type': 'BreadcrumbList',
@@ -208,6 +215,8 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
+  <!-- Blog feed — also the hook for RSS→Telegram/IFTTT auto-announce bots. -->
+  <link rel="alternate" type="application/rss+xml" title="La Yaung Hub — Blog" href="/my/blog/rss.xml" />
 
   <!-- Open Graph (Facebook, Messenger, LinkedIn, etc.) -->
   <meta property="og:type" content={isArticle ? 'article' : 'website'} />
@@ -218,16 +227,18 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
   <meta property="og:image" content={ogImageUrl} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="La Yaung Hub — interactive bilingual GED exam prep for Myanmar students" />
+  <meta property="og:image:alt" content={imageAlt} />
   <meta property="og:locale" content={site.locale} />
   <meta property="og:locale:alternate" content={site.localeAlternate} />
+  {isArticle && datePublished && <meta property="article:published_time" content={datePublished} />}
+  {isArticle && articleTags?.map((t) => <meta property="article:tag" content={t} />)}
 
   <!-- Twitter / X card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImageUrl} />
-  <meta name="twitter:image:alt" content="La Yaung Hub — interactive bilingual GED exam prep for Myanmar students" />
+  <meta name="twitter:image:alt" content={imageAlt} />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
