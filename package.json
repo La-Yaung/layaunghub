@@ -11,6 +11,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "seed": "node --env-file=.env scripts/seed-blog.mjs",
     "astro": "astro"
   },
   "dependencies": {

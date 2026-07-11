@@ -9,14 +9,14 @@ import Icon from './Icon.astro';
 import ContentBlocks from './ContentBlocks.astro';
 import WaitlistForm from './WaitlistForm.astro';
 import { getContent } from '../data/i18n';
-import { posts, blog, type BlogPost } from '../data/blog.my';
+import { blog } from '../data/blog.my';
+import type { BlogPost } from '../lib/blog-db';
 
-interface Props { post: BlogPost; }
-const { post } = Astro.props;
+interface Props { post: BlogPost; related?: BlogPost[]; }
+const { post, related = [] } = Astro.props;
 
 const { ui } = getContent('my');
 const base = '/my/';
-const related = posts.filter((p) => p.slug !== post.slug).slice(0, 2);
 ---
 <div class="relative overflow-hidden bg-app">
   <Background />
