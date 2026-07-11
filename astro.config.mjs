@@ -13,7 +13,9 @@ export default defineConfig({
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'my'],
-    routing: { prefixDefaultLocale: false },
+    // Astro 6+ wants these set explicitly. English (default) is unprefixed at
+    // "/", Burmese at "/my/"; never redirect the bare default locale.
+    routing: { prefixDefaultLocale: false, redirectToDefaultLocale: false },
   },
   integrations: [
     sitemap({
