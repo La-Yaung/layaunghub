@@ -329,6 +329,67 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
     }
 
     initReveal();
+
+    // ===== Reliable anchor scrolling ====================================
+    // The browser's own fragment scroll (clicking `<a href="#id">`, or
+    // loading a URL with a hash) races the reveal system above: it computes
+    // a target position while below-fold `.ly-reveal` sections are still
+    // "armed" (opacity:0, pre-animation), and can land far off-target once
+    // those sections settle. Route every in-page anchor through an explicit
+    // scrollIntoView instead, after force-settling the target (and every
+    // armed section above it) so its geometry can't move mid-scroll.
+    function settleReveal(el: Element) {
+      el.classList.remove('is-armed');
+      el.classList.add('is-in');
+    }
+
+    function settleUpTo(target: HTMLElement) {
+      document.querySelectorAll<HTMLElement>('.ly-reveal.is-armed').forEach((el) => {
+        const pos = target.compareDocumentPosition(el);
+        if (el === target || pos & Node.DOCUMENT_POSITION_PRECEDING || pos & Node.DOCUMENT_POSITION_CONTAINS) {
+          settleReveal(el);
+        }
+      });
+      settleReveal(target);
+    }
+
+    function reducedMotion() {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    function scrollToTarget(target: HTMLElement, behavior: ScrollBehavior) {
+      settleUpTo(target);
+      // Two rAFs: the first lets the settled classes above land in
+      // style/layout, the second runs once that layout has painted, so
+      // scrollIntoView measures final (not mid-animation) geometry.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => target.scrollIntoView({ behavior, block: 'start' }));
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = (e.target as Element).closest?.('a[href*="#"]');
+      if (!a) return;
+      const href = a.getAttribute('href');
+      if (!href) return;
+      const url = new URL(href, location.href);
+      if (url.pathname !== location.pathname || !url.hash || url.hash === '#') return;
+      const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      if (!target) return;
+      e.preventDefault();
+      history.pushState(null, '', url.hash);
+      scrollToTarget(target, reducedMotion() ? 'instant' : 'smooth');
+    });
+
+    // A page loaded directly at a hash (e.g. "/#pricing") gets the same
+    // unreliable native jump — correct it once, instantly, after the
+    // reveal state above is settled.
+    if (location.hash) {
+      const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (target) scrollToTarget(target, 'instant');
+    }
+
     document.querySelectorAll<HTMLFormElement>('form.ly-waitlist').forEach((f) => f.addEventListener('submit', handleSubmit));
   </script>
 </body>
