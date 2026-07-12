@@ -7,7 +7,11 @@ const c = ui.cta;
 ---
 <section id="access" class="max-w-[1280px] mx-auto pt-0 px-[clamp(20px,5vw,72px)] pb-[clamp(64px,8vw,100px)]">
   <div class="relative overflow-hidden rounded-[32px] bg-cta-card border border-border-interactive/[0.22] py-[clamp(44px,6vw,80px)] px-[clamp(28px,5vw,72px)] text-center">
-    <div class="absolute top-[-120px] right-[-80px] w-[380px] h-[380px] rounded-full bg-moon shadow-[0_0_120px_rgba(95,75,241,0.4)] opacity-[0.85]"></div>
+    <!-- glowing crescent moon (retired the flat orb) -->
+    <div aria-hidden="true" class="absolute top-[-140px] right-[-100px] w-[400px] h-[400px] pointer-events-none">
+      <div class="absolute inset-[-52px] rounded-full bg-glow-moon opacity-75"></div>
+      <div class="absolute inset-0 rounded-full bg-moon-crescent mask-crescent moon-aura opacity-[0.92]"></div>
+    </div>
     <div class="absolute inset-0 bg-glow-cta pointer-events-none"></div>
     <div class="relative z-[1] max-w-[680px] mx-auto">
       <div class="inline-flex items-center gap-[9px] bg-surface-brand/[0.14] border border-border-interactive/[0.3] px-3.5 py-[7px] rounded-[100px] mb-[26px]">

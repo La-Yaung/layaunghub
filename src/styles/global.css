@@ -158,6 +158,11 @@
 @utility bg-cta-card     { background-image: var(--gradient-cta-card); }
 @utility bg-shift        { background-image: var(--gradient-shift); }
 @utility bg-moonbeam     { background-image: var(--gradient-moonbeam); }
+/* --- Moonlight signature: crescent moon disc, mask, aura + starfield --- */
+@utility bg-moon-crescent { background-image: var(--gradient-moon-crescent); }
+@utility bg-starfield     { background-image: var(--gradient-starfield); }
+@utility mask-crescent    { -webkit-mask-image: var(--mask-crescent); mask-image: var(--mask-crescent); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+@utility moon-aura        { filter: var(--shadow-moon-aura); }
 
 /* =====================================================================
    INTERACTION — one coherent, restrained hover/focus behaviour for cards
