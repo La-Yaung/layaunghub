@@ -19,48 +19,69 @@ const guideLinks = [
   ...guideOrder.map((s) => ({ href: `${guideBase}${s}/`, label: guides[s].navLabel })),
   { href: `${guideBase}ged-readiness-quiz/`, label: getQuiz(locale).navLabel },
 ];
+
+const socials = [
+  { href: site.social.facebook, label: 'Facebook', icon: 'facebook' },
+  { href: site.social.instagram, label: 'Instagram', icon: 'instagram' },
+  { href: site.social.telegram, label: 'Telegram', icon: 'telegram' },
+  { href: site.social.tiktok, label: 'TikTok', icon: 'tiktok' },
+];
 ---
-<footer data-theme="dark" class="bg-surface-primary text-content-primary border-t border-border-subtle max-w-[1280px] mx-auto px-[clamp(20px,5vw,72px)] py-[clamp(40px,5vw,56px)]">
-  <div class="flex gap-8 flex-wrap justify-between items-start">
-    <div class="max-w-[340px]">
-      <div class="flex items-center gap-3 mb-4">
-        <img src="/assets/layaung-logo.png" alt="La Yaung Hub logo" width="42" height="42" class="w-[42px] h-[42px] rounded-xl">
-        <span class="font-display text-19 font-bold">La Yaung <span class="font-medium opacity-70 text-14">Hub</span></span>
+<!-- Full-bleed dark footer: the panel spans the viewport, content aligns to the
+     1280px page grid. data-theme="dark" flips the token map to the deep-ink map. -->
+<footer data-theme="dark" class="relative overflow-hidden bg-surface-primary text-content-primary border-t border-glass-8">
+  <!-- faint moonlight settling into the corner — echoes the crescent signature -->
+  <div aria-hidden="true" class="absolute top-[-160px] right-[8%] w-[440px] h-[440px] rounded-full bg-glow-moon opacity-70 pointer-events-none"></div>
+
+  <div class="relative max-w-[1280px] mx-auto px-[clamp(20px,5vw,72px)] pt-[clamp(48px,5vw,64px)] pb-[clamp(28px,3vw,36px)]">
+    <div class="grid gap-x-8 gap-y-11 grid-cols-1 min-[560px]:grid-cols-2 min-[960px]:grid-cols-[1.6fr_1fr_1.2fr_1fr]">
+      <!-- brand -->
+      <div class="max-w-[320px]">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="/assets/layaung-logo.png" alt="La Yaung Hub logo" width="42" height="42" class="w-[42px] h-[42px] rounded-xl">
+          <span class="font-display text-19 font-bold">La Yaung <span class="font-medium opacity-70 text-14">Hub</span></span>
+        </div>
+        <p class="italic font-medium text-15-5 text-neutral-500 leading-150">{ft.tagline} <span class="font-mm not-italic text-neutral-200">{site.nameMy}</span></p>
       </div>
-      <p class="italic font-medium text-16 text-neutral-500 leading-150">{ft.tagline} <span class="font-mm text-neutral-200">{site.nameMy}</span></p>
-    </div>
-    <div class="flex gap-[clamp(40px,6vw,80px)] flex-wrap">
-      <div>
-        <div class="text-12-5 tracking-caps uppercase text-neutral-700 font-semibold mb-4">{ft.explore}</div>
-        <div class="flex flex-col gap-[11px] text-14-5 text-neutral-300">
+
+      <!-- explore -->
+      <nav aria-label={ft.explore}>
+        <div class="text-12 tracking-caps uppercase text-neutral-700 font-semibold mb-[18px]">{ft.explore}</div>
+        <div class="flex flex-col gap-3 text-14-5 text-neutral-300">
           {nav.map((item) => (
-            <a href={`${base}${item.href}`} class="transition-colors hover:text-content-brand">{item.label}</a>
+            <a href={`${base}${item.href}`} class="w-fit transition-colors hover:text-content-brand">{item.label}</a>
           ))}
         </div>
-      </div>
-      <div>
-        <div class="text-12-5 tracking-caps uppercase text-neutral-700 font-semibold mb-4">{ft.resources}</div>
-        <div class="flex flex-col gap-[11px] text-14-5 text-neutral-300 max-w-[220px]">
+      </nav>
+
+      <!-- resources -->
+      <nav aria-label={ft.resources}>
+        <div class="text-12 tracking-caps uppercase text-neutral-700 font-semibold mb-[18px]">{ft.resources}</div>
+        <div class="flex flex-col gap-3 text-14-5 text-neutral-300 max-w-[240px]">
           {guideLinks.map((g) => (
-            <a href={g.href} class="transition-colors hover:text-content-brand leading-130">{g.label}</a>
+            <a href={g.href} class="w-fit transition-colors hover:text-content-brand leading-130">{g.label}</a>
           ))}
         </div>
-      </div>
+      </nav>
+
+      <!-- contact -->
       <div>
-        <div class="text-12-5 tracking-caps uppercase text-neutral-700 font-semibold mb-4">{ft.contact}</div>
-        <div class="flex flex-col gap-[13px] text-14-5 text-neutral-300">
-          <a href={`mailto:${site.email}`} class="transition-colors hover:text-content-brand flex items-center gap-[9px]"><Icon name="mail" size={17} class="text-content-brand shrink-0" />{site.email}</a>
-        </div>
-        <div class="flex gap-2.5 mt-5">
-          <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="La Yaung Hub on Facebook" class="transition hover:text-content-brand hover:border-border-interactive/45 hover:bg-surface-brand/[0.08] w-10 h-10 rounded-[11px] bg-glass-5 border border-glass-12 flex items-center justify-center text-neutral-200"><Icon name="facebook" size={20} class="text-current" /></a>
-          <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="La Yaung Hub on Instagram" class="transition hover:text-content-brand hover:border-border-interactive/45 hover:bg-surface-brand/[0.08] w-10 h-10 rounded-[11px] bg-glass-5 border border-glass-12 flex items-center justify-center text-neutral-200"><Icon name="instagram" size={20} class="text-current" /></a>
-          <a href={site.social.telegram} target="_blank" rel="noopener" aria-label="La Yaung Hub on Telegram" class="transition hover:text-content-brand hover:border-border-interactive/45 hover:bg-surface-brand/[0.08] w-10 h-10 rounded-[11px] bg-glass-5 border border-glass-12 flex items-center justify-center text-neutral-200"><Icon name="telegram" size={20} class="text-current" /></a>
-          <a href={site.social.tiktok} target="_blank" rel="noopener" aria-label="La Yaung Hub on TikTok" class="transition hover:text-content-brand hover:border-border-interactive/45 hover:bg-surface-brand/[0.08] w-10 h-10 rounded-[11px] bg-glass-5 border border-glass-12 flex items-center justify-center text-neutral-200"><Icon name="tiktok" size={20} class="text-current" /></a>
-        </div>
+        <div class="text-12 tracking-caps uppercase text-neutral-700 font-semibold mb-[18px]">{ft.contact}</div>
+        <a href={`mailto:${site.email}`} class="group w-fit transition-colors hover:text-content-brand flex items-center gap-[9px] text-14-5 text-neutral-300">
+          <span class="w-9 h-9 shrink-0 rounded-full bg-glass-5 border border-glass-12 flex items-center justify-center transition group-hover:border-border-interactive/45 group-hover:bg-surface-brand/[0.08]"><Icon name="mail" size={17} class="text-content-brand" /></span>
+          {site.email}
+        </a>
       </div>
     </div>
-  </div>
-  <div class="mt-11 pt-6 border-t border-glass-6 flex gap-4 flex-wrap justify-center text-13 text-neutral-700">
-    <span>{ft.rights}</span>
+
+    <!-- bottom bar: copyright left, social right -->
+    <div class="mt-[clamp(36px,4vw,52px)] pt-6 border-t border-glass-6 flex gap-5 flex-wrap items-center justify-between">
+      <span class="text-13 text-neutral-700">{ft.rights}</span>
+      <div class="flex gap-2.5">
+        {socials.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener" aria-label={`La Yaung Hub on ${s.label}`} class="w-10 h-10 rounded-full bg-glass-5 border border-glass-12 flex items-center justify-center text-neutral-200 transition hover:text-content-brand hover:border-border-interactive/45 hover:bg-surface-brand/[0.08]"><Icon name={s.icon} size={19} class="text-current" /></a>
+        ))}
+      </div>
+    </div>
   </div>
 </footer>

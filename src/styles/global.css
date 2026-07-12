@@ -58,6 +58,14 @@
   --animate-float:   var(--motion-float);
   --animate-glow:    var(--motion-glow);
   --animate-rise:    var(--motion-rise);
+  --animate-twinkle:   var(--motion-twinkle);
+  --animate-twinkle-2: var(--motion-twinkle-2);
+  --animate-enter-1: var(--motion-enter-1);
+  --animate-enter-2: var(--motion-enter-2);
+  --animate-enter-3: var(--motion-enter-3);
+  --animate-enter-4: var(--motion-enter-4);
+  --animate-enter-5: var(--motion-enter-5);
+  --animate-enter-6: var(--motion-enter-6);
 }
 
 /* =====================================================================
@@ -109,6 +117,8 @@
 @keyframes lyFloat   { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-14px); } }
 @keyframes lyGlow    { 0%,100% { opacity:0.6; transform:scale(1); } 50% { opacity:0.95; transform:scale(1.06); } }
 @keyframes lyRise    { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes lyTwinkle  { 0%,100% { opacity:0.35; } 50% { opacity:0.9; } }
+@keyframes lyTwinkle2 { 0%,100% { opacity:0.55; } 45% { opacity:0.15; } }
 
 /* =====================================================================
    BASE — driven by semantic tokens (theme-aware).
@@ -221,7 +231,7 @@ html[lang="my"] em,
 html[lang="my"] i { font-style: normal; }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
   /* Drop the hover lift entirely — no motion, keep the shadow/outline cues. */
   .ly-card:hover, .ly-lift:hover { transform: none !important; }
 }

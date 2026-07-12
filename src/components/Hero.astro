@@ -9,25 +9,27 @@ const h = ui.hero;
 <header id="top" class="max-w-[1280px] mx-auto pt-[clamp(36px,6vw,80px)] px-[clamp(20px,5vw,72px)] pb-[clamp(60px,8vw,110px)] flex gap-[clamp(40px,6vw,80px)] items-center flex-wrap">
   <!-- left -->
   <div class="flex-[1_1_440px] min-w-[300px]">
-    <div class="inline-flex items-center gap-[9px] bg-surface-brand/10 border border-border-interactive/[0.28] px-3.5 py-[7px] rounded-full mb-7">
+    <div class="inline-flex items-center gap-[9px] bg-surface-brand/10 border border-border-interactive/[0.28] px-3.5 py-[7px] rounded-full mb-7 animate-enter-1">
       <span class="w-[7px] h-[7px] rounded-full bg-surface-brand shadow-[0_0_10px_#7C64F0]"></span>
       <span class="font-mono text-12 font-normal tracking-looser text-content-brand">{h.badge}</span>
     </div>
-    <h1 class="font-display text-display-xl font-extrabold leading-100">{h.h1Line1}<br>{h.h1Line2Pre}<span class="text-gold">{h.h1Highlight}</span></h1>
-    <p class="italic font-medium text-lead text-content-primary mt-5 leading-140">La Yaung · <span class="font-mm">{site.nameMy}</span> {h.lead}</p>
-    <p class="text-body text-content-secondary mt-[18px] leading-160 max-w-[520px]">{h.body}</p>
+    <h1 class="font-display text-display-xl font-extrabold leading-100 animate-enter-2">{h.h1Line1}<br>{h.h1Line2Pre}<span class="text-gold">{h.h1Highlight}</span></h1>
+    <p class="italic font-medium text-lead text-content-primary mt-5 leading-140 animate-enter-3">La Yaung · <span class="font-mm">{site.nameMy}</span> {h.lead}</p>
+    <p class="text-body text-content-secondary mt-[18px] leading-160 max-w-[520px] animate-enter-4">{h.body}</p>
 
-    <p class="italic font-medium text-15-5 text-content-primary mt-6 flex items-center gap-2.5 max-w-[520px]">
+    <p class="italic font-medium text-15-5 text-content-primary mt-6 flex items-center gap-2.5 max-w-[520px] animate-enter-5">
       <Icon name="moon" size={18} class="text-content-brand shrink-0" />
       <span><span class="font-mm not-italic">{site.nameMy}</span>{h.moonPre}<em class="text-gold not-italic font-semibold">{h.moonWord}</em>{h.moonPost}</span>
     </p>
 
-    <WaitlistForm />
-    <div class="text-13-5 text-content-tertiary mt-3.5 flex items-center gap-2"><span class="text-content-brand">✦</span> {h.free}</div>
+    <div class="animate-enter-6">
+      <WaitlistForm />
+      <div class="text-13-5 text-content-tertiary mt-3.5 flex items-center gap-2"><span class="text-content-brand">✦</span> {h.free}</div>
+    </div>
   </div>
 
   <!-- right: product mockup -->
-  <div class="flex-[1_1_380px] min-w-[300px] flex justify-center relative">
+  <div class="flex-[1_1_380px] min-w-[300px] flex justify-center relative animate-enter-5">
     <div class="absolute w-[440px] h-[440px] rounded-full bg-glow-hero animate-glow z-0"></div>
     <div class="relative z-[1] animate-float">
       <!-- phone -->

@@ -105,6 +105,15 @@
   /* Motion (paired with @keyframes in global.css) */
   --motion-float:lyFloat 8s ease-in-out infinite;   --motion-glow:lyGlow 7s ease-in-out infinite;
   --motion-rise:lyRise .7s cubic-bezier(.2,.7,.2,1) both;
+  /* Ambient moonlight — counter-phased star twinkle (two layers) */
+  --motion-twinkle:lyTwinkle 5s ease-in-out infinite;   --motion-twinkle-2:lyTwinkle2 6.5s ease-in-out infinite;
+  /* Hero on-load entrance — staggered rise (fill:both holds hidden until each delay) */
+  --motion-enter-1:lyRise .7s cubic-bezier(.2,.7,.2,1) .05s both;
+  --motion-enter-2:lyRise .7s cubic-bezier(.2,.7,.2,1) .14s both;
+  --motion-enter-3:lyRise .7s cubic-bezier(.2,.7,.2,1) .23s both;
+  --motion-enter-4:lyRise .7s cubic-bezier(.2,.7,.2,1) .32s both;
+  --motion-enter-5:lyRise .7s cubic-bezier(.2,.7,.2,1) .41s both;
+  --motion-enter-6:lyRise .7s cubic-bezier(.2,.7,.2,1) .50s both;
   /* Interaction — hover lift transition + elevation shadow (ly-card utility) */
   --motion-hover:240ms cubic-bezier(.2,.7,.2,1);
   --shadow-lift:0 16px 38px -18px rgba(19,15,38,0.22);
