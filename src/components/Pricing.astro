@@ -7,12 +7,12 @@ const pr = ui.pricing;
 <section id="pricing" class="ly-reveal max-w-[1100px] mx-auto pt-[clamp(40px,6vw,56px)] px-[clamp(20px,5vw,72px)] pb-[clamp(70px,9vw,110px)]">
   <div class="text-center max-w-[640px] mx-auto mb-[52px]">
     <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">{pr.eyebrow}</div>
-    <h2 class="font-display text-display-md font-bold leading-106">{pr.h2Pre}<span class="text-gold">{pr.h2Highlight}</span></h2>
+    <h2 class="font-display text-display-md font-extrabold leading-106 tracking-display">{pr.h2Pre}<span class="text-gold">{pr.h2Highlight}</span></h2>
     <p class="text-17 text-content-secondary mt-[18px] leading-160">{pr.sub}</p>
   </div>
   <div class="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[22px] items-stretch">
     <!-- free -->
-    <div class="bg-surface-tertiary border border-border-subtle rounded-[26px] px-8 py-9 flex flex-col">
+    <div class="ly-card hover:border-border-interactive/40 bg-surface-tertiary border border-border-subtle rounded-[26px] px-8 py-9 flex flex-col">
       <div class="font-display text-20 font-semibold mb-2">{pr.freeName}</div>
       <div class="flex items-baseline gap-1.5 mb-1.5"><span class="font-display text-46 font-extrabold">{pr.freePrice}</span><span class="text-16 text-content-secondary">{pr.freeUnit}</span></div>
       <p class="text-14-5 text-content-secondary mb-[26px] leading-150">{pr.freeDesc}</p>
@@ -21,10 +21,10 @@ const pr = ui.pricing;
           <div class="flex gap-[11px] items-start text-15 text-content-primary"><span class="text-success-text">✓</span><span>{x}</span></div>
         ))}
       </div>
-      <a href="#access" class="ly-cta mt-auto text-center font-display font-semibold text-15 text-content-primary bg-surface-secondary border border-border-subtle p-3.5 rounded-[14px] transition-transform hover:-translate-y-0.5">{pr.freeCta}</a>
+      <a href="#access" class="ly-cta ly-lift mt-auto text-center font-display font-semibold text-15 text-content-primary bg-surface-secondary border border-border-subtle p-3.5 rounded-[14px]">{pr.freeCta}</a>
     </div>
     <!-- premium -->
-    <div class="bg-premium border-[1.5px] border-border-interactive/45 rounded-[26px] px-8 py-9 flex flex-col relative overflow-hidden">
+    <div class="ly-card hover:border-border-interactive/70 bg-premium border-[1.5px] border-border-interactive/45 rounded-[26px] px-8 py-9 flex flex-col relative overflow-hidden">
       <div class="font-mono absolute top-0 right-0 font-bold text-10 tracking-caps text-content-on-brand bg-surface-brand px-4 py-2 rounded-[0_26px_0_14px]">{pr.comingSoon}</div>
       <div class="font-display text-20 font-semibold mb-2 text-content-brand">{pr.premiumName}</div>
       <div class="flex items-baseline gap-1.5 mb-1.5"><span class="font-display text-46 font-extrabold">{pr.premiumPrice}</span></div>
@@ -34,7 +34,7 @@ const pr = ui.pricing;
           <div class="flex gap-[11px] items-start text-15 text-content-primary"><span class="text-content-brand">✦</span><span>{x}</span></div>
         ))}
       </div>
-      <a href="#access" class="ly-cta mt-auto text-center font-display font-semibold text-15 text-content-on-brand bg-gold p-3.5 rounded-[14px] shadow-[0_12px_28px_-8px_rgba(95,75,241,0.45)] transition-transform hover:-translate-y-0.5">{pr.premiumCta}</a>
+      <a href="#access" class="ly-cta ly-lift mt-auto text-center font-display font-semibold text-15 text-content-on-brand bg-gold p-3.5 rounded-[14px] shadow-[0_12px_28px_-8px_rgba(95,75,241,0.45)]">{pr.premiumCta}</a>
     </div>
   </div>
 </section>

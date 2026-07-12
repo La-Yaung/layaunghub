@@ -93,6 +93,7 @@
   --leading-165: var(--lh-165);
 
   /* Letter-spacing → tracking-* (custom names; Tailwind defaults untouched) */
+  --tracking-display: var(--ls-display);
   --tracking-snug: var(--ls-snug);     --tracking-loose: var(--ls-loose);
   --tracking-looser: var(--ls-looser); --tracking-loosest: var(--ls-loosest);
   --tracking-caps: var(--ls-caps);     --tracking-caps-lg: var(--ls-caps-lg);
@@ -159,6 +160,24 @@
 @utility bg-moonbeam     { background-image: var(--gradient-moonbeam); }
 
 /* =====================================================================
+   INTERACTION — one coherent, restrained hover/focus behaviour for cards
+   and buttons: a subtle lift + elevation shadow on hover, plus a visible
+   keyboard-focus outline. Values are token-driven (motion + shadow live in
+   tokens.css). Neutralised under prefers-reduced-motion below.
+   ===================================================================== */
+@utility ly-card {
+  transition: transform var(--motion-hover), box-shadow var(--motion-hover), border-color var(--motion-hover);
+  &:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+  &:focus-visible { outline: 2px solid var(--border-interactive); outline-offset: 3px; }
+}
+/* Buttons: same language, a gentler lift; keyboard focus stays visible. */
+@utility ly-lift {
+  transition: transform var(--motion-hover), box-shadow var(--motion-hover);
+  &:hover { transform: translateY(-2px); }
+  &:focus-visible { outline: 2px solid var(--border-interactive); outline-offset: 3px; }
+}
+
+/* =====================================================================
    JS-DRIVEN COMPONENT CLASSES (toggled by the client script) + <details>
    marker reset. Plain CSS because the client script references them.
    ===================================================================== */
@@ -190,5 +209,7 @@ html[lang="my"] em,
 html[lang="my"] i { font-style: normal; }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  /* Drop the hover lift entirely — no motion, keep the shadow/outline cues. */
+  .ly-card:hover, .ly-lift:hover { transform: none !important; }
 }

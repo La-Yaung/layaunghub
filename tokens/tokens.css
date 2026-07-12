@@ -92,6 +92,7 @@
   --lh-125:1.25; --lh-130:1.3; --lh-140:1.4; --lh-150:1.5; --lh-155:1.55; --lh-160:1.6; --lh-165:1.65;
 
   /* Letter-spacing */
+  --ls-display:-0.02em; /* large display headings — tighter than snug */
   --ls-snug:-0.01em; --ls-loose:0.05em; --ls-looser:0.06em; --ls-loosest:0.08em;
   --ls-caps:0.1em;   --ls-caps-lg:0.12em; --ls-caps-xl:0.14em;
 
@@ -104,6 +105,9 @@
   /* Motion (paired with @keyframes in global.css) */
   --motion-float:lyFloat 8s ease-in-out infinite;   --motion-glow:lyGlow 7s ease-in-out infinite;
   --motion-rise:lyRise .7s cubic-bezier(.2,.7,.2,1) both;
+  /* Interaction — hover lift transition + elevation shadow (ly-card utility) */
+  --motion-hover:240ms cubic-bezier(.2,.7,.2,1);
+  --shadow-lift:0 16px 38px -18px rgba(19,15,38,0.22);
 
   /* Gradients — monochrome purple (primary #5F4BF1) on a cool light ground */
   --gradient-gold:linear-gradient(100deg, #7C64F0, #5F4BF1 55%, #4B38C4);

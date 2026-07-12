@@ -8,14 +8,14 @@ const f9 = ui.featuresUi;
 <section id="features" class="ly-reveal max-w-[1280px] mx-auto pt-[clamp(40px,6vw,72px)] px-[clamp(20px,5vw,72px)] pb-[clamp(70px,9vw,120px)]">
   <div class="max-w-[760px] mb-12">
     <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">{f9.eyebrow}</div>
-    <h2 class="font-display text-display-md font-bold leading-106">{f9.h2Line1}<br><span class="text-gold">{f9.h2Highlight}</span></h2>
+    <h2 class="font-display text-display-md font-extrabold leading-106 tracking-display">{f9.h2Line1}<br><span class="text-gold">{f9.h2Highlight}</span></h2>
   </div>
 
   <!-- hero feature -->
-  <div class="flex gap-[clamp(32px,5vw,64px)] items-center flex-wrap bg-card-feature border border-border-subtle rounded-[28px] p-[clamp(28px,4vw,52px)] mb-5">
+  <div class="ly-card hover:border-border-interactive/40 flex gap-[clamp(32px,5vw,64px)] items-center flex-wrap bg-card-feature border border-border-subtle rounded-[28px] p-[clamp(28px,4vw,52px)] mb-5">
     <div class="flex-[1_1_360px] min-w-[280px]">
       <div class="font-mono inline-block font-bold text-11 tracking-loosest text-content-on-brand bg-surface-brand px-3 py-1.5 rounded-lg mb-5">{f9.badge}</div>
-      <h3 class="font-display text-display-sm font-bold leading-110 mb-4">{f9.practiceTitle}</h3>
+      <h3 class="font-display text-display-sm font-bold leading-110 tracking-snug mb-4">{f9.practiceTitle}</h3>
       <p class="text-16-5 leading-160 text-content-secondary mb-[26px]">{f9.practiceBody}</p>
       <div class="flex flex-wrap gap-[9px]">
         {activities.map((a) => (
@@ -41,7 +41,7 @@ const f9 = ui.featuresUi;
   <!-- feature grid -->
   <div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5">
     {features.map((f) => (
-      <div class="transition duration-200 hover:-translate-y-1 hover:border-border-interactive/30 bg-surface-tertiary border border-border-subtle rounded-[22px] px-7 py-[30px]">
+      <div class="ly-card hover:border-border-interactive/40 bg-surface-tertiary border border-border-subtle rounded-[22px] px-7 py-[30px]">
         <div class="w-[50px] h-[50px] rounded-[14px] bg-icon-soft border border-border-interactive/[0.3] flex items-center justify-center mb-[22px]"><Icon name={f.icon} size={25} class="text-content-brand" /></div>
         <h3 class="font-display text-20 font-semibold mb-[11px] leading-120">{f.title}</h3>
         <p class="text-15 leading-160 text-content-secondary">{f.body}</p>

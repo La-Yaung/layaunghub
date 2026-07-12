@@ -9,12 +9,12 @@ const w = ui.how;
   <div class="max-w-[1280px] mx-auto pt-[clamp(20px,4vw,40px)] px-[clamp(20px,5vw,72px)] pb-[clamp(70px,9vw,110px)]">
     <div class="max-w-[760px] mb-[52px]">
       <div class="font-mono text-12 tracking-caps-xl uppercase text-content-brand mb-[18px]">{w.eyebrow}</div>
-      <h2 class="font-display text-display-md font-bold leading-106">{w.h2Pre}<span class="text-gold">{w.h2Highlight}</span></h2>
+      <h2 class="font-display text-display-md font-extrabold leading-106 tracking-display">{w.h2Pre}<span class="text-gold">{w.h2Highlight}</span></h2>
       <p class="text-17 text-content-secondary mt-[18px] leading-160">{w.sub}</p>
     </div>
     <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-5">
       {steps.map((s) => (
-        <div class="relative bg-panel-soft border border-border-subtle rounded-[24px] py-[34px] px-[30px] transition duration-200 hover:-translate-y-1 hover:border-border-interactive/30">
+        <div class="ly-card hover:border-border-interactive/40 relative bg-panel-soft border border-border-subtle rounded-[24px] py-[34px] px-[30px]">
           <div class="flex items-center gap-[14px] mb-5">
             <div class="w-[54px] h-[54px] rounded-2xl bg-icon-soft border border-border-interactive/[0.3] flex items-center justify-center"><Icon name={s.icon} size={27} class="text-content-brand" /></div>
             <span class="font-display text-42 font-extrabold text-content-primary/10">{s.n}</span>
