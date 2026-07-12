@@ -131,6 +131,15 @@
   /* "The shift" — a light sweep from white into soft purple */
   --gradient-shift:linear-gradient(105deg, #FFFFFF 0%, #F1EEFD 50%, #DED7FC 100%);
   --gradient-moonbeam:linear-gradient(90deg, rgba(95,75,241,0), #5F4BF1);
+  /* ---------- Moonlight signature: crescent moon + faint starfield ---------- */
+  /* Moon disc fill — bright limb lower-left, deepening across the terminator */
+  --gradient-moon-crescent:radial-gradient(circle at 32% 70%, #C6BAFA 0%, #8A78F2 42%, #5F4BF1 70%, #4B38C4 100%);
+  /* Mask that bites an offset disc out of a full circle, leaving a soft crescent */
+  --mask-crescent:radial-gradient(circle at 70% 30%, transparent 60%, #000 63.5%);
+  /* Moon aura for filter: drop-shadow (hugs the crescent's alpha, not its box) */
+  --shadow-moon-aura:drop-shadow(0 0 34px rgba(95,75,241,0.40)) drop-shadow(0 0 12px rgba(122,102,240,0.50));
+  /* Faint moonlit starfield — a quiet scatter of pale-purple stars near the sky */
+  --gradient-starfield:radial-gradient(1.5px 1.5px at 8% 16%, rgba(95,75,241,0.55), transparent 60%), radial-gradient(1.6px 1.6px at 23% 8%, rgba(95,75,241,0.45), transparent 60%), radial-gradient(1.1px 1.1px at 37% 21%, rgba(95,75,241,0.42), transparent 60%), radial-gradient(1.6px 1.6px at 54% 6%, rgba(95,75,241,0.50), transparent 60%), radial-gradient(1.2px 1.2px at 67% 17%, rgba(95,75,241,0.40), transparent 60%), radial-gradient(1.7px 1.7px at 82% 10%, rgba(95,75,241,0.52), transparent 60%), radial-gradient(1.2px 1.2px at 91% 24%, rgba(95,75,241,0.42), transparent 60%), radial-gradient(1px 1px at 46% 13%, rgba(95,75,241,0.36), transparent 60%), radial-gradient(1.3px 1.3px at 15% 29%, rgba(95,75,241,0.38), transparent 60%), radial-gradient(1.1px 1.1px at 75% 29%, rgba(95,75,241,0.36), transparent 60%);
 
   /* ---------- TIER 2 · SEMANTIC (LIGHT, default) ---------- */
   --surface-primary:   var(--color-neutral-0);   /* white cards */
