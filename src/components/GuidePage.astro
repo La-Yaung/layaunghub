@@ -49,8 +49,10 @@ const related = [
         </div>
         <h1 class="font-display text-display-sm font-bold leading-110 text-content-primary">{guide.h1}</h1>
         <p class="text-19 text-content-secondary mt-5 leading-155">{guide.lead}</p>
-        <div class="flex items-center gap-3 mt-6 text-13 text-content-tertiary">
-          <span>{guide.updated}</span>
+        <div class="flex items-center gap-3 mt-6 text-13 text-content-tertiary flex-wrap">
+          <span>By <span class="text-content-secondary">La Yaung Hub Team</span></span>
+          <span aria-hidden="true" class="w-1 h-1 rounded-full bg-border-strong"></span>
+          <time datetime={guide.dateModified}>{guide.updated}</time>
           <span aria-hidden="true" class="w-1 h-1 rounded-full bg-border-strong"></span>
           <span>{guide.readingTime}</span>
         </div>

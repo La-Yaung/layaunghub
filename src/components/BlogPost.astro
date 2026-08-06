@@ -54,8 +54,10 @@ const shareUrl = `${site.url}/blog/${post.slug}/`;
       )}
 
       <!-- Meta -->
-      <div class="flex items-center gap-3 flex-wrap mb-1">
-        <time datetime={post.date} class="text-13 text-content-tertiary">{post.dateLabel}</time>
+      <div class="flex items-center gap-3 flex-wrap mb-1 text-13 text-content-tertiary">
+        <span>By <span class="text-content-secondary">La Yaung Hub Team</span></span>
+        <span aria-hidden="true" class="w-1 h-1 rounded-full bg-border-strong"></span>
+        <time datetime={post.date}>{post.dateLabel}</time>
         {post.tags.map((t) => (
           <span class="text-11-5 font-mono tracking-caps uppercase text-content-brand bg-surface-brand/[0.08] border border-border-interactive/25 rounded-full px-2.5 py-1">{t}</span>
         ))}

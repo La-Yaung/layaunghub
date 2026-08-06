@@ -1,5 +1,6 @@
 ---
 import { nav, ui } from '../data/content';
+import Icon from './Icon.astro';
 
 interface Props {
   /** Prefix for in-page anchor links. '' on the homepage (bare `#problem`
@@ -13,20 +14,71 @@ const homeHref = base || '/';
 
 // Link to the GED guides hub (the pillar page cross-links the rest).
 const guidesHref = '/what-is-ged/';
+
+// One link list, rendered in both the desktop bar and the mobile panel.
+const links = [
+  ...nav.map((item) => ({ href: `${base}${item.href}`, label: item.label })),
+  { href: guidesHref, label: ui.nav.guides },
+  { href: '/blog/', label: ui.nav.blog },
+];
 ---
-<nav class="flex items-center justify-between gap-5 py-5 px-[clamp(20px,5vw,72px)] max-w-[1280px] mx-auto">
+<nav class="relative flex items-center justify-between gap-5 py-5 px-[clamp(20px,5vw,72px)] max-w-[1280px] mx-auto">
   <a href={`${homeHref}#top`} class="flex items-center gap-3" aria-label="La Yaung Hub home">
     <img src="/assets/layaung-logo.png" alt="La Yaung Hub logo" width="46" height="46" class="w-[46px] h-[46px] rounded-[13px] shadow-[0_6px_20px_rgba(19,15,38,0.16)]" />
     <span class="font-display text-21 font-bold tracking-snug">La Yaung <span class="font-medium opacity-70 text-15">Hub</span></span>
   </a>
+
   <div class="flex items-center gap-[22px]">
     <div class="flex gap-7 items-center max-[820px]:hidden">
-      {nav.map((item) => (
-        <a href={`${base}${item.href}`} class="text-15 font-medium text-content-secondary hover:text-content-brand transition-colors">{item.label}</a>
+      {links.map((item) => (
+        <a href={item.href} class="text-15 font-medium text-content-secondary hover:text-content-brand transition-colors">{item.label}</a>
       ))}
-      <a href={guidesHref} class="text-15 font-medium text-content-secondary hover:text-content-brand transition-colors">{ui.nav.guides}</a>
-      <a href="/blog/" class="text-15 font-medium text-content-secondary hover:text-content-brand transition-colors">{ui.nav.blog}</a>
     </div>
-    <a href={`${base}#access`} class="font-display font-semibold text-14-5 text-content-on-brand bg-gold px-5 py-[11px] rounded-full shadow-[0_8px_22px_-6px_rgba(95,75,241,0.45)] transition-transform hover:-translate-y-0.5">{ui.nav.cta}</a>
+    <a href={`${base}#access`} class="font-display font-semibold text-14-5 text-content-on-brand bg-gold px-5 py-[11px] rounded-full shadow-[0_8px_22px_-6px_rgba(95,75,241,0.45)] transition-transform hover:-translate-y-0.5 max-[820px]:hidden">{ui.nav.cta}</a>
+
+    <!-- Mobile menu toggle (shown ≤820px, where the links above are hidden) -->
+    <button
+      type="button"
+      data-nav-toggle
+      aria-label="Menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      class="min-[821px]:hidden inline-flex items-center justify-center w-11 h-11 -mr-1.5 rounded-full text-content-primary hover:text-content-brand transition-colors"
+    >
+      <Icon name="menu" size={26} data-icon-menu />
+      <Icon name="close" size={26} class="hidden" data-icon-close />
+    </button>
+  </div>
+
+  <!-- Mobile panel -->
+  <div
+    id="mobile-menu"
+    data-nav-panel
+    class="hidden flex-col gap-0.5 min-[821px]:hidden absolute top-full left-[clamp(20px,5vw,72px)] right-[clamp(20px,5vw,72px)] mt-1 z-20 rounded-[20px] bg-surface-primary border border-border-subtle p-3 shadow-[0_20px_48px_-16px_rgba(19,15,38,0.28)]"
+  >
+    {links.map((item) => (
+      <a href={item.href} class="text-16 font-medium text-content-secondary hover:text-content-brand hover:bg-surface-brand/[0.06] transition-colors rounded-[12px] px-4 py-3">{item.label}</a>
+    ))}
+    <a href={`${base}#access`} class="mt-1.5 text-center font-display font-semibold text-15 text-content-on-brand bg-gold rounded-full px-5 py-3 shadow-[0_8px_22px_-6px_rgba(95,75,241,0.45)]">{ui.nav.cta}</a>
   </div>
 </nav>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+  const panel = document.getElementById('mobile-menu');
+  if (btn && panel) {
+    const menuIcon = btn.querySelector('[data-icon-menu]');
+    const closeIcon = btn.querySelector('[data-icon-close]');
+    const setOpen = (open: boolean) => {
+      panel.classList.toggle('hidden', !open);
+      panel.classList.toggle('flex', open);
+      btn.setAttribute('aria-expanded', String(open));
+      menuIcon?.classList.toggle('hidden', open);
+      closeIcon?.classList.toggle('hidden', !open);
+    };
+    btn.addEventListener('click', () => setOpen(btn.getAttribute('aria-expanded') !== 'true'));
+    panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    // Reset to closed if the viewport grows back to the desktop layout.
+    window.addEventListener('resize', () => { if (window.innerWidth >= 821) setOpen(false); });
+  }
+</script>

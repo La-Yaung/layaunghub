@@ -11,8 +11,12 @@ const guide = guides[slug];
   path="/ged-vs-igcse/"
   title={guide.meta.title}
   description={guide.meta.description}
+  image={`/og/${slug}.png`}
+  imageAlt={guide.h1}
   faqItems={guide.faqs}
   articleHeadline={guide.h1}
+  datePublished={guide.datePublished}
+  dateModified={guide.dateModified}
   breadcrumb={guide.navLabel}
 >
   <GuidePage slug={slug} />

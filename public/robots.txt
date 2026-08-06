@@ -44,3 +44,4 @@ User-agent: meta-externalagent
 Allow: /
 
 Sitemap: https://layaunghub.com/sitemap-index.xml
+Sitemap: https://layaunghub.com/sitemap-blog.xml

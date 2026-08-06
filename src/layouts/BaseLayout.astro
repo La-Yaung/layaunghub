@@ -19,6 +19,9 @@ interface Props {
   articleTags?: string[];
   /** ISO publish date for BlogPosting/Article structured data. */
   datePublished?: string;
+  /** ISO last-modified date; defaults to datePublished. Feeds `dateModified`
+   *  + article:modified_time — freshness is a strong AI-search signal. */
+  dateModified?: string;
   /** Alt text for the og:/twitter: share image (defaults to the site line). */
   imageAlt?: string;
   /** Breadcrumb label for the article (defaults to its title). */
@@ -37,6 +40,7 @@ const {
   articleType = 'Article',
   articleTags,
   datePublished,
+  dateModified,
   imageAlt = 'La Yaung Hub — interactive bilingual GED exam prep for Myanmar students',
   breadcrumb,
   breadcrumbParent,
@@ -124,7 +128,7 @@ if (isArticle) {
       author: { '@id': orgId },
       publisher: { '@id': orgId },
       mainEntityOfPage: { '@id': canonical + '#webpage' },
-      ...(datePublished ? { datePublished, dateModified: datePublished } : {}),
+      ...(datePublished ? { datePublished, dateModified: dateModified ?? datePublished } : {}),
       ...(articleTags?.length ? { keywords: articleTags.join(', ') } : {}),
     },
     {
@@ -205,6 +209,7 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
   <meta property="og:image:alt" content={imageAlt} />
   <meta property="og:locale" content={site.locale} />
   {isArticle && datePublished && <meta property="article:published_time" content={datePublished} />}
+  {isArticle && (dateModified || datePublished) && <meta property="article:modified_time" content={dateModified ?? datePublished} />}
   {isArticle && articleTags?.map((t) => <meta property="article:tag" content={t} />)}
 
   <!-- Twitter / X card -->
