@@ -1,6 +1,5 @@
-// Informational guide pages (the "content engine" from the SEO plan). Each
-// guide is bilingual — this English set is mirrored 1:1 in `guides.my.ts`.
-// Rendered by `GuidePage.astro`; picked per-locale via `getGuides()` in i18n.ts.
+// Informational guide pages (the "content engine" from the SEO plan).
+// Rendered by `GuidePage.astro`.
 //
 // The content leads with the exact phrases Myanmar students search for and uses
 // comparison/pricing TABLES — the format LLM answer engines quote most often.

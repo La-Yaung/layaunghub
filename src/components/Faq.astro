@@ -1,7 +1,6 @@
 ---
-import { getContent } from '../data/i18n';
+import { faqs, ui, site } from '../data/content';
 
-const { faqs, ui, site } = getContent(Astro.currentLocale);
 const fq = ui.faqUi;
 ---
 <section id="faq" class="ly-reveal max-w-[880px] mx-auto pt-[clamp(40px,6vw,56px)] px-[clamp(20px,5vw,72px)] pb-[clamp(70px,9vw,110px)]">

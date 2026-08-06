@@ -1,11 +1,11 @@
 ---
-// "How much does the GED cost in Myanmar?" — English (en). Burmese at /my/ged-cost/.
+// "How much does the GED cost in Myanmar?"
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GuidePage from '../components/GuidePage.astro';
-import { getGuides } from '../data/i18n';
+import { guides } from '../data/guides';
 
 const slug = 'ged-cost' as const;
-const guide = getGuides(Astro.currentLocale)[slug];
+const guide = guides[slug];
 ---
 <BaseLayout
   path="/ged-cost/"

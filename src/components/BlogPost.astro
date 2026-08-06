@@ -1,22 +1,23 @@
 ---
-// Renders one Burmese blog post (see src/data/blog.my.ts): Nav → breadcrumb →
-// cover → title/date/tags → article body (shared ContentBlocks) → Facebook
-// source link → related posts → waitlist CTA → Footer. Served under /my/blog/.
+// Renders one blog post (see src/data/blog.ts): Nav → breadcrumb → cover →
+// title/date/tags → article body (shared ContentBlocks) → Facebook source link
+// → related posts → waitlist CTA → Footer. Served under /blog/.
 import Background from './Background.astro';
 import Nav from './Nav.astro';
 import Footer from './Footer.astro';
 import Icon from './Icon.astro';
 import ContentBlocks from './ContentBlocks.astro';
 import WaitlistForm from './WaitlistForm.astro';
-import { getContent } from '../data/i18n';
-import { blog } from '../data/blog.my';
+import SocialShare from './SocialShare.astro';
+import { site, ui } from '../data/content';
+import { blog } from '../data/blog';
 import type { BlogPost } from '../lib/blog-db';
 
 interface Props { post: BlogPost; related?: BlogPost[]; }
 const { post, related = [] } = Astro.props;
 
-const { ui } = getContent('my');
-const base = '/my/';
+const base = '/';
+const shareUrl = `${site.url}/blog/${post.slug}/`;
 ---
 <div class="relative overflow-hidden bg-app">
   <Background />
@@ -67,15 +68,24 @@ const base = '/my/';
         <ContentBlocks blocks={post.body} />
       </div>
 
-      <!-- Original Facebook post -->
+      <!-- Original Facebook post (falls back to our Facebook page). -->
       <a
-        href={post.fbUrl}
+        href={post.fbUrl ?? site.social.facebook}
         target="_blank"
         rel="noopener"
         class="mt-8 inline-flex items-center gap-2.5 rounded-full border border-border-strong px-5 py-3 text-14-5 font-semibold text-content-secondary transition-colors hover:text-content-brand hover:border-border-interactive/60"
       >
         <Icon name="facebook" size={18} class="text-content-brand" />{blog.onFacebook}
       </a>
+
+      <!-- Share this post -->
+      <SocialShare
+        url={shareUrl}
+        title={post.title}
+        label={blog.share}
+        copyLabel={blog.copyLink}
+        copiedLabel={blog.copied}
+      />
 
       <!-- Related -->
       <section class="mt-[clamp(40px,6vw,64px)]">

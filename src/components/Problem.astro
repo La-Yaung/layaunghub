@@ -1,8 +1,7 @@
 ---
 import Icon from './Icon.astro';
-import { getContent } from '../data/i18n';
+import { problems, ui } from '../data/content';
 
-const { problems, ui } = getContent(Astro.currentLocale);
 const p9 = ui.problem;
 ---
 <section id="problem" class="ly-reveal max-w-[1280px] mx-auto py-[clamp(70px,9vw,120px)] px-[clamp(20px,5vw,72px)]">

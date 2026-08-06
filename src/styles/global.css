@@ -58,6 +58,14 @@
   --animate-float:   var(--motion-float);
   --animate-glow:    var(--motion-glow);
   --animate-rise:    var(--motion-rise);
+  --animate-twinkle:   var(--motion-twinkle);
+  --animate-twinkle-2: var(--motion-twinkle-2);
+  --animate-enter-1: var(--motion-enter-1);
+  --animate-enter-2: var(--motion-enter-2);
+  --animate-enter-3: var(--motion-enter-3);
+  --animate-enter-4: var(--motion-enter-4);
+  --animate-enter-5: var(--motion-enter-5);
+  --animate-enter-6: var(--motion-enter-6);
 }
 
 /* =====================================================================
@@ -93,6 +101,7 @@
   --leading-165: var(--lh-165);
 
   /* Letter-spacing → tracking-* (custom names; Tailwind defaults untouched) */
+  --tracking-display: var(--ls-display);
   --tracking-snug: var(--ls-snug);     --tracking-loose: var(--ls-loose);
   --tracking-looser: var(--ls-looser); --tracking-loosest: var(--ls-loosest);
   --tracking-caps: var(--ls-caps);     --tracking-caps-lg: var(--ls-caps-lg);
@@ -108,6 +117,8 @@
 @keyframes lyFloat   { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-14px); } }
 @keyframes lyGlow    { 0%,100% { opacity:0.6; transform:scale(1); } 50% { opacity:0.95; transform:scale(1.06); } }
 @keyframes lyRise    { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes lyTwinkle  { 0%,100% { opacity:0.35; } 50% { opacity:0.9; } }
+@keyframes lyTwinkle2 { 0%,100% { opacity:0.55; } 45% { opacity:0.15; } }
 
 /* =====================================================================
    BASE — driven by semantic tokens (theme-aware).
@@ -122,6 +133,13 @@
   }
   ::selection { background: var(--surface-brand); color: var(--content-on-brand); }
   a { color: inherit; text-decoration: none; }
+
+  /* Defensive buffer for in-page nav targets (id="top|problem|how|features|
+     curriculum|pricing|faq|access") — cheap safety margin so any scroll that
+     lands on a section (native fragment jump, scrollIntoView) doesn't sit
+     flush against the viewport edge. The reliable-landing fix itself lives
+     in BaseLayout.astro's anchor-click handler; this is just a buffer. */
+  [id] { scroll-margin-top: 2rem; }
 }
 
 /* =====================================================================
@@ -157,6 +175,29 @@
 @utility bg-cta-card     { background-image: var(--gradient-cta-card); }
 @utility bg-shift        { background-image: var(--gradient-shift); }
 @utility bg-moonbeam     { background-image: var(--gradient-moonbeam); }
+/* --- Moonlight signature: crescent moon disc, mask, aura + starfield --- */
+@utility bg-moon-crescent { background-image: var(--gradient-moon-crescent); }
+@utility bg-starfield     { background-image: var(--gradient-starfield); }
+@utility mask-crescent    { -webkit-mask-image: var(--mask-crescent); mask-image: var(--mask-crescent); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+@utility moon-aura        { filter: var(--shadow-moon-aura); }
+
+/* =====================================================================
+   INTERACTION — one coherent, restrained hover/focus behaviour for cards
+   and buttons: a subtle lift + elevation shadow on hover, plus a visible
+   keyboard-focus outline. Values are token-driven (motion + shadow live in
+   tokens.css). Neutralised under prefers-reduced-motion below.
+   ===================================================================== */
+@utility ly-card {
+  transition: transform var(--motion-hover), box-shadow var(--motion-hover), border-color var(--motion-hover);
+  &:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+  &:focus-visible { outline: 2px solid var(--border-interactive); outline-offset: 3px; }
+}
+/* Buttons: same language, a gentler lift; keyboard focus stays visible. */
+@utility ly-lift {
+  transition: transform var(--motion-hover), box-shadow var(--motion-hover);
+  &:hover { transform: translateY(-2px); }
+  &:focus-visible { outline: 2px solid var(--border-interactive); outline-offset: 3px; }
+}
 
 /* =====================================================================
    JS-DRIVEN COMPONENT CLASSES (toggled by the client script) + <details>
@@ -174,21 +215,8 @@
   .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 }
 
-/* Burmese script stacks vowels/medials/tone-marks taller than Latin, so the
-   tight heading leadings tuned for Poppins (leading-100..112) clip it — and the
-   gradient-clipped highlight words (background-clip:text) get sliced at the line
-   box. Fix: give Burmese headings more leading and normalise tracking. Burmese
-   has no italic, so synthetic slant (e.g. Problem.astro's `italic text-gold`)
-   is reset to upright. Unlayered on purpose: must outrank the utilities layer;
-   only applies on /my/ (html[lang="my"]). Values reference tokens only. */
-html[lang="my"] h1,
-html[lang="my"] h2,
-html[lang="my"] h3,
-html[lang="my"] h4 { line-height: var(--lh-150); letter-spacing: normal; }
-html[lang="my"] .italic,
-html[lang="my"] em,
-html[lang="my"] i { font-style: normal; }
-
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  /* Drop the hover lift entirely — no motion, keep the shadow/outline cues. */
+  .ly-card:hover, .ly-lift:hover { transform: none !important; }
 }

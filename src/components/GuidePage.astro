@@ -1,31 +1,26 @@
 ---
-// Renders one bilingual informational guide (see src/data/guides.ts) as a full
-// page body: Nav → breadcrumb → article (typed blocks incl. tables) → FAQ →
-// related guides → waitlist CTA → Footer. Token utilities only, no inline CSS.
+// Renders one informational guide (see src/data/guides.ts) as a full page body:
+// Nav → breadcrumb → article (typed blocks incl. tables) → FAQ → related guides
+// → waitlist CTA → Footer. Token utilities only, no inline CSS.
 import Background from './Background.astro';
 import Nav from './Nav.astro';
 import Footer from './Footer.astro';
 import Icon from './Icon.astro';
 import ContentBlocks from './ContentBlocks.astro';
 import WaitlistForm from './WaitlistForm.astro';
-import { getContent, getGuides, getQuiz } from '../data/i18n';
-import { guideOrder, type GuideSlug } from '../data/guides';
+import { site, ui } from '../data/content';
+import { guideOrder, guides, type GuideSlug } from '../data/guides';
+import { quiz } from '../data/quiz';
 
 interface Props { slug: GuideSlug; }
 const { slug } = Astro.props;
 
-const locale = Astro.currentLocale ?? 'en';
-const { site, ui } = getContent(locale);
-const guides = getGuides(locale);
 const guide = guides[slug];
 
-const base = locale === 'my' ? '/my/' : '/';
-const otherBase = locale === 'my' ? '/' : '/my/';
-const switchHref = `${otherBase}${slug}/`;
-const homeLabel = locale === 'my' ? 'ပင်မ' : 'Home';
+const base = '/';
+const homeLabel = 'Home';
 
 // The other two guides plus the free quiz — the "keep reading" cross-links.
-const quiz = getQuiz(locale);
 const related = [
   ...guideOrder
     .filter((s) => s !== slug)
@@ -36,7 +31,7 @@ const related = [
 <div class="relative overflow-hidden bg-app">
   <Background />
   <div class="relative z-[2]">
-    <Nav base={base} switchHref={switchHref} />
+    <Nav base={base} />
 
     <article class="max-w-[820px] mx-auto px-[clamp(20px,5vw,72px)] pt-[clamp(24px,4vw,44px)] pb-[clamp(56px,7vw,88px)]">
       <!-- Breadcrumb (matches the BreadcrumbList JSON-LD) -->

@@ -13,7 +13,6 @@ export const site = {
     'Interactive, bilingual GED exam prep for Myanmar students — video lessons, hands-on practice and real teacher feedback. IGCSE & Myanmar tracks coming soon.',
   tagline: 'Interactive, bilingual exam prep — lighting the way for Myanmar students.',
   locale: 'en_US',
-  localeAlternate: 'my_MM',
   email: 'contact@layaunghub.com',
   ogImage: '/og-image.png',
   themeColor: '#F8F9FC',
@@ -111,7 +110,7 @@ export const freePlan = ['First lesson of every topic', 'All 9 activity types', 
 export const proPlan = ['Every lesson, fully unlocked', 'Teacher feedback on written work', 'Full gap analysis & study plan', 'Lifetime early-bird pricing'];
 
 // UI strings — every piece of marketing copy that used to live in component
-// markup. Kept here so the Burmese locale (content.my.ts) can mirror it 1:1.
+// markup. Kept here so copy edits happen in one place, not in component markup.
 // Headings are split into pre/highlight parts to preserve the styled <span>s.
 export const ui = {
   nav: { cta: 'Get Early Access', guides: 'GED Guides', blog: 'Blog' },
@@ -212,6 +211,14 @@ export const ui = {
     contact: 'Contact',
     tagline: 'Interactive, bilingual exam prep — lighting the way for Myanmar students.',
     rights: '© 2026 La Yaung Hub. All rights reserved.',
+  },
+  notFound: {
+    code: '404',
+    title: 'Lost in the dark?',
+    body: "This page isn't here — but your path to a passing grade still is. Let's get you back under the moonlight.",
+    home: 'Back to home',
+    blog: 'Read the blog',
+    guides: 'GED guides',
   },
 };
 
