@@ -44,6 +44,53 @@ const { blocks } = Astro.props;
         {block.caption && <figcaption class="text-12-5 text-content-tertiary mt-2.5 px-1">{block.caption}</figcaption>}
       </figure>
     );
+    if (block.type === 'chart') {
+      // Fixed SVG coordinate space; the <svg> scales to container width. Bars
+      // are plotted on axisMin..axisMax; text nodes stay real (crawlable) text.
+      const min = block.axisMin ?? 0;
+      const span = Math.max(1, block.axisMax - min);
+      const W = 640, labelW = 168, padR = 92, barH = 24, rowGap = 20, padY = 8;
+      const trackX = labelW;
+      const trackW = W - labelW - padR;
+      const H = padY * 2 + block.bars.length * barH + (block.bars.length - 1) * rowGap;
+      const frac = (v: number) => Math.max(0, Math.min(1, (v - min) / span));
+      const summary = `${block.title}. ${block.bars.map((b) => `${b.label}: ${b.display ?? b.value}`).join('; ')}`;
+      return (
+        <figure class="my-6 rounded-[18px] bg-surface-tertiary border border-border-subtle p-[clamp(18px,3vw,26px)]">
+          <figcaption class="font-display text-15 font-semibold text-content-primary mb-4">{block.title}</figcaption>
+          <svg viewBox={`0 0 ${W} ${H}`} class="w-full h-auto" role="img" aria-label={summary} xmlns="http://www.w3.org/2000/svg">
+            {block.bars.map((b, i) => {
+              const y = padY + i * (barH + rowGap);
+              const w = Math.max(3, frac(b.value) * trackW);
+              const barClass = b.highlight ? 'text-content-brand' : 'text-content-secondary opacity-45';
+              return (
+                <>
+                  <text x="0" y={y + barH / 2} dominant-baseline="central" class="font-display text-content-primary" font-size="15" fill="currentColor">{b.label}</text>
+                  <rect x={trackX} y={y} width={trackW} height={barH} rx="7" class="text-content-tertiary opacity-15" fill="currentColor" />
+                  <rect x={trackX} y={y} width={w} height={barH} rx="7" class={barClass} fill="currentColor" />
+                  <text x={W} y={y + barH / 2} dominant-baseline="central" text-anchor="end" class="font-mono text-content-secondary" font-size="14" fill="currentColor">{b.display ?? b.value}</text>
+                </>
+              );
+            })}
+          </svg>
+          {block.caption && <figcaption class="text-12-5 text-content-tertiary mt-3 px-0.5">{block.caption}</figcaption>}
+        </figure>
+      );
+    }
+    if (block.type === 'sources') return (
+      <aside class="my-6 rounded-[18px] bg-surface-tertiary border border-border-subtle p-[clamp(18px,3vw,24px)]">
+        <div class="font-mono text-11-5 tracking-caps uppercase text-content-tertiary mb-3">{block.title ?? 'Sources'}</div>
+        <ul class="flex flex-col gap-2.5">
+          {block.items.map((s) => (
+            <li>
+              <a href={s.url} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-15 font-medium text-content-brand hover:underline break-words">
+                <Icon name="link" size={15} class="text-content-brand flex-none" />{s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    );
     // table
     return (
       <figure class="my-6">

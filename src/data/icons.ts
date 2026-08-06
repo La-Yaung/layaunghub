@@ -1,7 +1,7 @@
 // Auto-generated from Lineicons v1.3.2 (assets/svgs/regular). Colors -> currentColor.
-// Source files: globe=globe-1.svg, coins=dollar-circle.svg, compass=compass-drafting-2.svg, help=question-mark-circle.svg, play=play.svg, target=target-user.svg, trend=trend-up-1.svg, video=camera-movie-1.svg, map=route-1.svg, note=notebook-1.svg, pen=pen-to-square.svg, bars=bar-chart-4.svg, translate=chat-bubble-2.svg, bulb=bulb-2.svg, moon=moon-half-right-5.svg, mail=envelope-1.svg, facebook=facebook.svg, telegram=telegram.svg, tiktok=tiktok.svg, instagram=instagram.svg, x=x.svg, link=link-2-angular-right.svg
+// Source files: globe=globe-1.svg, coins=dollar-circle.svg, compass=compass-drafting-2.svg, help=question-mark-circle.svg, play=play.svg, target=target-user.svg, trend=trend-up-1.svg, video=camera-movie-1.svg, map=route-1.svg, note=notebook-1.svg, pen=pen-to-square.svg, bars=bar-chart-4.svg, translate=chat-bubble-2.svg, bulb=bulb-2.svg, moon=moon-half-right-5.svg, mail=envelope-1.svg, facebook=facebook.svg, telegram=telegram.svg, tiktok=tiktok.svg, instagram=instagram.svg, x=x.svg, link=link-2-angular-right.svg, menu=menu-hamburger-1.svg, close=xmark.svg
 export type IconName =
-  'globe' | 'coins' | 'compass' | 'help' | 'play' | 'target' | 'trend' | 'video' | 'map' | 'note' | 'pen' | 'bars' | 'translate' | 'bulb' | 'moon' | 'mail' | 'facebook' | 'telegram' | 'tiktok' | 'instagram' | 'x' | 'link';
+  'globe' | 'coins' | 'compass' | 'help' | 'play' | 'target' | 'trend' | 'video' | 'map' | 'note' | 'pen' | 'bars' | 'translate' | 'bulb' | 'moon' | 'mail' | 'facebook' | 'telegram' | 'tiktok' | 'instagram' | 'x' | 'link' | 'menu' | 'close';
 
 export const icons: Record<IconName, { viewBox: string; body: string }> = {
   "globe": {
@@ -91,5 +91,13 @@ export const icons: Record<IconName, { viewBox: string; body: string }> = {
   "link": {
     "viewBox": "0 0 25 25",
     "body": "<path d=\"M18.1022 14.0998C17.2236 14.9785 15.7989 14.9785 14.9203 14.0998L13.5581 12.7377L12.4971 13.7987L13.8593 15.1608C14.738 16.0395 14.7379 17.4641 13.8593 18.3428L10.1198 22.0822C9.24115 22.9609 7.81652 22.9609 6.93785 22.0822L3.1551 18.2995C2.27642 17.4208 2.27642 15.9962 3.1551 15.1175L6.89455 11.378C7.77323 10.4994 9.19785 10.4994 10.0765 11.378L11.4365 12.738L12.4975 11.677L11.1376 10.3171C10.2589 9.4384 10.2589 8.01378 11.1376 7.1351L14.8812 3.39143C15.7599 2.51275 17.1845 2.51275 18.0632 3.39143L21.8459 7.17415C22.7246 8.05283 22.7246 9.47745 21.8459 10.3561L18.1022 14.0998ZM10.3758 13.7987L9.01587 12.4387C8.72297 12.1458 8.2481 12.1458 7.95521 12.4387L4.21576 16.1782C3.92287 16.471 3.92287 16.9459 4.21576 17.2388L7.99851 21.0216C8.2914 21.3144 8.76627 21.3144 9.05917 21.0216L12.7986 17.2821C13.0915 16.9892 13.0915 16.5143 12.7986 16.2215L11.4365 14.8593L10.205 16.0907C9.91215 16.3836 9.43728 16.3836 9.14439 16.0907C8.85149 15.7979 8.85149 15.323 9.14439 15.0301L10.3758 13.7987ZM15.9809 13.0391C16.2738 13.332 16.7487 13.332 17.0416 13.0391L20.7853 9.29547C21.0781 9.00257 21.0781 8.5277 20.7853 8.23481L17.0025 4.45209C16.7096 4.1592 16.2348 4.1592 15.9419 4.45209L12.1982 8.19576C11.9053 8.48865 11.9053 8.96352 12.1982 9.25642L13.5581 10.6163L14.8012 9.37323C15.0941 9.08034 15.569 9.08034 15.8619 9.37323C16.1548 9.66612 16.1548 10.141 15.8619 10.4339L14.6188 11.677L15.9809 13.0391Z\" fill=\"currentColor\"/>"
+  },
+  "menu": {
+    "viewBox": "0 0 25 24",
+    "body": "<path d=\"M3.5625 6C3.5625 5.58579 3.89829 5.25 4.3125 5.25H20.3125C20.7267 5.25 21.0625 5.58579 21.0625 6C21.0625 6.41421 20.7267 6.75 20.3125 6.75L4.3125 6.75C3.89829 6.75 3.5625 6.41422 3.5625 6Z\" fill=\"currentColor\"/> <path d=\"M3.5625 18C3.5625 17.5858 3.89829 17.25 4.3125 17.25L20.3125 17.25C20.7267 17.25 21.0625 17.5858 21.0625 18C21.0625 18.4142 20.7267 18.75 20.3125 18.75L4.3125 18.75C3.89829 18.75 3.5625 18.4142 3.5625 18Z\" fill=\"currentColor\"/> <path d=\"M4.3125 11.25C3.89829 11.25 3.5625 11.5858 3.5625 12C3.5625 12.4142 3.89829 12.75 4.3125 12.75L20.3125 12.75C20.7267 12.75 21.0625 12.4142 21.0625 12C21.0625 11.5858 20.7267 11.25 20.3125 11.25L4.3125 11.25Z\" fill=\"currentColor\"/>"
+  },
+  "close": {
+    "viewBox": "0 0 24 24",
+    "body": "<path d=\"M6.21967 7.28033C5.92678 6.98744 5.92678 6.51256 6.21967 6.21967C6.51256 5.92678 6.98744 5.92678 7.28033 6.21967L11.999 10.9384L16.7176 6.2198C17.0105 5.92691 17.4854 5.92691 17.7782 6.2198C18.0711 6.51269 18.0711 6.98757 17.7782 7.28046L13.0597 11.999L17.7782 16.7176C18.0711 17.0105 18.0711 17.4854 17.7782 17.7782C17.4854 18.0711 17.0105 18.0711 16.7176 17.7782L11.999 13.0597L7.28033 17.7784C6.98744 18.0713 6.51256 18.0713 6.21967 17.7784C5.92678 17.4855 5.92678 17.0106 6.21967 16.7177L10.9384 11.999L6.21967 7.28033Z\" fill=\"currentColor\"/>"
   }
 };

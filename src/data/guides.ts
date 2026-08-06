@@ -22,7 +22,21 @@ export type Block =
   | { type: 'ul'; items: string[] }
   | { type: 'table'; caption?: string; columns: string[]; rows: string[][] }
   | { type: 'callout'; icon?: IconName; title: string; text: string }
-  | { type: 'image'; src: string; alt: string; caption?: string };
+  | { type: 'image'; src: string; alt: string; caption?: string }
+  // Inline-SVG horizontal bar chart. Rendered as crawlable <text> (not a raster
+  // image) so AI engines read the numbers, and mirrored in a visually-hidden
+  // data list for a11y + extraction. `value` is plotted on the axisMin..axisMax
+  // scale; `display` overrides the printed value (e.g. "Free", "145").
+  | {
+      type: 'chart';
+      title: string;
+      caption?: string;
+      axisMin?: number;
+      axisMax: number;
+      bars: { label: string; value: number; display?: string; highlight?: boolean }[];
+    }
+  // Outbound citations to authoritative primary sources (E-E-A-T signal).
+  | { type: 'sources'; title?: string; items: { label: string; url: string }[] };
 
 export interface Guide {
   slug: GuideSlug;
@@ -30,7 +44,13 @@ export interface Guide {
   eyebrow: string;
   h1: string;
   lead: string;
+  /** Human display label, e.g. "Updated August 2026". */
   updated: string;
+  /** ISO date the guide first published — feeds Article `datePublished`. */
+  datePublished: string;
+  /** ISO date of the last substantive edit — feeds Article `dateModified`
+   *  + the visible <time>. Freshness is a top AI-search (AI Mode) signal. */
+  dateModified: string;
   readingTime: string;
   blocks: Block[];
   faqHeading: string;
@@ -52,9 +72,13 @@ export const guides: Record<GuideSlug, Guide> = {
     eyebrow: 'GED Guide',
     h1: 'What is the GED? A complete guide for Myanmar students',
     lead: 'The GED is a US high-school equivalency qualification made up of four subject tests. Here’s what it is, how it’s recognised, and how Myanmar students can prepare for it — in Burmese and English.',
-    updated: 'Updated July 2026',
+    updated: 'Updated August 2026',
+    datePublished: '2026-07-01',
+    dateModified: '2026-08-06',
     readingTime: '6 min read',
     blocks: [
+      { type: 'callout', icon: 'bulb', title: 'GED: key facts', text: 'The GED is a US high-school equivalency made of four subject tests — Math, RLA, Science and Social Studies — each scored 100–200 with 145 to pass. It is taken year-round, one subject at a time, and is accepted worldwide as equivalent to a US high-school diploma.' },
+
       { type: 'h2', text: 'What does GED stand for?' },
       { type: 'p', text: 'GED stands for General Educational Development. It is a group of four tests that, when passed, certify that you have US high-school-level academic skills. A GED credential is widely treated as equivalent to a US high-school diploma, which is why it has become a popular route for Myanmar students who left school early or who want an internationally recognised qualification without repeating years of study.' },
       { type: 'p', text: 'The GED is created and awarded by GED Testing Service in the United States. You do not have to attend a specific school to earn it — you prepare on your own or with a course, then sit the tests at an approved test centre or online.' },
@@ -79,6 +103,18 @@ export const guides: Record<GuideSlug, Guide> = {
 
       { type: 'h2', text: 'How is the GED scored?' },
       { type: 'p', text: 'Each of the four tests is scored from 100 to 200. You need at least 145 on each subject to pass. Higher tiers signal readiness for college-level work: 165–174 is “College Ready”, and 175–200 is “College Ready + Credit”, which some US colleges accept for course credit. Because each subject is scored and passed separately, you only need to retake the ones you have not yet cleared.' },
+      {
+        type: 'chart',
+        title: 'GED score levels (each subject, scored 100–200)',
+        axisMin: 100,
+        axisMax: 200,
+        bars: [
+          { label: 'Pass', value: 145, display: '145' },
+          { label: 'College ready', value: 165, display: '165' },
+          { label: 'Credit ready', value: 175, display: '175', highlight: true },
+        ],
+        caption: 'You need 145 to pass each of the four subjects; 165+ signals college readiness and 175+ can earn college credit.',
+      },
 
       { type: 'h2', text: 'Who is the GED for in Myanmar?' },
       { type: 'ul', items: [
@@ -91,6 +127,10 @@ export const guides: Record<GuideSlug, Guide> = {
       { type: 'h2', text: 'How to prepare for the GED in Myanmar' },
       { type: 'p', text: 'The biggest hurdle for Burmese-speaking students is that most GED material assumes fluent English. The most effective approach is bilingual: understand each concept in Burmese, then practise it in the English exam language so the test itself feels familiar.' },
       { type: 'p', text: 'La Yaung Hub is built around that idea. Every GED topic follows the same loop — watch a short bilingual lesson, practise with nine interactive activity types, and track your gaps so each study session targets your weakest area. The first lesson of every topic is free forever.' },
+      { type: 'sources', items: [
+        { label: 'GED Testing Service — official site', url: 'https://ged.com/' },
+        { label: 'Cambridge International — IGCSE', url: 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse/' },
+      ] },
       { type: 'callout', icon: 'moon', title: 'Study the GED in Burmese and English', text: 'La Yaung Hub explains every GED concept in Burmese first, then in English — with real teacher feedback on your written work. Join the waitlist for early access.' },
     ],
     faqHeading: 'GED questions, answered',
@@ -115,9 +155,13 @@ export const guides: Record<GuideSlug, Guide> = {
     eyebrow: 'Compare',
     h1: 'GED vs IGCSE vs Matriculation: which is right for you?',
     lead: 'Myanmar students weighing up their options usually compare three routes: the American GED, the British IGCSE, and the Myanmar matriculation exam (တက္ကသိုလ်ဝင်တန်း). Here’s how they differ and how to choose.',
-    updated: 'Updated July 2026',
+    updated: 'Updated August 2026',
+    datePublished: '2026-07-01',
+    dateModified: '2026-08-06',
     readingTime: '7 min read',
     blocks: [
+      { type: 'callout', icon: 'compass', title: 'GED vs IGCSE vs matriculation: key facts', text: 'All three certify high-school-level education. The GED (US) is four subjects, taken year-round and mostly online. The IGCSE (Cambridge/Pearson, UK) is subject-by-subject with fixed exam sessions. Matriculation (တက္ကသိုလ်ဝင်တန်း) is Myanmar’s once-a-year national exam for local university placement.' },
+
       { type: 'p', text: 'The GED, IGCSE and Myanmar matriculation exam all certify high-school-level education, but they come from different systems and suit different goals. This table gives you the quick comparison; the sections below explain each in plain language.' },
       {
         type: 'table',
@@ -132,6 +176,18 @@ export const guides: Record<GuideSlug, Guide> = {
           ['Typical age', '16+ (varies by region)', 'Around 16', 'Around 16–17'],
           ['Best for', 'A fast, flexible international route', 'Per-subject depth in the UK system', 'Continuing inside Myanmar’s university system'],
         ],
+      },
+      {
+        type: 'chart',
+        title: 'Exam sittings per year (how flexible each route is)',
+        axisMin: 0,
+        axisMax: 12,
+        bars: [
+          { label: 'GED', value: 12, display: 'Year-round', highlight: true },
+          { label: 'IGCSE', value: 2, display: '~2 / year' },
+          { label: 'Matriculation', value: 1, display: '1 / year' },
+        ],
+        caption: 'The GED can be taken year-round, one subject at a time; IGCSE has ~2 fixed sessions a year and matriculation runs once a year.',
       },
 
       { type: 'h2', text: 'What is the GED?' },
@@ -149,6 +205,10 @@ export const guides: Record<GuideSlug, Guide> = {
         'Choose the IGCSE if you want per-subject depth and are aiming for A-Levels or a UK-style university.',
         'Choose matriculation if you plan to continue into a Myanmar university through the national system.',
         'Not sure yet? The GED’s year-round, one-subject-at-a-time structure lets you start without committing to a fixed exam calendar.',
+      ] },
+      { type: 'sources', items: [
+        { label: 'GED Testing Service (US)', url: 'https://ged.com/' },
+        { label: 'Cambridge International — IGCSE', url: 'https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse/' },
       ] },
       { type: 'callout', icon: 'target', title: 'Preparing for the GED?', text: 'La Yaung Hub offers full bilingual GED preparation now, with IGCSE and the Myanmar Grade 10–12 curriculum coming soon. Join the waitlist to be first in.' },
     ],
@@ -174,9 +234,13 @@ export const guides: Record<GuideSlug, Guide> = {
     eyebrow: 'Cost',
     h1: 'How much does the GED cost in Myanmar?',
     lead: 'The real cost of the GED has two parts: the official test fees and the money you spend preparing. Here’s a breakdown for Myanmar students — and how to keep preparation affordable.',
-    updated: 'Updated July 2026',
+    updated: 'Updated August 2026',
+    datePublished: '2026-07-01',
+    dateModified: '2026-08-06',
     readingTime: '5 min read',
     blocks: [
+      { type: 'callout', icon: 'coins', title: 'GED cost: key facts', text: 'The GED test fee is about US$30 per subject (≈US$120 for all four), set by GED Testing Service and moving with the exchange rate. Preparation is the bigger cost: private tutoring runs 50,000–150,000 MMK per subject each month, while La Yaung Hub’s free plan covers the first lesson of every topic at 0 MMK.' },
+
       { type: 'h2', text: 'GED test fees' },
       { type: 'p', text: 'The GED is charged per subject, so your total test fee depends on how many of the four subjects you sit. Fees are set by GED Testing Service (through Pearson VUE) and are usually charged in US dollars, so the amount in kyat moves with the exchange rate.' },
       {
@@ -205,6 +269,18 @@ export const guides: Record<GuideSlug, Guide> = {
           ['La Yaung Hub — Premium', 'Early-bird beta pricing', 'Every lesson unlocked plus real teacher feedback, at a fraction of tutoring cost.'],
         ],
       },
+      {
+        type: 'chart',
+        title: 'Monthly GED prep cost per subject (MMK)',
+        axisMin: 0,
+        axisMax: 150000,
+        bars: [
+          { label: 'Tutoring (high)', value: 150000, display: '150k' },
+          { label: 'Tutoring (low)', value: 50000, display: '50k' },
+          { label: 'La Yaung Hub', value: 0, display: 'Free', highlight: true },
+        ],
+        caption: 'Private tutoring runs 50,000–150,000 MMK per subject each month; La Yaung Hub’s free plan is 0 MMK, forever.',
+      },
 
       { type: 'h2', text: 'How to prepare for the GED affordably' },
       { type: 'ul', items: [
@@ -212,6 +288,9 @@ export const guides: Record<GuideSlug, Guide> = {
         'Study one subject at a time so you only pay test fees for what you’re ready to sit.',
         'Learn the concepts in Burmese first — you waste less time re-reading English explanations.',
         'Use gap analysis to focus on your weakest topics instead of paying for hours you don’t need.',
+      ] },
+      { type: 'sources', items: [
+        { label: 'GED Testing Service — official fees & booking', url: 'https://ged.com/' },
       ] },
       { type: 'callout', icon: 'coins', title: 'Prepare for the GED from 0 MMK', text: 'La Yaung Hub’s free plan gives you the first lesson of every GED topic — bilingual, with all nine practice types. Upgrade to Premium only when you’re ready.' },
     ],
