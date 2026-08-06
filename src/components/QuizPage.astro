@@ -8,15 +8,10 @@ import Nav from './Nav.astro';
 import Footer from './Footer.astro';
 import Icon from './Icon.astro';
 import WaitlistForm from './WaitlistForm.astro';
-import { getContent, getQuiz } from '../data/i18n';
+import { ui } from '../data/content';
+import { quiz as q } from '../data/quiz';
 
-const locale = Astro.currentLocale ?? 'en';
-const { ui } = getContent(locale);
-const q = getQuiz(locale);
-
-const base = locale === 'my' ? '/my/' : '/';
-const otherBase = locale === 'my' ? '/' : '/my/';
-const switchHref = `${otherBase}ged-readiness-quiz/`;
+const base = '/';
 
 // Max attainable score across the scoring questions (drives the percentage).
 const maxScore = q.questions
@@ -34,7 +29,7 @@ const quizData = {
 <div class="relative overflow-hidden bg-app">
   <Background />
   <div class="relative z-[2]">
-    <Nav base={base} switchHref={switchHref} />
+    <Nav base={base} />
 
     <main class="max-w-[760px] mx-auto px-[clamp(20px,5vw,72px)] pt-[clamp(24px,4vw,44px)] pb-[clamp(56px,7vw,88px)]">
       <nav aria-label="Breadcrumb" class="text-13 text-content-tertiary mb-7 flex items-center gap-2">

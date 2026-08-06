@@ -1,5 +1,5 @@
 ---
-import { getContent } from '../data/i18n';
+import { site, faqs } from '../data/content';
 import '../styles/global.css';
 
 interface Props {
@@ -25,14 +25,7 @@ interface Props {
   breadcrumb?: string;
   /** Breadcrumb parent { name, url } inserted between home and this page. */
   breadcrumbParent?: { name: string; url: string };
-  /** Suppress the en/my/x-default hreflang links for single-language pages
-   *  (e.g. the Burmese-only blog) whose counterpart URL does not exist. */
-  noAlternates?: boolean;
 }
-
-// Locale comes from Astro's i18n routing: "/" → en, "/my/" → my.
-const locale = Astro.currentLocale ?? 'en';
-const { site, faqs } = getContent(locale);
 
 const {
   title = site.title,
@@ -47,20 +40,12 @@ const {
   imageAlt = 'La Yaung Hub — interactive bilingual GED exam prep for Myanmar students',
   breadcrumb,
   breadcrumbParent,
-  noAlternates = false,
 } = Astro.props;
 
 // Prefer the configured production `site`; fall back to the request origin in dev.
 const origin = (Astro.site ?? new URL(site.url)).toString().replace(/\/$/, '');
 const canonical = origin + (path === '/' ? '/' : path);
 const ogImageUrl = image.startsWith('http') ? image : origin + image;
-
-// Bilingual alternates derived from this page's own path, so every page —
-// home or guide — points at its true counterpart. Strip a leading "/my" to get
-// the shared slug; the English URL is that slug, the Burmese one is "/my" + slug.
-const baseSlug = path.replace(/^\/my(?=\/|$)/, '') || '/';
-const enHref = origin + baseSlug;
-const myHref = origin + '/my' + (baseSlug === '/' ? '/' : baseSlug);
 
 // FAQ shown in structured data: the page's own set, else the site-wide home FAQ.
 const faqSource = faqItems ?? faqs;
@@ -100,7 +85,7 @@ const graph: Record<string, unknown>[] = [
     name: site.name,
     description: site.description,
     publisher: { '@id': orgId },
-    inLanguage: ['en', 'my'],
+    inLanguage: 'en',
   },
   {
     '@type': 'WebPage',
@@ -110,7 +95,7 @@ const graph: Record<string, unknown>[] = [
     description,
     isPartOf: { '@id': webId },
     about: { '@id': orgId },
-    inLanguage: locale === 'my' ? 'my' : 'en',
+    inLanguage: 'en',
     primaryImageOfPage: ogImageUrl,
   },
 ];
@@ -118,7 +103,7 @@ const graph: Record<string, unknown>[] = [
 // An informational guide / blog post is an Article (or BlogPosting) with a
 // breadcrumb back to home (and an optional intermediate parent, e.g. the blog).
 if (isArticle) {
-  const homeItem = locale === 'my' ? origin + '/my/' : origin + '/';
+  const homeItem = origin + '/';
   const crumbs: Record<string, unknown>[] = [
     { '@type': 'ListItem', position: 1, name: site.name, item: homeItem },
   ];
@@ -134,7 +119,7 @@ if (isArticle) {
       isPartOf: { '@id': canonical + '#webpage' },
       headline: articleHeadline,
       description,
-      inLanguage: locale === 'my' ? 'my' : 'en',
+      inLanguage: 'en',
       image: ogImageUrl,
       author: { '@id': orgId },
       publisher: { '@id': orgId },
@@ -185,9 +170,8 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
 ---
 <!DOCTYPE html>
 <!-- data-theme="light" is the active brand map (app design system, purple/light).
-     The dark token map only skins the <footer> (data-theme="dark").
-     lang switches per locale: "/" = en, "/my/" = my (Burmese, Unicode). -->
-<html lang={locale} data-theme="light">
+     The dark token map only skins the <footer> (data-theme="dark"). -->
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -199,15 +183,6 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
   <meta name="keywords" content={site.keywords.join(', ')} />
   <meta name="author" content={site.name} />
   <link rel="canonical" href={canonical} />
-  <!-- Bilingual alternates for THIS page (derived from its path). Suppressed on
-       single-language pages (e.g. the Burmese-only blog) with no counterpart. -->
-  {!noAlternates && (
-    <>
-      <link rel="alternate" hreflang="en" href={enHref} />
-      <link rel="alternate" hreflang="my" href={myHref} />
-      <link rel="alternate" hreflang="x-default" href={enHref} />
-    </>
-  )}
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="theme-color" content={site.themeColor} />
 
@@ -216,7 +191,7 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <!-- Blog feed — also the hook for RSS→Telegram/IFTTT auto-announce bots. -->
-  <link rel="alternate" type="application/rss+xml" title="La Yaung Hub — Blog" href="/my/blog/rss.xml" />
+  <link rel="alternate" type="application/rss+xml" title="La Yaung Hub — Blog" href="/blog/rss.xml" />
 
   <!-- Open Graph (Facebook, Messenger, LinkedIn, etc.) -->
   <meta property="og:type" content={isArticle ? 'article' : 'website'} />
@@ -229,7 +204,6 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content={imageAlt} />
   <meta property="og:locale" content={site.locale} />
-  <meta property="og:locale:alternate" content={site.localeAlternate} />
   {isArticle && datePublished && <meta property="article:published_time" content={datePublished} />}
   {isArticle && articleTags?.map((t) => <meta property="article:tag" content={t} />)}
 
@@ -266,8 +240,7 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
 
   <script>
     // ===== Waitlist form (Formspree AJAX, progressive enhancement) =======
-    // Success/error copy comes from the form's data-* attributes so each
-    // locale (en at "/", my at "/my/") shows its own message.
+    // Success/error copy comes from the form's data-* attributes.
     function showSuccess(form: HTMLFormElement, email: string, dark: boolean) {
       const safe = email.replace(/[<>&]/g, (c) => (({ '<': '&lt;', '>': '&gt;', '&': '&amp;' } as Record<string, string>)[c]));
       const pre = form.dataset.successPre || "You're on the list! We'll email ";

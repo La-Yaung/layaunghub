@@ -1,0 +1,96 @@
+---
+// Reusable "Share this post" row: Facebook / Telegram / X share intents plus a
+// copy-link button. Server-safe — the share targets are plain hrefs; copy-link
+// is progressively enhanced by a small hoisted script (falls back gracefully
+// where the Clipboard API is unavailable). Drop into any page with an absolute
+// `url`. Copy lives in the caller (pass `label`/`copyLabel`/`copiedLabel`).
+import Icon from './Icon.astro';
+
+interface Props {
+  /** Absolute URL to share (e.g. the canonical post URL). */
+  url: string;
+  /** Text used by the Telegram & X share intents (usually the page title). */
+  title?: string;
+  /** Small heading shown above the buttons. */
+  label?: string;
+  /** Copy-link button text. */
+  copyLabel?: string;
+  /** Feedback shown briefly after a successful copy. */
+  copiedLabel?: string;
+}
+const {
+  url,
+  title = '',
+  label = 'Share this post',
+  copyLabel = 'Copy link',
+  copiedLabel = 'Copied!',
+} = Astro.props;
+
+const enc = encodeURIComponent;
+const targets: { name: string; icon: 'facebook' | 'telegram' | 'x'; href: string }[] = [
+  { name: 'Facebook', icon: 'facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}` },
+  { name: 'Telegram', icon: 'telegram', href: `https://t.me/share/url?url=${enc(url)}&text=${enc(title)}` },
+  { name: 'X', icon: 'x', href: `https://twitter.com/intent/tweet?url=${enc(url)}&text=${enc(title)}` },
+];
+---
+<div class="mt-8">
+  <p class="font-mono text-11-5 tracking-caps uppercase text-content-tertiary mb-3">{label}</p>
+  <div class="flex flex-wrap items-center gap-2.5">
+    {targets.map((t) => (
+      <a
+        href={t.href}
+        target="_blank"
+        rel="noopener"
+        aria-label={`Share on ${t.name}`}
+        class="inline-flex items-center justify-center w-11 h-11 rounded-full border border-border-strong text-content-secondary transition-colors hover:text-content-brand hover:border-border-interactive/60"
+      >
+        <Icon name={t.icon} size={18} class="text-content-brand" />
+      </a>
+    ))}
+    <button
+      type="button"
+      class="ly-copy-link inline-flex items-center gap-2 h-11 rounded-full border border-border-strong px-4 text-14-5 font-semibold text-content-secondary transition-colors hover:text-content-brand hover:border-border-interactive/60"
+      data-url={url}
+      data-copied={copiedLabel}
+      aria-label={copyLabel}
+    >
+      <Icon name="link" size={18} class="text-content-brand" />
+      <span class="ly-copy-label">{copyLabel}</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  async function copyText(text: string): Promise<boolean> {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+    } catch { /* fall through to the legacy path */ }
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok;
+    } catch {
+      return false;
+    }
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.ly-copy-link').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const url = btn.dataset.url || location.href;
+      const label = btn.querySelector<HTMLElement>('.ly-copy-label');
+      if (!(await copyText(url)) || !label) return;
+      const prev = label.textContent;
+      label.textContent = btn.dataset.copied || 'Copied!';
+      setTimeout(() => { label.textContent = prev; }, 1600);
+    });
+  });
+</script>

@@ -1,9 +1,8 @@
 ---
 import WaitlistForm from './WaitlistForm.astro';
 import Icon from './Icon.astro';
-import { getContent } from '../data/i18n';
+import { ui, site } from '../data/content';
 
-const { ui, site } = getContent(Astro.currentLocale);
 const h = ui.hero;
 ---
 <header id="top" class="max-w-[1280px] mx-auto pt-[clamp(36px,6vw,80px)] px-[clamp(20px,5vw,72px)] pb-[clamp(60px,8vw,110px)] flex gap-[clamp(40px,6vw,80px)] items-center flex-wrap">

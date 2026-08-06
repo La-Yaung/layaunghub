@@ -1,23 +1,22 @@
 ---
 import Icon from './Icon.astro';
-import { getContent, getGuides, getQuiz } from '../data/i18n';
-import { guideOrder } from '../data/guides';
+import { nav, site, ui } from '../data/content';
+import { guideOrder, guides } from '../data/guides';
+import { quiz } from '../data/quiz';
 
 interface Props {
-  /** Anchor prefix — '' on home (bare `#problem`), '/' or '/my/' on sub-pages. */
+  /** Anchor prefix — '' on home (bare `#problem`), '/' on sub-pages. */
   base?: string;
 }
-const locale = Astro.currentLocale ?? 'en';
-const { nav, site, ui } = getContent(locale);
 const ft = ui.footer;
 const { base = '' } = Astro.props;
 
-// Guide links for sitewide internal linking (helps SEO + discovery).
-const guideBase = base || (locale === 'my' ? '/my/' : '/');
-const guides = getGuides(locale);
+// Guide + blog links for sitewide internal linking (helps SEO + discovery).
+const guideBase = base || '/';
 const guideLinks = [
   ...guideOrder.map((s) => ({ href: `${guideBase}${s}/`, label: guides[s].navLabel })),
-  { href: `${guideBase}ged-readiness-quiz/`, label: getQuiz(locale).navLabel },
+  { href: `${guideBase}ged-readiness-quiz/`, label: quiz.navLabel },
+  { href: '/blog/', label: ui.nav.blog },
 ];
 
 const socials = [

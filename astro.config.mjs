@@ -23,23 +23,10 @@ export default defineConfig({
       'public/assets/layaung-logo.png',
     ],
   }),
-  // Bilingual routing: / = English, /my/ = Burmese (Unicode).
-  // `Astro.currentLocale` drives which content set components render.
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'my'],
-    // Astro 6+ wants these set explicitly. English (default) is unprefixed at
-    // "/", Burmese at "/my/"; never redirect the bare default locale.
-    routing: { prefixDefaultLocale: false, redirectToDefaultLocale: false },
-  },
-  integrations: [
-    sitemap({
-      i18n: {
-        defaultLocale: 'en',
-        locales: { en: 'en-US', my: 'my-MM' },
-      },
-    }),
-  ],
+  // Legacy Burmese URLs (/my/*) 301 → their English equivalents. Handled by a
+  // wildcard redirect in vercel.json (covers trailing slashes + nested blog
+  // slugs, which Astro's static `redirects` map can't express here).
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
   },

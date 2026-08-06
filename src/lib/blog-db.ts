@@ -1,4 +1,4 @@
-// Supabase-backed data layer for the Burmese blog. The blog routes are
+// Supabase-backed data layer for the blog. The blog routes are
 // server-rendered (prerender = false), so these run per request and read the
 // live `posts` table — new posts (e.g. ingested from Telegram) appear with no
 // rebuild. Reads use the anon key + a public-read RLS policy on published rows.
@@ -50,14 +50,12 @@ export interface BlogPost {
   body: Block[];
 }
 
-const MM_DIGITS = ['၀', '၁', '၂', '၃', '၄', '၅', '၆', '၇', '၈', '၉'];
-const MM_MONTHS = ['ဇန်နဝါရီ', 'ဖေဖော်ဝါရီ', 'မတ်', 'ဧပြီ', 'မေ', 'ဇွန်', 'ဇူလိုင်', 'ဩဂုတ်', 'စက်တင်ဘာ', 'အောက်တိုဘာ', 'နိုဝင်ဘာ', 'ဒီဇင်ဘာ'];
-const toMyDigits = (n: number | string) => String(n).replace(/\d/g, (d) => MM_DIGITS[+d]);
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-/** "2026-07-11" → "၂၀၂၆ ဇူလိုင် ၁၁" */
-export function burmeseDate(iso: string): string {
+/** "2026-07-11" → "July 11, 2026" */
+export function formatDate(iso: string): string {
   const d = new Date(iso);
-  return `${toMyDigits(d.getUTCFullYear())} ${MM_MONTHS[d.getUTCMonth()]} ${toMyDigits(d.getUTCDate())}`;
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
 }
 
 function mapRow(r: PostRow): BlogPost {
@@ -65,7 +63,7 @@ function mapRow(r: PostRow): BlogPost {
     slug: r.slug,
     title: r.title,
     date: r.published_at.slice(0, 10),
-    dateLabel: burmeseDate(r.published_at),
+    dateLabel: formatDate(r.published_at),
     tags: r.tags ?? [],
     excerpt: r.excerpt,
     cover: r.cover_url ?? undefined,

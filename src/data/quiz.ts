@@ -1,7 +1,6 @@
 // Free GED readiness self-assessment (the "free tool" from the SEO plan).
 // A short, honest self-check — not a scored exam — that gives a readiness band
-// plus a subject-specific tip and feeds the waitlist. Bilingual: this English
-// set is mirrored 1:1 in `quiz.my.ts`; picked per-locale via getQuiz() in i18n.ts.
+// plus a subject-specific tip and feeds the waitlist.
 
 import type { IconName } from './content';
 

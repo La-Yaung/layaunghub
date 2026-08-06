@@ -1,23 +1,22 @@
 ---
-// Burmese blog index (/my/blog/) — server-rendered from Supabase, newest first.
+// Blog index (/blog/) — server-rendered from Supabase, newest first.
 export const prerender = false;
 
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Background from '../../../components/Background.astro';
-import Nav from '../../../components/Nav.astro';
-import Footer from '../../../components/Footer.astro';
-import Icon from '../../../components/Icon.astro';
-import { blog } from '../../../data/blog.my';
-import { getPosts } from '../../../lib/blog-db';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Background from '../../components/Background.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+import { blog } from '../../data/blog';
+import { getPosts } from '../../lib/blog-db';
 
-const base = '/my/';
+const base = '/';
 const posts = await getPosts();
 ---
 <BaseLayout
-  path="/my/blog/"
+  path="/blog/"
   title={blog.meta.title}
   description={blog.meta.description}
-  noAlternates
 >
   <div class="relative overflow-hidden bg-app">
     <Background />

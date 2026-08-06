@@ -1,0 +1,46 @@
+---
+// Custom 404 — branded "not found" that keeps the moonlight theme and routes
+// the visitor back into the site (home / blog / guides). Astro serves this for
+// any unmatched route.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Background from '../components/Background.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import { ui } from '../data/content';
+
+const nf = ui.notFound;
+---
+<BaseLayout
+  path="/404"
+  title="Page not found — La Yaung Hub"
+  description="The page you're looking for isn't here. Head back to La Yaung Hub — interactive, bilingual GED exam prep for Myanmar students."
+>
+  <div class="relative overflow-hidden bg-app min-h-screen flex flex-col">
+    <Background />
+    <div class="relative z-[2] flex flex-col flex-1">
+      <Nav base="/" />
+
+      <main class="flex-1 flex items-center justify-center px-[clamp(20px,5vw,72px)] py-[clamp(48px,8vw,96px)]">
+        <div class="relative text-center max-w-[560px]">
+          <!-- moon badge (echoes the brand signature, reliable on the light bg) -->
+          <div aria-hidden="true" class="w-[84px] h-[84px] mx-auto mb-8 rounded-[26px] bg-icon-soft border border-border-interactive/[0.3] flex items-center justify-center animate-float">
+            <Icon name="moon" size={40} class="text-content-brand" />
+          </div>
+
+          <div class="font-mono text-14 tracking-caps-xl uppercase text-content-brand mb-4">{nf.code}</div>
+          <h1 class="font-display text-display-md font-extrabold leading-106 tracking-display text-content-primary">{nf.title}</h1>
+          <p class="text-17 text-content-secondary mt-5 leading-160 max-w-[440px] mx-auto">{nf.body}</p>
+
+          <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <a href="/" class="font-display font-semibold text-14-5 text-content-on-brand bg-gold px-6 py-[13px] rounded-full shadow-[0_8px_22px_-6px_rgba(95,75,241,0.45)] transition-transform hover:-translate-y-0.5">{nf.home}</a>
+            <a href="/blog/" class="font-display font-semibold text-14-5 text-content-secondary border border-border-strong px-6 py-[13px] rounded-full transition-colors hover:text-content-brand hover:border-border-interactive/60">{nf.blog}</a>
+            <a href="/what-is-ged/" class="font-display font-semibold text-14-5 text-content-secondary border border-border-strong px-6 py-[13px] rounded-full transition-colors hover:text-content-brand hover:border-border-interactive/60">{nf.guides}</a>
+          </div>
+        </div>
+      </main>
+
+      <Footer base="/" />
+    </div>
+  </div>
+</BaseLayout>

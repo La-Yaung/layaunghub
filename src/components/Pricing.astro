@@ -1,7 +1,6 @@
 ---
-import { getContent } from '../data/i18n';
+import { freePlan, proPlan, ui } from '../data/content';
 
-const { freePlan, proPlan, ui } = getContent(Astro.currentLocale);
 const pr = ui.pricing;
 ---
 <section id="pricing" class="ly-reveal max-w-[1100px] mx-auto pt-[clamp(40px,6vw,56px)] px-[clamp(20px,5vw,72px)] pb-[clamp(70px,9vw,110px)]">

@@ -62,8 +62,8 @@
   --radius-lg:20px; --radius-xl:26px; --radius-2xl:32px; --radius-full:9999px;
 
   /* Type */
-  /* Noto Sans Myanmar sits behind Poppins so Burmese glyphs on /my/ render
-     in the brand's Myanmar face instead of an arbitrary system fallback. */
+  /* Noto Sans Myanmar sits behind Poppins so Burmese glyphs (e.g. blog posts)
+     render in the brand's Myanmar face instead of an arbitrary system fallback. */
   --font-family-display: 'Poppins', 'Noto Sans Myanmar', system-ui, sans-serif;
   --font-family-sans: 'Poppins', 'Noto Sans Myanmar', system-ui, sans-serif;
   --font-family-mono: 'Space Mono', 'Noto Sans Myanmar', monospace;

@@ -1,8 +1,7 @@
 ---
 import Icon from './Icon.astro';
-import { getContent } from '../data/i18n';
+import { steps, ui } from '../data/content';
 
-const { steps, ui } = getContent(Astro.currentLocale);
 const w = ui.how;
 ---
 <section id="how" class="ly-reveal relative">

@@ -1,6 +1,5 @@
 ---
-import { FORMSPREE_ENDPOINT } from '../data/content';
-import { getContent } from '../data/i18n';
+import { FORMSPREE_ENDPOINT, ui } from '../data/content';
 
 interface Props { dark?: boolean; center?: boolean; source?: string; }
 const { dark = false, center = false, source } = Astro.props;
@@ -9,7 +8,6 @@ const { dark = false, center = false, source } = Astro.props;
 // landing-page hero/final-cta; guide & quiz pages pass their own value.
 const src = source ?? (dark ? 'final-cta' : 'hero');
 
-const { ui } = getContent(Astro.currentLocale);
 const f = ui.form;
 
 const wrap = [

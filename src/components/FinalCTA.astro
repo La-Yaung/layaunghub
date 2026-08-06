@@ -1,8 +1,7 @@
 ---
 import WaitlistForm from './WaitlistForm.astro';
-import { getContent } from '../data/i18n';
+import { ui } from '../data/content';
 
-const { ui } = getContent(Astro.currentLocale);
 const c = ui.cta;
 ---
 <section id="access" class="max-w-[1280px] mx-auto pt-0 px-[clamp(20px,5vw,72px)] pb-[clamp(64px,8vw,100px)]">

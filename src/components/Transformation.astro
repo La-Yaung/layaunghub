@@ -1,8 +1,7 @@
 ---
 import Icon from './Icon.astro';
-import { getContent } from '../data/i18n';
+import { transformation, ui } from '../data/content';
 
-const { transformation, ui } = getContent(Astro.currentLocale);
 const s = ui.shift;
 ---
 <section class="ly-reveal max-w-[1280px] mx-auto px-[clamp(20px,5vw,72px)] py-[clamp(20px,4vw,44px)]">

@@ -1,8 +1,7 @@
 ---
 import Icon from './Icon.astro';
-import { getContent } from '../data/i18n';
+import { features, activities, ui } from '../data/content';
 
-const { features, activities, ui } = getContent(Astro.currentLocale);
 const f9 = ui.featuresUi;
 ---
 <section id="features" class="ly-reveal max-w-[1280px] mx-auto pt-[clamp(40px,6vw,72px)] px-[clamp(20px,5vw,72px)] pb-[clamp(70px,9vw,120px)]">

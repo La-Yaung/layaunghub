@@ -1,7 +1,6 @@
 ---
-import { getContent } from '../data/i18n';
+import { curriculum, ui } from '../data/content';
 
-const { curriculum, ui } = getContent(Astro.currentLocale);
 const cu = ui.curriculumUi;
 ---
 <section id="curriculum" class="ly-reveal relative">
