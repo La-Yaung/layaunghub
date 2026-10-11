@@ -246,10 +246,12 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
   <script>
     // ===== Waitlist form (Formspree AJAX, progressive enhancement) =======
     // Success/error copy comes from the form's data-* attributes.
-    function showSuccess(form: HTMLFormElement, email: string, dark: boolean) {
-      const safe = email.replace(/[<>&]/g, (c) => (({ '<': '&lt;', '>': '&gt;', '&': '&amp;' } as Record<string, string>)[c]));
-      const pre = form.dataset.successPre || "You're on the list! We'll email ";
-      const post = form.dataset.successPost || ' when the beta opens.';
+    function showSuccess(form: HTMLFormElement, contact: string, isEmail: boolean, dark: boolean) {
+      const safe = contact.replace(/[<>&]/g, (c) => (({ '<': '&lt;', '>': '&gt;', '&': '&amp;' } as Record<string, string>)[c]));
+      const pre = form.dataset.successPre || "You're on the list! We'll reach you at ";
+      const post = isEmail
+        ? form.dataset.successPostEmail || ' when the beta opens.'
+        : form.dataset.successPost || ' on Telegram when the beta opens.';
       form.innerHTML = '<div style="display:flex; align-items:center; gap:10px; font-family:Poppins, \'Noto Sans Myanmar\', sans-serif; font-size:15.5px; color:' + (dark ? '#0A1030' : '#14773F') + '; font-weight:600; background:' + (dark ? 'rgba(10,16,48,0.12)' : 'rgba(34,183,101,0.12)') + '; border:1px solid ' + (dark ? 'rgba(10,16,48,0.25)' : 'rgba(34,183,101,0.35)') + '; padding:15px 20px; border-radius:14px; width:100%;"><span>✓</span><span>' + pre + safe + post + '</span></div>';
     }
 
@@ -268,22 +270,31 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
     async function handleSubmit(e: Event) {
       e.preventDefault();
       const form = e.currentTarget as HTMLFormElement;
-      const input = form.querySelector('input[type=email]') as HTMLInputElement | null;
-      const email = input ? input.value.trim() : '';
-      if (!email) return;
+      const input = form.querySelector('input[name=contact]') as HTMLInputElement | null;
+      const raw = input ? input.value.trim() : '';
+      if (!input || !raw) return;
+      // One field takes a Telegram username or an email. Telegram handles are
+      // normalised to a single leading "@" (t.me links are unwrapped too).
+      const isEmail = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(raw);
+      const contact = isEmail ? raw : '@' + raw.replace(/^(https?:\/\/)?t\.me\//i, '').replace(/^@+/, '');
+      input.value = contact;
       const dark = form.dataset.theme === 'dark';
       const endpoint = form.getAttribute('action') || form.dataset.endpoint || '';
       const btn = form.querySelector('button[type=submit]') as HTMLButtonElement | null;
       if (btn) { btn.disabled = true; btn.style.opacity = '0.7'; btn.style.cursor = 'wait'; }
-      try { localStorage.setItem('ly_waitlist', email); } catch (err) {}
+      try { localStorage.setItem('ly_waitlist', contact); } catch (err) {}
+      // Also send it under a typed key so Formspree shows which channel it is
+      // (and uses a real email as the reply-to).
+      const data = new FormData(form);
+      data.set(isEmail ? 'email' : 'telegram', contact);
       try {
         const res = await fetch(endpoint, {
           method: 'POST',
           headers: { Accept: 'application/json' },
-          body: new FormData(form),
+          body: data,
         });
         if (!res.ok) throw new Error('Request failed: ' + res.status);
-        showSuccess(form, email, dark);
+        showSuccess(form, contact, isEmail, dark);
       } catch (err) {
         showError(form, btn);
       }

@@ -26,7 +26,10 @@ const button =
   'rounded-[14px] cursor-pointer whitespace-nowrap shadow-[0_10px_26px_-8px_rgba(95,75,241,0.45)] ' +
   'transition-transform hover:-translate-y-0.5';
 
-const fieldId = dark ? 'email-cta' : 'email-hero';
+const fieldId = dark ? 'contact-cta' : 'contact-hero';
+
+// Telegram username (optionally with @ or a t.me link) OR an email address.
+const contactPattern = '(@|(https?://)?t\\.me/)?[A-Za-z0-9_]{5,32}|[^@\\s]+@[^@\\s]+\\.[^@\\s]+';
 ---
 <form
   class={wrap}
@@ -36,16 +39,24 @@ const fieldId = dark ? 'email-cta' : 'email-hero';
   data-endpoint={FORMSPREE_ENDPOINT}
   data-success-pre={f.successPre}
   data-success-post={f.successPost}
+  data-success-post-email={f.successPostEmail}
   data-error-text={f.error}
 >
-  <label class="sr-only" for={fieldId}>{f.emailLabel}</label>
+  <label class="sr-only" for={fieldId}>{f.contactLabel}</label>
   <input
     id={fieldId}
     class={input}
-    type="email"
-    name="email"
+    type="text"
+    name="contact"
     required
-    autocomplete="email"
+    inputmode="email"
+    autocomplete="off"
+    autocapitalize="none"
+    spellcheck="false"
+    minlength="5"
+    maxlength="254"
+    pattern={contactPattern}
+    title={f.contactHint}
     placeholder={f.placeholder}
   />
   <!-- Helps you see which CTA converted, inside Formspree submissions -->
